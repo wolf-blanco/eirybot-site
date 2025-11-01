@@ -4,7 +4,10 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import type { Dict, Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+
+// Diccionario indexable (strings o arrays si en el futuro los usás)
+type Dict = Record<string, string | string[]>;
 
 const SHEETS_ENDPOINT =
   process.env.NEXT_PUBLIC_SHEETS_ENDPOINT ??
@@ -26,7 +29,11 @@ export default function ContactClient({
   locale: Locale;
   dict: Dict;
 }) {
-  const tt = (k: string) => t?.[k] ?? k;
+  // helper seguro para strings
+  const tt = (k: string) => {
+    const v = t[k];
+    return typeof v === "string" ? v : k;
+  };
 
   const qs = useSearchParams();
   const utm = useMemo(
@@ -255,8 +262,8 @@ export default function ContactClient({
                   ✉️ <a href="mailto:info@eirybot.com" className="underline">info@eirybot.com</a>
                 </p>
                 <div className="mt-2 flex gap-3">
-                  <a href="https://www.facebook.com/eirybot" target="_blank" className="underline">Facebook</a>
-                  <a href="https://www.instagram.com/eirybot" target="_blank" className="underline">Instagram</a>
+                  <a href="https://www.facebook.com/eirybot" target="_blank" className="underline" rel="noreferrer">Facebook</a>
+                  <a href="https://www.instagram.com/eirybot" target="_blank" className="underline" rel="noreferrer">Instagram</a>
                 </div>
               </div>
             </div>

@@ -13,35 +13,31 @@ export default async function AboutPage({
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
-  // Next 16: params es Promise — hay que await
   const { locale } = await params;
   const t = getDict(locale);
   const base = `/${locale}`;
 
-  const highlights = [
-    { title: t["about.hl.1.t"], desc: t["about.hl.1.d"] },
-    { title: t["about.hl.2.t"], desc: t["about.hl.2.d"] },
-    { title: t["about.hl.3.t"], desc: t["about.hl.3.d"] },
+  // helper seguro para strings
+  const tt = (k: string) => (typeof t[k] === "string" ? (t[k] as string) : k);
+
+  const highlights: Array<{ title: string; desc: string }> = [
+    { title: tt("about.highlights.1.t"), desc: tt("about.highlights.1.d") },
+    { title: tt("about.highlights.2.t"), desc: tt("about.highlights.2.d") },
+    { title: tt("about.highlights.3.t"), desc: tt("about.highlights.3.d") },
   ];
 
-  const mvv = [
-    { title: t["about.mvv.mission.t"], desc: t["about.mvv.mission.d"], icon: "/MASCOTA-EIRYBOT_3.png" },
-    { title: t["about.mvv.vision.t"],  desc: t["about.mvv.vision.d"],  icon: "/MASCOTA-EIRYBOT_1.png" },
-    { title: t["about.mvv.values.t"],  desc: t["about.mvv.values.d"],  icon: "/MASCOTA-EIRYBOT_2.png" },
-  ];
-
-  const steps = [
-    { n: "1", t: t["about.steps.1.t"], d: t["about.steps.1.d"] },
-    { n: "2", t: t["about.steps.2.t"], d: t["about.steps.2.d"] },
-    { n: "3", t: t["about.steps.3.t"], d: t["about.steps.3.d"] },
-    { n: "4", t: t["about.steps.4.t"], d: t["about.steps.4.d"] },
+  const how: Array<{ n: string; t: string; d: string }> = [
+    { n: "1", t: tt("about.how.1.t"), d: tt("about.how.1.d") },
+    { n: "2", t: tt("about.how.2.t"), d: tt("about.how.2.d") },
+    { n: "3", t: tt("about.how.3.t"), d: tt("about.how.3.d") },
+    { n: "4", t: tt("about.how.4.t"), d: tt("about.how.4.d") },
   ];
 
   const team = [
-    { name: t["about.team.1.n"], role: t["about.team.1.r"], img: "/eirybot_avatar2.png" },
-    { name: t["about.team.2.n"], role: t["about.team.2.r"], img: "/eirybot_avatar3.png" },
-    { name: t["about.team.3.n"], role: t["about.team.3.r"], img: "/eirybot_avatar1.png" },
-    { name: t["about.team.4.n"], role: t["about.team.4.r"], img: "/eirybot_avatar4.png" },
+    { name: "Wolfgang Blanco", role: tt("about.team.wolf"), img: "/eirybot_avatar2.png" },
+    { name: "Victor Rodriguez", role: tt("about.team.victor"), img: "/eirybot_avatar3.png" },
+    { name: "Ambar Nieves", role: tt("about.team.ambar"), img: "/eirybot_avatar1.png" },
+    { name: "Clemente De Lucia", role: tt("about.team.clemente"), img: "/eirybot_avatar4.png" },
   ];
 
   return (
@@ -52,35 +48,34 @@ export default async function AboutPage({
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1 text-xs font-medium text-violet-700">
               <Image src="/isotipo-eirybot.png" alt="EiryBot" width={16} height={16} />
-              {t["about.badge"]}
+              {tt("about.badge")}
             </span>
-
             <h1 className="mt-4 text-3xl font-extrabold leading-tight text-violet-900 md:text-5xl">
-              {t["about.title.a"]} <span className="text-fuchsia-600">EiryBot</span>
-              {t["about.title.b"]}
+              {tt("about.title.a")} <span className="text-fuchsia-600">EiryBot</span>, {tt("about.title.b")}
             </h1>
-
-            <p className="mt-4 max-w-xl text-gray-700">{t["about.lead"]}</p>
+            <p className="mt-4 max-w-xl text-gray-700">
+              {tt("about.lead")}
+            </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href={`${base}/services`}
-                className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600"
-              >
-                {t["about.cta.services"]}
+              <Link href={`${base}/services`} className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600">
+                {tt("about.cta.services")}
               </Link>
               <a
                 href="https://scan.eirybot.com"
                 className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-violet-50"
               >
-                {t["about.cta.scan"]}
+                {tt("about.cta.scan")}
               </a>
             </div>
 
             {/* Highlights */}
             <ul className="mt-8 grid gap-3 text-sm text-violet-900 sm:grid-cols-3">
-              {highlights.map((h) => (
-                <li key={h.title} className="rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-violet-100">
+              {highlights.map((h, i) => (
+                <li
+                  key={`${h.title}-${i}`}
+                  className="rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-violet-100"
+                >
                   <p className="font-semibold">{h.title}</p>
                   <p className="text-gray-600">{h.desc}</p>
                 </li>
@@ -92,7 +87,7 @@ export default async function AboutPage({
           <div className="relative mx-auto w-full max-w-md">
             <Image
               src="/robot8.png"
-              alt={t["about.hero.imgAlt"]}
+              alt={tt("about.hero.alt")}
               width={640}
               height={640}
               className="h-auto w-full drop-shadow-xl"
@@ -105,8 +100,24 @@ export default async function AboutPage({
       {/* MISIÓN / VISIÓN / VALORES */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="grid gap-6 md:grid-cols-3">
-          {mvv.map((c) => (
-            <div key={c.title} className="group relative overflow-hidden rounded-3xl border bg-white p-6 shadow-sm">
+          {[
+            {
+              title: tt("about.mission.t"),
+              desc: tt("about.mission.d"),
+              icon: "/MASCOTA-EIRYBOT_3.png",
+            },
+            {
+              title: tt("about.vision.t"),
+              desc: tt("about.vision.d"),
+              icon: "/MASCOTA-EIRYBOT_1.png",
+            },
+            {
+              title: tt("about.values.t"),
+              desc: tt("about.values.d"),
+              icon: "/MASCOTA-EIRYBOT_2.png",
+            },
+          ].map((c, i) => (
+            <div key={`${c.title}-${i}`} className="group relative overflow-hidden rounded-3xl border bg-white p-6 shadow-sm">
               <div className="absolute -right-6 -top-10 h-28 w-28 opacity-10 blur-lg" />
               <div className="flex items-start gap-4">
                 <Image src={c.icon} alt={c.title} width={56} height={56} className="shrink-0" />
@@ -123,10 +134,10 @@ export default async function AboutPage({
       {/* CÓMO TRABAJAMOS */}
       <section className="bg-gradient-to-b from-white to-violet-50">
         <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-2xl font-bold text-violet-900">{t["about.steps.title"]}</h2>
+          <h2 className="text-2xl font-bold text-violet-900">{tt("about.how.title")}</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-4">
-            {steps.map((s) => (
-              <div key={s.n} className="rounded-2xl border bg-white p-5 shadow-sm">
+            {how.map((s, i) => (
+              <div key={`${s.n}-${i}`} className="rounded-2xl border bg-white p-5 shadow-sm">
                 <div className="mb-2 inline-flex size-8 items-center justify-center rounded-full bg-violet-100 font-semibold text-violet-800">
                   {s.n}
                 </div>
@@ -141,13 +152,13 @@ export default async function AboutPage({
       {/* EQUIPO */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-violet-900">{t["about.team.title"]}</h2>
-          <span className="text-sm text-gray-500">{t["about.team.tagline"]}</span>
+          <h2 className="text-2xl font-bold text-violet-900">{tt("about.team.title")}</h2>
+          <span className="text-sm text-gray-500">{tt("about.team.subtitle")}</span>
         </div>
 
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((p) => (
-            <li key={p.name} className="rounded-2xl border bg-white p-5 shadow-sm">
+          {team.map((p, i) => (
+            <li key={`${p.name}-${i}`} className="rounded-2xl border bg-white p-5 shadow-sm">
               <div className="flex items-center gap-4">
                 <Image
                   src={p.img}
@@ -170,28 +181,26 @@ export default async function AboutPage({
       <section className="mx-auto max-w-6xl px-4 pb-20">
         <div className="grid items-center gap-8 rounded-3xl bg-violet-700 p-8 text-white md:grid-cols-[1.1fr,0.9fr]">
           <div>
-            <h3 className="text-2xl font-bold">{t["about.ctaFinal.title"]}</h3>
-            <p className="mt-2 text-violet-100">{t["about.ctaFinal.lead"]}</p>
+            <h3 className="text-2xl font-bold">{tt("about.final.title")}</h3>
+            <p className="mt-2 text-violet-100">{tt("about.final.lead")}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href={`${base}/contact`}
-                className="rounded-full bg-white px-5 py-3 text-violet-800 hover:bg-violet-50"
-              >
-                {t["about.ctaFinal.primary"]}
+              <Link href={`${base}/contact`} className="rounded-full bg-white px-5 py-3 text-violet-800 hover:bg-violet-50">
+                {tt("about.final.primary")}
               </Link>
               <a
                 href="https://eirybot-dashboard.web.app/login"
                 target="_blank"
                 className="rounded-full border border-white/40 px-5 py-3"
+                rel="noreferrer"
               >
-                {t["about.ctaFinal.secondary"]}
+                {tt("about.final.secondary")}
               </a>
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm">
             <Image
               src="/MASCOTA-EIRYBOT_1.png"
-              alt={t["about.ctaFinal.imgAlt"]}
+              alt={tt("about.final.imgAlt")}
               width={520}
               height={520}
               className="h-auto w-full"

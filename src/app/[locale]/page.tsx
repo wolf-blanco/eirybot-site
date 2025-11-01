@@ -1,133 +1,97 @@
-import PhoneVideo from "@/components/phone-video";
-import { getDict, Locale } from "@/lib/i18n";
+// src/app/[locale]/page.tsx
+import Image from "next/image";
+import Link from "next/link";
+import type { Locale } from "@/lib/i18n";
+import { getDict } from "@/lib/i18n";
 
-export default async function HomeLocale({
+export const metadata = {
+  title: "EiryBot — Automatización 24/7",
+  description: "Chatbots, integraciones y métricas en tiempo real para tu negocio.",
+};
+
+export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>; // 👈 params es Promise
+  params: Promise<{ locale: string }> | { locale: string };
 }) {
-  const { locale } = await params;      // 👈 desempaquetar
-  const t = getDict(locale === "en" ? "en" : "es");
+  const resolved =
+    typeof (params as any)?.then === "function"
+      ? await (params as Promise<{ locale: string }>)
+      : (params as { locale: string });
+
+  const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
+  const t = getDict(locale);
+  const base = `/${locale}`;
+
+  // Helper para asegurar string
+  const ts = (k: string) => (t[k] as string) ?? k;
+
+  // HERO
+  const heroTitle = ts("home.title");
+  const heroLead = ts("home.lead");
+
+  // Features del hero (asegurando strings)
+  const heroFeatures: { title: string; desc: string }[] = [
+    { title: ts("home.24_7"), desc: ts("home.feature.24_7.desc") },
+    { title: ts("home.feature.integrations.t"), desc: ts("home.feature.integrations.d") },
+    { title: ts("home.feature.metrics.t"), desc: ts("home.feature.metrics.d") },
+  ];
 
   return (
-    <>
-      {/* HERO — fondo blanco, CTA y video recortado */}
-      <section className="bg-white text-violet-900">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-16 md:grid-cols-2 md:gap-10">
+    <main className="min-h-screen">
+      {/* HERO */}
+      <section className="bg-gradient-to-b from-violet-50 to-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1.1fr,0.9fr]">
           <div>
-            <h1 className="text-4xl font-extrabold leading-tight md:text-5xl">
-              {t["home.title"]}{" "}
-              <span className="bg-gradient-to-r from-fuchsia-600 to-violet-700 bg-clip-text text-transparent">
-                {t["home.24_7"]}
-              </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1 text-xs font-medium text-violet-700">
+              {ts("home.badge")}
+            </span>
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-violet-900 md:text-5xl">
+              {heroTitle} <span className="text-fuchsia-600">{ts("home.24_7")}</span>
             </h1>
+            <p className="mt-4 max-w-xl text-gray-700">{heroLead}</p>
 
-            <p className="mt-4 max-w-xl text-gray-700">
-              {t["home.lead"]}{" "}
-              <b>{locale === "es" ? "Conecta. Responde. Crece." : "Connect. Reply. Grow."}</b>
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href={`${base}/contact`} className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600">
+                {ts("home.cta.demo")}
+              </Link>
               <a
                 href="https://scan.eirybot.com"
-                className="rounded-full bg-fuchsia-600 px-5 py-3 text-white shadow hover:brightness-110"
+                className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-violet-50"
               >
-                {t["home.cta.demo"]}
-              </a>
-              <a
-                href={`/${locale}/contact`}
-                className="rounded-full border border-violet-200 px-5 py-3 text-violet-800 hover:bg-violet-50"
-              >
-                {t["home.cta.meet"]}
+                {ts("home.cta.meet")}
               </a>
             </div>
+
+            {/* Highlights */}
+            <ul className="mt-8 grid gap-3 text-sm text-violet-900 sm:grid-cols-3">
+              {heroFeatures.map((f, i) => (
+                <li
+                  key={`${i}-${f.title}`} // <- key seguro (string)
+                  className="rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-violet-100"
+                >
+                  <p className="font-semibold">{f.title}</p>
+                  <p className="text-gray-600">{f.desc}</p>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="flex justify-center md:justify-end">
-            <PhoneVideo />
-          </div>
-        </div>
-      </section>
-
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-violet-200 to-transparent" />
-
-      {/* ¿QUÉ ES EIRYBOT? */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl font-bold text-violet-900 md:text-3xl">
-            {t["home.qe.title"]}
-          </h2>
-        </div>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {[
-            { title: t["home.tiles.gc"], desc: t["home.tiles.gc.desc"] },
-            { title: t["home.tiles.db"], desc: t["home.tiles.db.desc"] },
-            { title: t["home.tiles.cs"], desc: t["home.tiles.cs.desc"] },
-            { title: t["home.tiles.sales"], desc: t["home.tiles.sales.desc"] },
-            { title: t["home.tiles.app"], desc: t["home.tiles.app.desc"] },
-            { title: t["home.tiles.sheets"], desc: t["home.tiles.sheets.desc"] },
-          ].map((f) => (
-            <div
-              key={f.title}
-              className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm transition hover:shadow-md"
-            >
-              <h3 className="font-semibold text-violet-900">{f.title}</h3>
-              <p className="mt-1 text-sm text-gray-600">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* BENEFICIOS */}
-      <section className="bg-violet-50">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-2xl font-bold text-violet-900 md:text-3xl">
-            {t["home.why.title"]}
-          </h2>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {[
-            { title: t["home.why.a"], desc: t["home.why.a.desc"] },
-            { title: t["home.why.b"], desc: t["home.why.b.desc"] },
-            { title: t["home.why.c"], desc: t["home.why.c.desc"] },
-            { title: t["home.why.d"], desc: t["home.why.d.desc"] },
-            { title: t["home.why.e"], desc: t["home.why.e.desc"] },
-            { title: t["home.why.f"], desc: t["home.why.f.desc"] },
-          ].map((card) => (
-            <div
-              key={card.title}
-              className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm transition hover:shadow-md"
-            >
-              <h3 className="font-semibold text-violet-900">{card.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{card.desc}</p>
-            </div>
-          ))}
-        </div>
-        </div>
-      </section>
-
-      {/* CTA FINAL */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="rounded-3xl bg-violet-700 p-10 text-center text-white">
-          <h2 className="text-2xl font-bold md:text-3xl">{t["home.final.title"]}</h2>
-          <p className="mt-2 text-violet-100">{t["home.final.lead"]}</p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <a
-              href={`/${locale}/contact`}
-              className="rounded-full bg-white px-5 py-3 text-violet-800"
-            >
-              {t["home.final.cta.contact"]}
-            </a>
-            <a
-              href="https://scan.eirybot.com"
-              className="rounded-full border border-white/40 px-5 py-3 hover:bg-white/10"
-            >
-              {t["home.final.cta.scan"]}
-            </a>
+          <div className="relative mx-auto w-full max-w-md">
+            <Image
+              src="/robot3.png"
+              alt={ts("home.hero.alt")}
+              width={640}
+              height={640}
+              className="h-auto w-full drop-shadow-xl"
+              priority
+            />
           </div>
         </div>
       </section>
-    </>
+
+      {/* Bloques extra si tenías más secciones… */}
+      {/* ... */}
+    </main>
   );
 }

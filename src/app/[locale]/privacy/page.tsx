@@ -1,9 +1,10 @@
 // src/app/[locale]/privacy/page.tsx
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 
-// ✅ Metadata server component
+// ✅ Metadata (server)
 export const metadata = {
   title: "Privacy / Política de Privacidad — EiryBot",
   description:
@@ -21,7 +22,7 @@ export default async function PrivacyPage({
   const t = getDict(locale);
   const lastUpdated = t["privacy.lastUpdated.date"] ?? "2025-03-01";
 
-  const sections: Array<{ id: string; titleKey: string; body: JSX.Element }> = [
+  const sections: Array<{ id: string; titleKey: string; body: ReactNode }> = [
     {
       id: "who",
       titleKey: "privacy.who.title",
@@ -148,7 +149,7 @@ export default async function PrivacyPage({
           </div>
         </div>
 
-        {/* Secciones en “cards” (sin tablas) */}
+        {/* Secciones en cards */}
         <div className="grid gap-6 md:grid-cols-2">
           {sections.map((s) => (
             <article
@@ -164,7 +165,7 @@ export default async function PrivacyPage({
           ))}
         </div>
 
-        {/* Bloque “Preguntas” */}
+        {/* Bloque preguntas */}
         <div className="mt-8 rounded-3xl border border-violet-200 bg-violet-50 p-6">
           <p className="text-sm text-violet-950">
             {t["privacy.questions.1"]}{" "}
