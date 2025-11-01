@@ -1,18 +1,23 @@
+// src/app/[locale]/layout.tsx
+import React from "react";
 import "@/app/globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import { getDict, Locale } from "@/lib/i18n";
+import { getDict } from "@/lib/i18n";
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  // 👇 Next 16: params puede llegar como Promise
-  params: Promise<{ locale: Locale }>;
+  // 👇 Tipado laxo para evitar el choque con LayoutConfig en Next 16
+  params: any;
 }) {
-  const { locale } = await params;                 // 👈 Desempaquetamos
-  const dict = getDict(locale === "en" ? "en" : "es");
+  // En Next 16, params puede venir como Promise → usamos React.use()
+  const resolved = React.use(params) as { locale?: string };
+  const raw = resolved?.locale ?? "es";
+  const locale = raw === "en" ? "en" : "es";
+  const dict = getDict(locale);
 
   return (
     <>

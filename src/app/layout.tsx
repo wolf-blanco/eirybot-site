@@ -1,11 +1,14 @@
-export const metadata = {
-  title: "EiryBot",
-  description: "Automatización, chatbots y métricas en tiempo real.",
-};
+// src/app/layout.tsx
+import "./globals.css";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // ❗El <html>/<body> solo va en el root layout
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body className="bg-white text-gray-900">{children}</body>
     </html>
   );
