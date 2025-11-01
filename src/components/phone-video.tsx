@@ -19,7 +19,7 @@ export default function PhoneVideo() {
   return (
     <div className="relative mx-auto w-[300px] md:w-[360px]">
       {/* Contenedor recortador */}
-      <div className="aspect-[9.5/18.5] overflow-hidden rounded-[34px] shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
+      <div className="aspect-[9.5/18.7] overflow-hidden rounded-[34px] shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
         <video
           ref={ref}
           autoPlay
@@ -28,7 +28,7 @@ export default function PhoneVideo() {
           playsInline
           preload="metadata"
           // Hacemos zoom y pequeño ajuste para “sacar” los bordes blancos
-          className="h-full w-full object-cover scale-[1.13] translate-y-[1.08%]"
+          className="h-full w-full object-cover scale-[1.133] translate-y-[0%]"
           // poster="/video-poster.jpg"
         >
           <source src="/video.mp4" type="video/mp4" />
