@@ -251,6 +251,53 @@
   "thanks.help": "¿Necesitás algo urgente? Escribinos a",
   "thanks.or": "o llamanos al",
   "thanks.whatsapp.greet": "¡Hola EiryBot! Ya envié el formulario. Quisiera coordinar una demo y revisar un plan de automatización. Ref:"
+
+    "landing.hero.badge": "Nuevo",
+  "landing.hero.title": "¿Usás WhatsApp para atender clientes?",
+  "landing.hero.lead": "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot. El primer mes es totalmente gratis.",
+  "landing.hero.primary": "Probar gratis",
+  "landing.hero.secondary": "Ver EiryScan",
+  "landing.hero.alt": "EiryBot — Automatización 24/7",
+
+  "landing.form.title": "📩 Probalo gratis",
+  "landing.form.lead": "Dejanos tu email y te enviaremos acceso a la demo + beneficios exclusivos.",
+  "landing.form.email.label": "Email",
+  "landing.form.email.placeholder": "tu@empresa.com",
+  "landing.form.submit": "Quiero mi demo",
+  "landing.form.legal": "No te enviaremos spam. Solo un mensaje para que pruebes EiryBot 😉",
+  "landing.form.success": "¡Listo! Revisá tu correo para acceder a la demo.",
+  "landing.form.error": "No pudimos enviar el formulario. Intentá de nuevo en unos segundos.",
+
+  "landing.scan.title": "Diagnóstico express con EiryScan",
+  "landing.scan.lead": "Medí tu madurez de automatización y descubrí oportunidades en minutos.",
+  "landing.scan.cta": "Hacer mi EiryScan",
+
+  "landing.whatsapp.cta": "Hablar por WhatsApp",
+  "landing.whatsapp.prefill": "Hola EiryBot, quiero una demo. Vengo desde la landing.",
+
+  "landing.benefits.title": "¿Por qué EiryBot?",
+  "landing.benefits.1.t": "Atención 24/7",
+  "landing.benefits.1.d": "No pierdas leads fuera de horario. Capturá y calificá automáticamente.",
+  "landing.benefits.2.t": "Cotizaciones al instante",
+  "landing.benefits.2.d": "Enviá presupuestos con reglas de negocio y seguimiento automático.",
+  "landing.benefits.3.t": "Integraciones reales",
+  "landing.benefits.3.d": "Conectá Sheets, CRM, pagos, agenda y más sin dolores de cabeza.",
+  "landing.benefits.4.t": "Métricas accionables",
+  "landing.benefits.4.d": "Medí lo que importa: tiempos de respuesta, conversión y revenue influido.",
+
+  "landing.features.title": "Lo que vas a poder hacer",
+  "landing.features.1": "Responder WhatsApp con contexto y variables",
+  "landing.features.2": "Crear y enviar presupuestos automáticos",
+  "landing.features.3": "Agendar turnos con recordatorios",
+  "landing.features.4": "Sincronizar leads a tu CRM o base",
+  "landing.features.5": "Disparar notificaciones internas con SLA",
+  "landing.features.6": "Ver dashboards y exportar reportes",
+
+  "landing.trust.title": "Elegido por equipos que escalan atención",
+  "landing.trust.note": "Casos reales disponibles bajo NDA",
+
+  "landing.footer.note": "© {year} EiryBot. Todos los derechos reservados.",
+  "landing.footer.privacy": "Política de privacidad",
 }
 
 
