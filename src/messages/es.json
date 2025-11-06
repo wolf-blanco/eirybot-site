@@ -250,7 +250,7 @@
   "thanks.cta.meet": "Agendar una cita",
   "thanks.help": "¿Necesitás algo urgente? Escribinos a",
   "thanks.or": "o llamanos al",
-  "thanks.whatsapp.greet": "¡Hola EiryBot! Ya envié el formulario. Quisiera coordinar una demo y revisar un plan de automatización. Ref:"
+  "thanks.whatsapp.greet": "¡Hola EiryBot! Ya envié el formulario. Quisiera coordinar una demo y revisar un plan de automatización. Ref:",
 
     "landing.hero.badge": "Nuevo",
   "landing.hero.title": "¿Usás WhatsApp para atender clientes?",
@@ -297,7 +297,7 @@
   "landing.trust.note": "Casos reales disponibles bajo NDA",
 
   "landing.footer.note": "© {year} EiryBot. Todos los derechos reservados.",
-  "landing.footer.privacy": "Política de privacidad",
+  "landing.footer.privacy": "Política de privacidad"
 }
 
 
