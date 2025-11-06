@@ -297,7 +297,22 @@
   "landing.trust.note": "Casos reales disponibles bajo NDA",
 
   "landing.footer.note": "© {year} EiryBot. Todos los derechos reservados.",
-  "landing.footer.privacy": "Política de privacidad"
+  "landing.footer.privacy": "Política de privacidad",
+
+
+
+  "landing.hero.badge": "Nuevo",
+  "landing.hero.title": "¿Usás WhatsApp para atender clientes?",
+  "landing.hero.lead": "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot.",
+  "landing.hero.primary": "Probar gratis",
+  "landing.hero.secondary": "Hacer EiryScan",
+
+  "landing.form.title": "📩 Probalo gratis",
+  "landing.form.lead": "Dejanos tu email y te enviamos acceso a la demo + beneficios.",
+  "landing.form.email.label": "Email",
+  "landing.form.email.placeholder": "tu@empresa.com",
+  "landing.form.submit": "Quiero mi demo",
+  "landing.form.legal": "No enviamos spam. Solo un mensaje para que pruebes EiryBot 😉"
+
+
 }
-
-
