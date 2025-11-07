@@ -131,7 +131,7 @@ export default function LandingPageClient({
       <header className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href={`/${locale}`} className="inline-flex items-center gap-2">
           <Image
-            src="/eirylogopdf2.png"
+            src="/MASCOTA-EIRYBOT_1.png"
             alt="EiryBot"
             width={132}
             height={30}
