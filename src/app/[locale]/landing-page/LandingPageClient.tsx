@@ -132,7 +132,7 @@ export default function LandingPageClient({
           <div className="relative flex justify-center">
             <div className="md:hidden">
               <Image
-                src="/img/robot8.png"
+                src="/robot8.png"
                 alt={t("landing.hero.alt", "EiryBot — Automatización 24/7")!}
                 width={280}
                 height={280}
@@ -142,7 +142,7 @@ export default function LandingPageClient({
             </div>
             <div className="hidden md:block">
               <Image
-                src="/img/robot3.png"
+                src="/robot3.png"
                 alt={t("landing.hero.alt", "EiryBot — Automatización 24/7")!}
                 width={520}
                 height={520}
