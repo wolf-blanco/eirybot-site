@@ -1,25 +1,39 @@
 import type { Metadata } from "next";
 import { getDict } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n";
-import ClientLandingPage from "./ClientLanding";
 
-export const metadata: Metadata = {
-  title: "EiryBot — Landing",
-  description: "Automatización 24/7: WhatsApp, cotizaciones, agenda y métricas.",
-};
+import LandingClient from "./LandingClient";
 
-export default async function LandingPage({
-  params,
-}: {
-  params: Promise<{ locale: string }> | { locale: string };
-}) {
-  const resolved =
-    typeof (params as any)?.then === "function"
-      ? await (params as Promise<{ locale: string }>)
-      : (params as { locale: string });
+export const dynamic = "force-static"; // opcional, según tu estrategia
 
-  const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
+type Params = { locale: string };
+
+export async function generateMetadata(
+  { params }: { params: Promise<Params> | Params }
+): Promise<Metadata> {
+  const resolved = typeof (params as any)?.then === "function"
+    ? await (params as Promise<Params>)
+    : (params as Params);
+
+  const locale = resolved?.locale === "en" ? "en" : "es";
   const t = getDict(locale);
 
-  return <ClientLandingPage locale={locale} dict={t} />;
+  return {
+    title: t["landing.meta.title"] ?? "EiryBot — Probalo gratis",
+    description:
+      t["landing.meta.description"] ??
+      "Automatizá WhatsApp, cotizaciones y recordatorios. Capturá leads y midelos en tiempo real. Primer mes gratis."
+  };
+}
+
+export default async function Page(
+  { params }: { params: Promise<Params> | Params }
+) {
+  const resolved = typeof (params as any)?.then === "function"
+    ? await (params as Promise<Params>)
+    : (params as Params);
+
+  const locale = resolved?.locale === "en" ? "en" : "es";
+  const t = getDict(locale);
+
+  return <LandingClient locale={locale} dict={t} />;
 }
