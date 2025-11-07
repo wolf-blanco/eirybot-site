@@ -304,17 +304,21 @@
 
   "landing.footer.note": "© {year} EiryBot. All rights reserved.",
   "landing.footer.privacy": "Privacy Policy",
-  "landing.hero.badge": "New",
-  "landing.hero.title": "Do you use WhatsApp to serve customers?",
-  "landing.hero.lead": "Automate conversations, generate quotes, and reply 24/7 with EiryBot.",
-  "landing.hero.primary": "Try for free",
-  "landing.hero.secondary": "Run EiryScan",
 
-  "landing.form.title": "📩 Try it free",
-  "landing.form.lead": "Leave your email and we’ll send demo access + perks.",
-  "landing.form.email.label": "Email",
-  "landing.form.email.placeholder": "you@company.com",
-  "landing.form.submit": "Get my demo",
-  "landing.form.legal": "No spam. Just one message so you can try EiryBot 😉"
+
+    "unsubscribe.title": "Unsubscribe",
+  "unsubscribe.lead": "Enter your email to stop receiving our emails.",
+  "unsubscribe.label": "Email",
+  "unsubscribe.placeholder": "your@email.com",
+  "unsubscribe.submit": "Unsubscribe",
+  "unsubscribe.msg.ok": "✅ Your email has been removed from our list. Thank you!",
+  "unsubscribe.msg.already": "ℹ️ This email was already unsubscribed.",
+  "unsubscribe.msg.error": "❌ There was a problem processing your request.",
+  "unsubscribe.msg.network": "❌ Network or connection error.",
+  "unsubscribe.meta.title": "Unsubscribe — EiryBot",
+  "unsubscribe.meta.description": "Manage your unsubscribe from EiryBot’s mailing list.",
+  "common.processing": "Processing…",
+  "common.back": "Back",
+  "common.viewSite": "View site"
 
 }
