@@ -6,9 +6,6 @@ import Link from "next/link";
 
 type Dict = Record<string, string | string[]>;
 
-const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwiyF7i29IcBb6wzMypBmFLUePnF0DEA6ii0v_PGHpN7Q3WG5P5FxiSvrwwG9V5PpCp7A/exec";
-
 export default function LandingPageClient({
   locale,
   dict,
@@ -19,15 +16,18 @@ export default function LandingPageClient({
   const ts = (k: string, fb?: string) =>
     (typeof dict[k] === "string" ? (dict[k] as string) : fb) ?? fb ?? k;
 
+  // ---- Form + UTM ----
   const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [msg, setMsg] = useState<null | { kind: "ok" | "err"; text: string }>(
-    null
-  );
+  const [msg, setMsg] = useState<{ type: "ok" | "err" | "" ; text: string }>({
+    type: "",
+    text: "",
+  });
 
-  // Campos ocultos (UTM / Mailchimp / referrer)
-  const [hidden, setHidden] = useState({
-    nombre: "Directo",
+  // tu endpoint de Apps Script:
+  const FORM_ACTION =
+    "https://script.google.com/macros/s/AKfycbwiyF7i29IcBb6wzMypBmFLUePnF0DEA6ii0v_PGHpN7Q3WG5P5FxiSvrwwG9V5PpCp7A/exec";
+
+  const [utm, setUtm] = useState({
     utm_campaign: "",
     utm_source: "",
     utm_medium: "",
@@ -36,198 +36,174 @@ export default function LandingPageClient({
     referrer: "",
   });
 
-  // Lee parámetros de la URL y setea referrer
   useEffect(() => {
-    const getParam = (n: string) => {
-      try {
-        const p = new URLSearchParams(window.location.search);
-        return p.get(n) || "";
-      } catch {
-        return "";
-      }
-    };
-    const utm_campaign = getParam("utm_campaign");
-    const mc_cid = getParam("mc_cid");
-    setHidden((h) => ({
-      ...h,
-      nombre: utm_campaign || mc_cid || "Directo",
-      utm_campaign,
-      utm_source: getParam("utm_source"),
-      utm_medium: getParam("utm_medium"),
-      mc_cid,
-      mc_eid: getParam("mc_eid"),
-      referrer: document.referrer || "",
-    }));
+    const p = new URLSearchParams(window.location.search);
+    setUtm({
+      utm_campaign: p.get("utm_campaign") ?? "",
+      utm_source: p.get("utm_source") ?? "",
+      utm_medium: p.get("utm_medium") ?? "",
+      mc_cid: p.get("mc_cid") ?? "",
+      mc_eid: p.get("mc_eid") ?? "",
+      referrer: document.referrer ?? "",
+    });
   }, []);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email) return;
+    setMsg({ type: "", text: "" });
 
-    setSubmitting(true);
-    setMsg(null);
+    const campaignName = utm.utm_campaign || utm.mc_cid || "Directo";
+    const body = new FormData();
+    body.append("email", email);
+    // en tu hoja se guarda en “nombre” el origen/campaña:
+    body.append("nombre", campaignName);
+    Object.entries(utm).forEach(([k, v]) => body.append(k, v));
 
     try {
-      // Enviar como GET a Apps Script (compatible con tu macro actual)
-      const url =
-        `${SCRIPT_URL}` +
-        `?email=${encodeURIComponent(email)}` +
-        `&nombre=${encodeURIComponent(hidden.nombre)}` +
-        `&utm_campaign=${encodeURIComponent(hidden.utm_campaign)}` +
-        `&utm_source=${encodeURIComponent(hidden.utm_source)}` +
-        `&utm_medium=${encodeURIComponent(hidden.utm_medium)}` +
-        `&mc_cid=${encodeURIComponent(hidden.mc_cid)}` +
-        `&mc_eid=${encodeURIComponent(hidden.mc_eid)}` +
-        `&referrer=${encodeURIComponent(hidden.referrer)}`;
-
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error("bad status");
-      // Apps Script suele responder texto simple
-      await resp.text();
-
-      setMsg({
-        kind: "ok",
-        text:
-          ts(
-            "landing.form.success",
-            "¡Listo! Revisá tu correo para acceder a la demo."
-          ) || "",
-      });
-
-      // Redirige a /thanks en 1s (igual a tu flujo original)
+      const res = await fetch(FORM_ACTION, { method: "POST", body });
+      if (!res.ok) throw new Error("bad status");
+      setMsg({ type: "ok", text: ts("landing.form.success", "¡Listo! Revisá tu correo para la demo.") });
+      setEmail("");
+      // redir amigable como en WP:
       setTimeout(() => {
         window.location.href = "https://eirybot.com/thanks/";
-      }, 1000);
-    } catch (err) {
+      }, 900);
+    } catch {
       setMsg({
-        kind: "err",
-        text:
-          ts(
-            "landing.form.error",
-            "No pudimos enviar el formulario. Probá de nuevo en un momento."
-          ) || "",
+        type: "err",
+        text: ts(
+          "landing.form.error",
+          "No pudimos enviar el formulario. Intentá nuevamente en unos segundos."
+        ),
       });
-    } finally {
-      setSubmitting(false);
     }
-  };
+  }
 
-  const openWhatsApp = () => {
-    const prefill =
-      ts(
-        "landing.whatsapp.prefill",
-        "Hola EiryBot, quiero una demo. Vengo desde la landing."
-      ) || "";
-    window.open(
-      "https://wa.me/13058983160?text=" + encodeURIComponent(prefill),
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
+  // WhatsApp CTA
+  const WA_URL = `https://wa.me/13058983160?text=${encodeURIComponent(
+    ts(
+      "landing.whatsapp.prefill",
+      "Hola EiryBot, quiero una demo. Vengo de la landing."
+    )
+  )}`;
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href={`/${locale}`} className="inline-flex items-center gap-2">
-          <Image
-            src="/MASCOTA-EIRYBOT_1.png"
-            alt="EiryBot"
-            width={132}
-            height={30}
-            priority
-            className="h-8 w-auto"
-          />
-        </Link>
-        <div className="flex items-center gap-2">
-          <span className="text-xs rounded-full border px-2 py-1 text-violet-700 border-violet-200">
-            {ts("landing.hero.badge", "Nuevo")}
-          </span>
-          <a
-            href="https://eirybot.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-violet-200 px-4 py-2 text-violet-700 hover:bg-violet-50"
-          >
-            eirybot.com
-          </a>
-        </div>
-      </header>
+      {/* Header con contraste para logo claro */}
+      <header className="relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-50 via-white to-fuchsia-50" />
+        <div className="relative max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href={`/${locale}`} className="inline-flex items-center gap-2">
+            <span className="inline-flex items-center rounded-xl bg-black/80 px-3 py-1">
+              <Image
+                src="/img/logo-eirybot-dark.svg" /* usa este o tu eirylogopdf2.png que se vea en claro */
+                alt="EiryBot"
+                width={120}
+                height={28}
+                className="h-7 w-auto"
+                priority
+              />
+            </span>
+          </Link>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-            {ts("landing.hero.title", "¿Usás WhatsApp para atender clientes?")}
-          </h1>
-          <p className="mt-3 text-gray-600">
-            {ts(
-              "landing.hero.lead",
-              "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot. El primer mes es totalmente gratis."
-            )}
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs rounded-full border px-2 py-1 text-violet-700 border-violet-200 bg-white">
+              {ts("landing.hero.badge", "Nuevo")}
+            </span>
             <Link
-              href={`/${locale}/landing-page#demo`}
-              className="rounded-full bg-violet-600 text-white px-5 py-2 font-medium hover:opacity-90"
+              href="https://eirybot.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-violet-200 px-4 py-2 text-violet-700 hover:bg-violet-50"
             >
-              {ts("landing.hero.primary", "Probar gratis")}
-            </Link>
-            <Link
-              href={`/${locale}/scan`}
-              className="rounded-full border px-5 py-2 font-medium hover:bg-gray-50"
-            >
-              {ts("landing.hero.secondary", "Ver EiryScan")}
+              eirybot.com
             </Link>
           </div>
         </div>
-        <div className="flex justify-center">
-          <Image
-            src="/mascota.png" // Asegurate de tener /public/mascota.png
-            alt={ts("landing.hero.alt", "EiryBot — Automatización 24/7")!}
-            width={320}
-            height={320}
-            className="w-56 h-auto md:w-72"
-            priority
-          />
+      </header>
+
+      {/* HERO con las dos imágenes (mobile + desktop) */}
+      <section className="relative">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-violet-50/40 to-white" />
+        <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+              {ts("landing.hero.title", "¿Usás WhatsApp para atender clientes?")}
+            </h1>
+            <p className="mt-4 text-gray-600 text-lg">
+              {ts(
+                "landing.hero.lead",
+                "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot. El primer mes es totalmente gratis."
+              )}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="#demo"
+                className="rounded-full bg-violet-600 text-white px-5 py-2.5 font-medium hover:opacity-90"
+              >
+                {ts("landing.hero.primary", "Probar gratis")}
+              </a>
+              <Link
+                href={`/${locale}/scan`}
+                className="rounded-full border px-5 py-2.5 font-medium hover:bg-gray-50"
+              >
+                {ts("landing.hero.secondary", "Ver EiryScan")}
+              </Link>
+              <a
+                href={WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border px-5 py-2.5 font-medium hover:bg-gray-50"
+              >
+                {ts("landing.whatsapp.cta", "Hablar por WhatsApp")}
+              </a>
+            </div>
+          </div>
+
+          {/* Imágenes: mobile (por defecto), laptop (md+) */}
+          <div className="relative flex justify-center">
+            {/* Mobile mascot */}
+            <div className="md:hidden">
+              <Image
+                src="/img/mascota-mobile.png"
+                alt={ts("landing.hero.alt", "EiryBot — Automatización 24/7")!}
+                width={280}
+                height={280}
+                className="w-64 h-auto drop-shadow-xl"
+                priority
+              />
+            </div>
+            {/* Desktop mascot */}
+            <div className="hidden md:block">
+              <Image
+                src="/img/mascota-laptop.png"
+                alt={ts("landing.hero.alt", "EiryBot — Automatización 24/7")!}
+                width={520}
+                height={520}
+                className="w-[420px] lg:w-[520px] h-auto drop-shadow-xl"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Formulario (#demo) */}
-      <section
-        id="demo"
-        className="bg-gray-50 border-t border-b border-gray-100 py-12"
-      >
-        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
-          {/* Copy */}
+      {/* FORM */}
+      <section id="demo" className="bg-violet-50/40 py-12">
+        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl md:text-3xl font-bold">
               {ts("landing.form.title", "📩 Probalo gratis")}
             </h2>
-            <p className="mt-2 text-gray-600">
+            <p className="text-gray-600 mt-2">
               {ts(
                 "landing.form.lead",
                 "Dejanos tu email y te enviaremos acceso a la demo + beneficios exclusivos."
               )}
             </p>
 
-            <ul className="mt-6 space-y-2 text-sm text-gray-700">
-              <li>• {ts("landing.features.1", "Respuestas con contexto en WhatsApp")}</li>
-              <li>• {ts("landing.features.2", "Cotizaciones automáticas")}</li>
-              <li>• {ts("landing.features.3", "Turnos con recordatorios")}</li>
-              <li>• {ts("landing.features.4", "Leads a tu CRM/DB")}</li>
-              <li>• {ts("landing.features.5", "Notificaciones internas con SLA")}</li>
-              <li>• {ts("landing.features.6", "Dashboards y exportes")}</li>
-            </ul>
-          </div>
-
-          {/* Form */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <form onSubmit={onSubmit} className="space-y-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+            <form onSubmit={onSubmit} className="mt-6 max-w-md">
+              <label htmlFor="email" className="block text-sm font-semibold mb-1">
                 {ts("landing.form.email.label", "Email")}
               </label>
               <input
@@ -236,181 +212,81 @@ export default function LandingPageClient({
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={ts(
-                  "landing.form.email.placeholder",
-                  "tu@empresa.com"
-                )!}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                placeholder={ts("landing.form.email.placeholder", "tu@email.com") as string}
+                className="w-full border rounded-lg px-4 py-3"
               />
-
-              {/* ocultos */}
-              <input type="hidden" name="nombre" value={hidden.nombre} />
-              <input
-                type="hidden"
-                name="utm_campaign"
-                value={hidden.utm_campaign}
-              />
-              <input type="hidden" name="utm_source" value={hidden.utm_source} />
-              <input type="hidden" name="utm_medium" value={hidden.utm_medium} />
-              <input type="hidden" name="mc_cid" value={hidden.mc_cid} />
-              <input type="hidden" name="mc_eid" value={hidden.mc_eid} />
-              <input type="hidden" name="referrer" value={hidden.referrer} />
-
               <button
                 type="submit"
-                disabled={submitting}
-                className="w-full rounded-full bg-violet-600 text-white px-5 py-2 font-semibold hover:opacity-90 disabled:opacity-60"
+                className="mt-3 w-full rounded-full bg-violet-600 text-white px-5 py-3 font-semibold hover:opacity-90"
               >
-                {submitting
-                  ? "Enviando…"
-                  : ts("landing.form.submit", "Quiero mi demo")}
+                {ts("landing.form.submit", "Quiero mi demo")}
               </button>
-
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-gray-500 mt-2">
                 {ts(
                   "landing.form.legal",
                   "No te enviaremos spam. Solo un mensaje para que pruebes EiryBot 😉"
                 )}
               </p>
 
-              {msg && (
-                <p
-                  className={`text-sm text-center ${
-                    msg.kind === "ok" ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {msg.text}
-                </p>
+              {msg.type === "ok" && (
+                <p className="mt-3 text-sm text-green-700">{msg.text}</p>
+              )}
+              {msg.type === "err" && (
+                <p className="mt-3 text-sm text-red-600">{msg.text}</p>
               )}
             </form>
           </div>
-        </div>
-      </section>
 
-      {/* Beneficios */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <h3 className="text-xl font-bold">
-          {ts("landing.benefits.title", "¿Por qué EiryBot?")}
-        </h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-          <div className="rounded-xl border p-4">
-            <p className="font-semibold">
-              {ts("landing.benefits.1.t", "Disponibilidad 24/7")}
-            </p>
-            <p className="text-sm text-gray-600 mt-1">
+          {/* Bloque EiryScan / features cortas */}
+          <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-semibold">
+              {ts("landing.scan.title", "Auditoría rápida con EiryScan")}
+            </h3>
+            <p className="text-gray-600 mt-1">
               {ts(
-                "landing.benefits.1.d",
-                "No pierdas leads fuera de horario. Capturá y calificá automáticamente."
+                "landing.scan.lead",
+                "Medí tu madurez de automatización y encontrá oportunidades en minutos."
               )}
             </p>
-          </div>
-          <div className="rounded-xl border p-4">
-            <p className="font-semibold">
-              {ts("landing.benefits.2.t", "Cotizaciones al instante")}
-            </p>
-            <p className="text-sm text-gray-600 mt-1">
-              {ts(
-                "landing.benefits.2.d",
-                "Enviá propuestas con reglas de negocio y seguimiento automático."
-              )}
-            </p>
-          </div>
-          <div className="rounded-xl border p-4">
-            <p className="font-semibold">
-              {ts("landing.benefits.3.t", "Integraciones reales")}
-            </p>
-            <p className="text-sm text-gray-600 mt-1">
-              {ts(
-                "landing.benefits.3.d",
-                "Conectá Sheets, CRM, pagos, calendario y más—sin dolores de cabeza."
-              )}
-            </p>
-          </div>
-          <div className="rounded-xl border p-4">
-            <p className="font-semibold">
-              {ts("landing.benefits.4.t", "Métricas accionables")}
-            </p>
-            <p className="text-sm text-gray-600 mt-1">
-              {ts(
-                "landing.benefits.4.d",
-                "Medí lo que importa: tiempo de respuesta, conversión e ingresos."
-              )}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* EiryScan */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border bg-white p-6 md:p-8">
-          <div className="md:flex md:items-center md:justify-between">
-            <div className="max-w-2xl">
-              <h3 className="text-xl font-bold">
-                {ts("landing.scan.title", "Auditoría exprés con EiryScan")}
-              </h3>
-              <p className="text-gray-600 mt-1">
-                {ts(
-                  "landing.scan.lead",
-                  "Medí tu madurez de automatización y encontrá oportunidades en minutos."
-                )}
-              </p>
-            </div>
             <Link
               href={`/${locale}/scan`}
-              className="inline-flex mt-4 md:mt-0 rounded-full bg-violet-600 text-white px-5 py-2 font-semibold hover:opacity-90"
+              className="inline-block mt-4 rounded-full border px-5 py-2.5 font-medium hover:bg-gray-50"
             >
               {ts("landing.scan.cta", "Hacer mi EiryScan")}
             </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* CTA WhatsApp */}
-      <section className="max-w-6xl mx-auto px-4 pb-12">
-        <div className="rounded-2xl border bg-white p-6 md:p-8 text-center">
-          <p className="text-lg font-semibold">
-            {ts(
-              "landing.title",
-              "¿Usás WhatsApp para atender clientes?"
-            )}
-          </p>
-          <p className="text-gray-600 mt-1">
-            {ts(
-              "landing.lead",
-              "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot. El primer mes es totalmente gratis."
-            )}
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3 justify-center">
-            <button
-              onClick={openWhatsApp}
-              className="rounded-full border px-5 py-2 font-semibold hover:bg-gray-50"
-            >
-              {ts("landing.whatsapp.cta", "Hablar por WhatsApp")}
-            </button>
-            <Link
-              href={`/${locale}/contact`}
-              className="rounded-full bg-violet-600 text-white px-5 py-2 font-semibold hover:opacity-90"
-            >
-              {ts("landing.cta.contact", "Hablá con nosotros")}
-            </Link>
+            <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+              <Feature text={ts("landing.features.1", "Responder en WhatsApp con contexto y variables")} />
+              <Feature text={ts("landing.features.2", "Crear y enviar cotizaciones automáticas")} />
+              <Feature text={ts("landing.features.3", "Agendar turnos con recordatorios")} />
+              <Feature text={ts("landing.features.4", "Sincronizar leads a tu CRM/DB")} />
+              <Feature text={ts("landing.features.5", "Notificaciones internas con SLA")} />
+              <Feature text={ts("landing.features.6", "Dashboards y exportación de reportes")} />
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500 flex items-center justify-between">
-          <span>
-            {(ts(
-              "landing.footer.note",
-              "© {year} EiryBot. Todos los derechos reservados."
-            ) as string).replace("{year}", String(new Date().getFullYear()))}
-          </span>
-          <Link href={`/${locale}/privacy`} className="hover:text-gray-700">
-            {ts("landing.footer.privacy", "Política de privacidad")}
-          </Link>
-        </div>
+      <footer className="text-center text-sm text-gray-500 py-8">
+        {ts("landing.footer.note", "© {year} EiryBot. Todos los derechos reservados.").replace(
+          "{year}",
+          String(new Date().getFullYear())
+        )}{" "}
+        ·{" "}
+        <Link href={`/${locale}/privacy`} className="underline">
+          {ts("landing.footer.privacy", "Política de privacidad")}
+        </Link>
       </footer>
     </main>
+  );
+}
+
+function Feature({ text }: { text: string }) {
+  return (
+    <div className="flex items-start gap-2">
+      <span className="mt-1 inline-block h-2 w-2 rounded-full bg-violet-600" />
+      <span>{text}</span>
+    </div>
   );
 }
