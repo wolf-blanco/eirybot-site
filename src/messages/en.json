@@ -258,7 +258,10 @@
   "thanks.or": "or call",
   "thanks.whatsapp.greet": "Hi EiryBot! I’ve just submitted the form. I’d like to schedule a demo and review an automation plan. Ref:",
 
-    "landing.hero.badge": "New",
+  "landing.meta.title": "EiryBot — Try it free",
+  "landing.meta.description": "Automate WhatsApp, quotes and reminders. Capture leads and measure them in real time. First month free.",
+
+  "landing.hero.badge": "New",
   "landing.hero.title": "Do you use WhatsApp to serve customers?",
   "landing.hero.lead": "Automate conversations, generate quotes, and reply 24/7 with EiryBot. Your first month is completely free.",
   "landing.hero.primary": "Try for free",
@@ -305,8 +308,10 @@
   "landing.footer.note": "© {year} EiryBot. All rights reserved.",
   "landing.footer.privacy": "Privacy Policy",
 
+  "landing.cta.contact": "Talk to us"
 
-    "unsubscribe.title": "Unsubscribe",
+
+  "unsubscribe.title": "Unsubscribe",
   "unsubscribe.lead": "Enter your email to stop receiving our emails.",
   "unsubscribe.label": "Email",
   "unsubscribe.placeholder": "your@email.com",
