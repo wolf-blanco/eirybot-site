@@ -301,18 +301,20 @@
 
 
 
-  "landing.hero.badge": "Nuevo",
-  "landing.hero.title": "¿Usás WhatsApp para atender clientes?",
-  "landing.hero.lead": "Automatizá conversaciones, generá presupuestos y respondé 24/7 con EiryBot.",
-  "landing.hero.primary": "Probar gratis",
-  "landing.hero.secondary": "Hacer EiryScan",
-
-  "landing.form.title": "📩 Probalo gratis",
-  "landing.form.lead": "Dejanos tu email y te enviamos acceso a la demo + beneficios.",
-  "landing.form.email.label": "Email",
-  "landing.form.email.placeholder": "tu@empresa.com",
-  "landing.form.submit": "Quiero mi demo",
-  "landing.form.legal": "No enviamos spam. Solo un mensaje para que pruebes EiryBot 😉"
+    "unsubscribe.title": "Cancelar suscripción",
+  "unsubscribe.lead": "Ingresá tu email para dejar de recibir nuestros correos.",
+  "unsubscribe.label": "Email",
+  "unsubscribe.placeholder": "tu@email.com",
+  "unsubscribe.submit": "Cancelar suscripción",
+  "unsubscribe.msg.ok": "✅ Tu correo fue eliminado de nuestra lista. ¡Gracias!",
+  "unsubscribe.msg.already": "ℹ️ Este correo ya estaba dado de baja.",
+  "unsubscribe.msg.error": "❌ Hubo un problema al cancelar la suscripción.",
+  "unsubscribe.msg.network": "❌ Error de red o conexión.",
+  "unsubscribe.meta.title": "Cancelar suscripción — EiryBot",
+  "unsubscribe.meta.description": "Gestioná tu baja de la lista de correos de EiryBot.",
+  "common.processing": "Procesando…",
+  "common.back": "Volver",
+  "common.viewSite": "Ver sitio"
 
 
 }
