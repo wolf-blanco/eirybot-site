@@ -1,10 +1,11 @@
-// src/app/[locale]/contact/contact-client.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
+import { addDoc, serverTimestamp } from "firebase/firestore";
+import { colWebLeads, colErrorLog } from "@/lib/paths";
 
 // Diccionario indexable (strings o arrays si en el futuro los usás)
 type Dict = Record<string, string | string[]>;
@@ -36,6 +37,7 @@ export default function ContactClient({
   };
 
   const qs = useSearchParams();
+
   const utm = useMemo(
     () => ({
       utm_source: qs.get("utm_source") || "",
@@ -55,9 +57,11 @@ export default function ContactClient({
     consentimiento: false,
     website: "",
   });
+
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<null | "ok" | "err">(null);
 
+  // Prefill de nombre desde querystring (opcional)
   useEffect(() => {
     const prefill = qs.get("nombre") || qs.get("name") || qs.get("fullname") || "";
     if (prefill) setForm((f) => ({ ...f, nombre: prefill }));
@@ -65,28 +69,83 @@ export default function ContactClient({
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (form.website) return; // bot
+    if (form.website) return; // bot honeypot
 
     setSending(true);
     setDone(null);
 
-    try {
-      const fd = new FormData();
-      fd.append("nombre", form.nombre.trim());
-      fd.append("email", form.email.trim());
-      fd.append("telefono", form.telefono.trim());
-      fd.append("rubro", form.rubro.trim());
-      fd.append("consentimiento", form.consentimiento ? "Sí, autorizo contacto" : "No");
-      Object.entries(utm).forEach(([k, v]) => fd.append(k, v));
+    // --- Armo payload base (para Firestore) ---
+    const payloadFS = {
+      // ✔️ Campos mínimos exigidos por tus reglas
+      email: form.email.trim().toLowerCase(),
+      createdAt: serverTimestamp(),
 
-      await fetch(SHEETS_ENDPOINT, { method: "POST", body: fd, mode: "no-cors" });
+      // 👇 Extras útiles
+      nombre: form.nombre.trim(),
+      telefono: form.telefono.trim(),
+      rubro: form.rubro.trim(),
+      consentimiento: form.consentimiento ? "Sí, autorizo contacto" : "No",
+      locale,
+      referrer: typeof document !== "undefined" ? document.referrer : "",
+      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+      url: typeof window !== "undefined" ? window.location.href : "",
+      source: "contact_page",
+      ...utm,
+    };
+
+    // --- Armo payload para GAS (FormData) ---
+    const fd = new FormData();
+    fd.append("nombre", payloadFS.nombre);
+    fd.append("email", form.email.trim());
+    fd.append("telefono", payloadFS.telefono);
+    fd.append("rubro", payloadFS.rubro);
+    fd.append("consentimiento", form.consentimiento ? "Sí, autorizo contacto" : "No");
+    fd.append("locale", locale);
+    fd.append("referrer", payloadFS.referrer);
+    fd.append("url", payloadFS.url);
+    Object.entries(utm).forEach(([k, v]) => fd.append(k, v));
+
+    // --- Doble escritura: Firestore (await) + GAS (fire-and-forget con timeout) ---
+    try {
+      // 1) Firestore (create-only)
+      await addDoc(colWebLeads(), payloadFS);
+
+      // 2) GAS (no bloquea UX, con timeout de cortesía)
+      if (SHEETS_ENDPOINT) {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 3500); // 3.5s
+        fetch(SHEETS_ENDPOINT, { method: "POST", body: fd, mode: "no-cors", signal: ctrl.signal })
+          .catch(async (err) => {
+            // Logeamos el fallo de GAS sin romper la UX
+            try {
+              await addDoc(colErrorLog(), {
+                message: err?.message ?? "GAS fetch failed",
+                context: "contact/web_leads_gas",
+                createdAt: serverTimestamp(),
+              });
+            } catch {}
+          })
+          .finally(() => clearTimeout(t));
+      }
 
       setDone("ok");
       setTimeout(() => {
         window.location.href = `/${locale}/thanks`;
       }, 900);
-    } catch {
+    } catch (err: any) {
+      console.error("Contact Firestore create failed:", err);
       setDone("err");
+      // Log en error_log del fallo principal (Firestore)
+      try {
+        await addDoc(colErrorLog(), {
+          message: err?.message ?? String(err),
+          stack: err?.stack ?? null,
+          context: "contact/web_leads",
+          locale,
+          url: typeof window !== "undefined" ? window.location.href : "",
+          createdAt: serverTimestamp(),
+        });
+      } catch {}
     } finally {
       setSending(false);
     }

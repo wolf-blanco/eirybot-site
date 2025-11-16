@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
-import UnsubscribeForm from "@/components/unsubscribe-form";
+import UnsubscribeForm from "./unsubscribe-form";
 
 // Opcional: metadata aquí SI QUIERES, pero NO en el client component
 export const metadata = {

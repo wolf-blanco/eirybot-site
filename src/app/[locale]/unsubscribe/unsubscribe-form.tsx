@@ -1,27 +1,28 @@
+// src/app/\[locale\]/unsubscribe/unsubscribe-form.tsx 
+
 "use client";
 
 import { useEffect, useState } from "react";
+import { addDoc, serverTimestamp } from "firebase/firestore";
+import { colUnsubscribes, colErrorLog } from "@/lib/paths";
 
 export default function UnsubscribeForm({
   dict,
-  scriptUrl,
+  scriptUrl, // opcional: doble escritura a GAS
 }: {
   dict: Record<string, string>;
-  scriptUrl: string;
+  scriptUrl?: string;
 }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] =
     useState<"idle" | "loading" | "ok" | "already" | "error" | "network">("idle");
 
-  // Prefill desde ?email=
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const fromUrl = params.get("email");
       if (fromUrl) setEmail(fromUrl);
-    } catch {
-      /* ignore */
-    }
+    } catch {}
   }, []);
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -30,13 +31,50 @@ export default function UnsubscribeForm({
 
     setStatus("loading");
     try {
-      const res = await fetch(`${scriptUrl}?email=${encodeURIComponent(email)}`);
-      const txt = (await res.text()).trim().toLowerCase();
-      if (txt === "success") setStatus("ok");
-      else if (txt === "already_exists") setStatus("already");
-      else setStatus("error");
-    } catch {
-      setStatus("network");
+      const url = new URL(window.location.href);
+      const q = url.searchParams;
+
+      const emailLower = email.trim().toLowerCase();
+      const payload = {
+        email: emailLower,
+        utm_campaign: q.get("utm_campaign") || null,
+        utm_source:   q.get("utm_source")   || null,
+        utm_medium:   q.get("utm_medium")   || null,
+        mc_cid:       q.get("mc_cid")       || null,
+        mc_eid:       q.get("mc_eid")       || null,
+        referrer: document.referrer || null,
+        userAgent: navigator.userAgent || null,
+        locale: (q.get("locale") === "en" || q.get("locale") === "es") ? q.get("locale") : "es",
+        createdAt: serverTimestamp(),   // ← coincide con tus reglas
+        source: "unsubscribe_page",
+      };
+
+      // create-only (addDoc) para cumplir reglas (sin read/update)
+      await addDoc(colUnsubscribes(), payload);
+
+      // (opcional) doble escritura a GAS
+      if (scriptUrl) {
+        fetch(`${scriptUrl}?email=${encodeURIComponent(emailLower)}`).catch(() => {});
+      }
+
+      setStatus("ok");
+    } catch (err: any) {
+      console.error("Unsubscribe Firestore create failed:", err);
+      // Intento de registrar error (tus reglas permiten create en error_log)
+      try {
+        await addDoc(colErrorLog(), {
+          message: err?.message ?? String(err),
+          stack: err?.stack ?? null,
+          context: "unsubscribe",
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+          locale: (navigator.language?.startsWith("en") ? "en" : "es"),
+          createdAt: serverTimestamp(), // ← coincide con tus reglas
+        });
+      } catch (e2) {
+        console.error("Also failed to log error:", e2);
+      }
+      setStatus(err?.name === "TypeError" ? "network" : "error");
     }
   };
 
@@ -82,11 +120,9 @@ export default function UnsubscribeForm({
       {msg && (
         <p
           className={`text-sm ${
-            status === "ok"
-              ? "text-green-600"
-              : status === "already"
-              ? "text-amber-600"
-              : "text-red-600"
+            status === "ok" ? "text-green-600"
+            : status === "already" ? "text-amber-600"
+            : "text-red-600"
           }`}
         >
           {msg}
