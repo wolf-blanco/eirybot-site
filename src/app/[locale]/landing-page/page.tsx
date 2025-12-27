@@ -1,5 +1,4 @@
-// ❌ NO pongas "use client" en este archivo
-import Image from "next/image";
+// ❌ No pongas "use client" aquí
 import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import LandingPageClient from "./LandingPageClient";
