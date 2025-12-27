@@ -64,30 +64,11 @@ export default async function HomePage({
 
   return (
     <main className="min-h-screen text-violet-900">
-      {/* ===== HERO ===== */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          // degradé sutil y profesional
-          background:
-            "radial-gradient(1200px 500px at 20% -10%, rgba(168,85,247,0.10), transparent 60%), radial-gradient(1000px 500px at 110% 0%, rgba(124,58,237,0.10), transparent 55%), linear-gradient(180deg, #ffffff 0%, #faf7ff 100%)",
-        }}
-      >
-        {/* halo suave al fondo */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            maskImage:
-              "radial-gradient(60% 60% at 10% 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%)",
-            WebkitMaskImage:
-              "radial-gradient(60% 60% at 10% 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%)",
-          }}
-        />
-
+      {/* ===== HERO (BLANCO PURO) ===== */}
+      <section className="relative overflow-hidden bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-18 md:grid-cols-2 md:gap-10 lg:py-22">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-violet-200/70 bg-white/80 px-3 py-1 text-[11px] font-semibold text-violet-700 shadow-sm backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full border border-violet-200/70 bg-white px-3 py-1 text-[11px] font-semibold text-violet-700 shadow-sm">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-fuchsia-500" />
               {heroBadge}
             </span>
@@ -124,7 +105,7 @@ export default async function HomePage({
               {heroFeatures.map((f, i) => (
                 <li
                   key={`${i}-${f.title}`}
-                  className="rounded-2xl bg-white/80 px-4 py-3 shadow-sm ring-1 ring-violet-100 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                  className="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-violet-100 transition hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <p className="font-semibold">{f.title}</p>
                   <p className="text-gray-600">{f.desc}</p>
@@ -135,10 +116,8 @@ export default async function HomePage({
 
           {/* Video */}
           <div className="relative flex justify-center md:justify-end">
-            {/* glow suave detrás del teléfono */}
-            <div className="absolute -inset-x-10 -inset-y-8 rounded-[36px] bg-gradient-to-tr from-fuchsia-400/15 via-violet-400/10 to-indigo-400/15 blur-2xl" />
             <div className="relative">
-              <PhoneVideo />
+              <PhoneVideo locale={locale} />
             </div>
           </div>
         </div>
@@ -147,12 +126,10 @@ export default async function HomePage({
       {/* ===== Separador sutil ===== */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-violet-200/70 to-transparent" />
 
-      {/* ===== ¿QUÉ ES EIRYBOT? ===== */}
-      <section className="relative mx-auto max-w-6xl px-4 py-16">
+      {/* ===== ¿QUÉ ES EIRYBOT? (BLANCO) ===== */}
+      <section className="relative mx-auto max-w-6xl bg-white px-4 py-16">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl font-bold md:text-3xl">
-            {whatTitle}
-          </h2>
+          <h2 className="text-2xl font-bold md:text-3xl">{whatTitle}</h2>
           <p className="mx-auto mt-2 max-w-2xl text-sm text-gray-600">
             {locale === "es"
               ? "Conecta canales, centraliza datos y ofrece respuestas instantáneas con una capa de inteligencia aplicada al negocio."
@@ -164,9 +141,8 @@ export default async function HomePage({
           {whatTiles.map((f, i) => (
             <div
               key={`what-${i}`}
-              className="group relative rounded-2xl border border-violet-200/50 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-md hover:ring-1 hover:ring-violet-300/60"
+              className="group relative rounded-2xl border border-violet-200/50 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:ring-1 hover:ring-violet-300/60"
             >
-              <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-fuchsia-400/0 via-violet-400/0 to-indigo-400/0 opacity-0 transition-opacity group-hover:opacity-10" />
               <h3 className="font-semibold text-violet-900">{f.title}</h3>
               <p className="mt-1 text-sm text-gray-600">{f.desc}</p>
             </div>
@@ -174,7 +150,7 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* ===== BENEFICIOS ===== */}
+      {/* ===== BENEFICIOS (TONO VIOLETA) ===== */}
       <section
         className="relative"
         style={{
@@ -182,7 +158,6 @@ export default async function HomePage({
             "linear-gradient(180deg, rgba(245,240,255,0.9) 0%, rgba(239,233,255,0.9) 100%)",
         }}
       >
-        {/* textura radial imperceptible */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -200,7 +175,6 @@ export default async function HomePage({
                 key={`why-${i}`}
                 className="group relative rounded-2xl border border-violet-200/60 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
-                <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-fuchsia-400/0 via-violet-400/0 to-indigo-400/0 opacity-0 transition-opacity group-hover:opacity-10" />
                 <h3 className="font-semibold text-violet-900">{card.title}</h3>
                 <p className="mt-2 text-sm text-gray-600">{card.desc}</p>
               </div>
@@ -212,7 +186,6 @@ export default async function HomePage({
       {/* ===== CTA FINAL ===== */}
       <section className="relative mx-auto max-w-6xl px-4 py-16">
         <div className="relative grid items-center gap-8 overflow-hidden rounded-3xl border border-violet-300/40 bg-gradient-to-br from-violet-700 via-violet-700 to-indigo-700 p-10 text-white shadow-xl ring-1 ring-violet-900/20 md:grid-cols-[1.1fr,0.9fr]">
-          {/* glow decorativo */}
           <div className="pointer-events-none absolute -left-10 top-0 h-72 w-72 rounded-full bg-fuchsia-400/30 blur-3xl" />
           <div className="pointer-events-none absolute right-0 -bottom-12 h-80 w-80 rounded-full bg-indigo-400/25 blur-3xl" />
 
