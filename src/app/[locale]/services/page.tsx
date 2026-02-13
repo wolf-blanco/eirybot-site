@@ -1,12 +1,27 @@
 // src/app/[locale]/services/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 
-export const metadata = {
-  title: "Services / Servicios — EiryBot",
-};
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const locale = params?.locale === "en" ? "en" : "es";
+  const base = "https://eirybot.com";
+  const path = `/${locale}/services`;
+
+  return {
+    title: "Services / Servicios — EiryBot",
+    metadataBase: new URL(base),
+    alternates: {
+      canonical: `${base}${path}`,
+      languages: {
+        es: `${base}/es/services`,
+        en: `${base}/en/services`,
+      },
+    },
+  };
+}
 
 export default async function ServicesPage({
   params,
@@ -30,14 +45,30 @@ export default async function ServicesPage({
   };
   const ta = (k: string) => {
     const v = t[k];
-    return Array.isArray(v) ? v : (typeof v === "string" ? [v] : []);
+    return Array.isArray(v) ? v : typeof v === "string" ? [v] : [];
   };
 
   const services = [
-    { title: ts("services.cards.1.t"), desc: ts("services.cards.1.d"), icon: "/MASCOTA-EIRYBOT_4.png" },
-    { title: ts("services.cards.2.t"), desc: ts("services.cards.2.d"), icon: "/MASCOTA-EIRYBOT_1.png" },
-    { title: ts("services.cards.3.t"), desc: ts("services.cards.3.d"), icon: "/MASCOTA-EIRYBOT_2.png" },
-    { title: ts("services.cards.4.t"), desc: ts("services.cards.4.d"), icon: "/MASCOTA-EIRYBOT_3.png" },
+    {
+      title: ts("services.cards.1.t"),
+      desc: ts("services.cards.1.d"),
+      icon: "/MASCOTA-EIRYBOT_4.png",
+    },
+    {
+      title: ts("services.cards.2.t"),
+      desc: ts("services.cards.2.d"),
+      icon: "/MASCOTA-EIRYBOT_1.png",
+    },
+    {
+      title: ts("services.cards.3.t"),
+      desc: ts("services.cards.3.d"),
+      icon: "/MASCOTA-EIRYBOT_2.png",
+    },
+    {
+      title: ts("services.cards.4.t"),
+      desc: ts("services.cards.4.d"),
+      icon: "/MASCOTA-EIRYBOT_3.png",
+    },
   ];
 
   const benefits = [
@@ -75,7 +106,10 @@ export default async function ServicesPage({
             </h1>
             <p className="mt-4 max-w-xl text-gray-700">{ts("services.lead")}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={`${base}/contact`} className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600">
+              <Link
+                href={`${base}/contact`}
+                className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600"
+              >
                 {ts("services.cta.primary")}
               </Link>
               <a
@@ -128,7 +162,9 @@ export default async function ServicesPage({
             <ul className="space-y-3 text-sm">
               {benefits.map((li, i) => (
                 <li key={`${i}-${li}`} className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex size-5 items-center justify-center rounded-full bg-green-100 text-green-700">✓</span>
+                  <span className="mt-1 inline-flex size-5 items-center justify-center rounded-full bg-green-100 text-green-700">
+                    ✓
+                  </span>
                   <span className="text-gray-700">{li}</span>
                 </li>
               ))}
@@ -153,10 +189,16 @@ export default async function ServicesPage({
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href={`${base}/about`} className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-white">
+            <Link
+              href={`${base}/about`}
+              className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-white"
+            >
               {ts("services.more.about")}
             </Link>
-            <Link href={`${base}/contact`} className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600">
+            <Link
+              href={`${base}/contact`}
+              className="rounded-full bg-violet-700 px-5 py-3 text-white hover:bg-violet-600"
+            >
               {ts("services.more.quote")}
             </Link>
           </div>
@@ -184,7 +226,10 @@ export default async function ServicesPage({
                 ))}
               </ul>
               <div className="mt-6">
-                <Link href={`${base}/contact`} className="rounded-full bg-violet-700 px-4 py-2 text-white hover:bg-violet-600">
+                <Link
+                  href={`${base}/contact`}
+                  className="rounded-full bg-violet-700 px-4 py-2 text-white hover:bg-violet-600"
+                >
                   {ts("services.packages.cta")}
                 </Link>
               </div>
@@ -200,12 +245,16 @@ export default async function ServicesPage({
             <h3 className="text-2xl font-bold">{ts("services.final.title")}</h3>
             <p className="mt-2 text-violet-100">{ts("services.final.lead")}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={`${base}/contact`} className="rounded-full bg-white px-5 py-3 text-violet-800 hover:bg-violet-50">
+              <Link
+                href={`${base}/contact`}
+                className="rounded-full bg-white px-5 py-3 text-violet-800 hover:bg-violet-50"
+              >
                 {ts("services.final.primary")}
               </Link>
               <a
                 href="https://eirybot-dashboard.web.app/login"
                 target="_blank"
+                rel="noreferrer"
                 className="rounded-full border border-white/40 px-5 py-3"
               >
                 {ts("services.final.secondary")}
