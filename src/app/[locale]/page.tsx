@@ -4,11 +4,36 @@ import Link from "next/link";
 import PhoneVideo from "@/components/phone-video";
 import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "EiryBot — Automatización 24/7",
-  description: "Chatbots, integraciones y métricas en tiempo real para tu negocio.",
-};
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { locale: raw } = await props.params;
+  const locale = raw === "en" ? "en" : "es";
+  const base = "https://eirybot.com";
+
+  const isEn = locale === "en";
+
+  const title = isEn
+    ? "EiryBot | AI Chatbot for WhatsApp, Web & SMS — Capture Leads 24/7"
+    : "EiryBot — Automatización 24/7";
+
+  const description = isEn
+    ? "Automate customer support and lead capture with an AI chatbot for WhatsApp, website and SMS. 24/7 replies, smart routing and analytics in one dashboard."
+    : "Chatbots, integraciones y métricas en tiempo real para tu negocio.";
+
+  return {
+    metadataBase: new URL(base),
+    title,
+    description,
+    alternates: {
+      canonical: `${base}/${locale}`,
+      languages: {
+        es: `${base}/es`,
+        en: `${base}/en`,
+      },
+    },
+  };
+}
 
 export default async function HomePage({
   params,
