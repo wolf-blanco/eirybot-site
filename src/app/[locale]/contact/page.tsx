@@ -1,3 +1,5 @@
+// src/app/[locale]/contact/page.tsx
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
 import { getDict, tt } from "@/lib/i18n";
 import ContactClient from "./contact-client";
@@ -20,10 +22,15 @@ export async function generateMetadata({ params }: any): Promise<import("next").
 export default async function ContactPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale }> | { locale: Locale };
 }) {
-  // Next 16: params es Promise
-  const { locale } = await params;
+  // Next 16: params puede venir como Promise o como objeto
+  const resolved =
+    typeof (params as any)?.then === "function"
+      ? await (params as Promise<{ locale: Locale }>)
+      : (params as { locale: Locale });
+
+  const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
   const dict = getDict(locale);
 
   return <ContactClient locale={locale} dict={dict} />;
