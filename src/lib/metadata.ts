@@ -36,3 +36,39 @@ export function constructMetadata({
         },
     };
 }
+
+export function constructSchema(locale: Locale) {
+    const base = "https://eirybot.com";
+    const isEs = locale === "es";
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": `${base}/#organization`,
+                name: "EiryBot",
+                url: base,
+                logo: {
+                    "@type": "ImageObject",
+                    url: `${base}/isotipo-eirybot.png`,
+                },
+                sameAs: ["https://www.instagram.com/eirybot"],
+            },
+            {
+                "@type": "SoftwareApplication",
+                name: "EiryBot",
+                applicationCategory: "BusinessApplication",
+                operatingSystem: "Web, WhatsApp, Android, iOS",
+                offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "USD",
+                },
+                description: isEs
+                    ? "Automatiza tu atención al cliente y ventas en WhatsApp con Inteligencia Artificial."
+                    : "Automate customer support and sales on WhatsApp with Artificial Intelligence.",
+            },
+        ],
+    };
+}
