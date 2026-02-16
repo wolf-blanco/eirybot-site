@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { getDict, type Locale } from "@/lib/i18n";
+import { constructSchema } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export async function generateMetadata(props: any): Promise<Metadata> {
@@ -31,10 +32,15 @@ export default async function LocaleLayout(props: any) {
 
   const locale = (raw === "en" ? "en" : "es") as Locale;
   const dict = getDict(locale); // Record<string, string | string[]>
+  const schema = constructSchema(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
         <SiteHeader locale={locale} dict={dict} />
         <main className="min-h-[70vh]">{children}</main>
         <SiteFooter locale={locale} dict={dict} />
