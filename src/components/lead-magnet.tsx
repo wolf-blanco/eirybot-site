@@ -58,19 +58,26 @@ export default function LeadMagnet({ locale }: Props) {
                     <span className="text-2xl">🎉</span>
                 </div>
                 <h3 className="text-2xl font-bold text-green-800 mb-2">
-                    {isEs ? "¡Gracias por suscribirte!" : "Thanks for subscribing!"}
+                    {isEs ? "¡Aquí tienes tu guía!" : "Here is your guide!"}
                 </h3>
                 <p className="text-green-700 mb-6">
                     {isEs
-                        ? "Hemos enviado la guía a tu correo electrónico."
-                        : "We have sent the guide to your email address."}
+                        ? "Haz clic abajo para descargarla inmediatamente."
+                        : "Click below to download it immediately."}
                 </p>
-                <button
-                    onClick={() => setSuccess(false)}
-                    className="text-green-800 font-semibold underline hover:text-green-900"
+
+                <a
+                    href="/guia-whatsapp-2026.pdf"
+                    download="Guia-Eirybot-Whatsapp-2026.pdf"
+                    target="_blank"
+                    className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1"
                 >
-                    {isEs ? "Descargar otra vez" : "Download again"}
-                </button>
+                    {isEs ? "⬇️ DESCARGAR PDF AHORA" : "⬇️ DOWNLOAD PDF NOW"}
+                </a>
+
+                <p className="text-green-600 text-xs mt-4">
+                    {isEs ? "(También te la enviaremos por correo pronto)" : "(We'll also email it to you soon)"}
+                </p>
             </div>
         );
     }
