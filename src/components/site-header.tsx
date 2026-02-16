@@ -84,6 +84,14 @@ export default function SiteHeader({
             {tt(dict, "nav.contact", "Contacto")}
           </NavLink>
           <a
+            href="https://demo.eirybot.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-fuchsia-600 px-4 py-1 text-sm font-semibold transition hover:bg-fuchsia-500"
+          >
+            Demo
+          </a>
+          <a
             href="https://eirybot-dashboard.web.app/login"
             className="rounded-full bg-white/10 px-3 py-1 text-sm hover:bg-white/15"
           >

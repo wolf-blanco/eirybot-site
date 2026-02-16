@@ -27,6 +27,7 @@ export default function SiteFooter({
 
   const colResources = [
     { href: `/${locale}/privacy`, label: ts("footer.links.privacy", "Privacidad") },
+    { href: "https://demo.eirybot.com", label: ts("footer.links.demo", "Probar Demo") },
     { href: "https://scan.eirybot.com", label: ts("footer.links.scan", "Probar EiryScan") },
     { href: "https://eirybot-dashboard.web.app/login", label: ts("footer.links.login", "Acceso clientes") },
   ];

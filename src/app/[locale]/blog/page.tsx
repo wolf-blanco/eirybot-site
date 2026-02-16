@@ -33,6 +33,18 @@ export default async function BlogIndexPage(props: any) {
       date: "2026-02-15",
       image: "/robot4.png", // Reusing standard asset
       readTime: locale === "es" ? "5 min lectura" : "5 min read"
+    },
+    {
+      slug: "sales-mistakes",
+      title: locale === "es"
+        ? "5 Errores que Hacen que tus Clientes te Dejen en 'Visto'"
+        : "5 Mistakes That Make Your Customers Leave You on 'Read'",
+      excerpt: locale === "es"
+        ? "¿Trabajas mucho pero cierras poco? Descubre por qué el 'Saludo Robot' y los textos largos están matando tu negocio."
+        : "Work hard but close little? Discover why 'Robot Greetings' and long texts are killing your business.",
+      date: "2026-02-16",
+      image: "/robot5.png", // Using another asset
+      readTime: locale === "es" ? "4 min lectura" : "4 min read"
     }
   ];
 
