@@ -2,27 +2,23 @@
 // ❌ No pongas "use client" aquí
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
+import { getDict, tt } from "@/lib/i18n";
 import LandingPageClient from "./LandingPageClient";
 
-export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const locale = params?.locale === "en" ? "en" : "es";
-  const base = "https://eirybot.com";
-  const path = `/${locale}/landing-page`;
+import { constructMetadata } from "@/lib/metadata";
 
-  return {
-    title: "EiryBot — Probalo gratis",
-    description:
-      "Automatizá WhatsApp, cotizaciones y recordatorios. Capturá leads y medilos en tiempo real. Primer mes gratis.",
-    metadataBase: new URL(base),
-    alternates: {
-      canonical: `${base}${path}`,
-      languages: {
-        es: `${base}/es/landing-page`,
-        en: `${base}/en/landing-page`,
-      },
-    },
-  };
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
+  const locale = raw === "en" ? "en" : "es";
+  const t = getDict(locale);
+  const path = "/landing-page";
+
+  return constructMetadata({
+    title: tt(t, "landing.meta.title"),
+    description: tt(t, "landing.meta.description"),
+    locale,
+    path,
+  });
 }
 
 export default async function LandingPage({
@@ -39,5 +35,10 @@ export default async function LandingPage({
   const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
   const t = getDict(locale);
 
-  return <LandingPageClient locale={locale} dict={t} />;
+  return (
+    <div className="flex min-h-screen flex-col bg-white text-gray-900">
+      {/* HEADER */}
+      <LandingPageClient locale={locale} dict={t} />
+    </div>
+  );
 }

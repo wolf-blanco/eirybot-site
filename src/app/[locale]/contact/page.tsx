@@ -1,25 +1,22 @@
 // src/app/[locale]/contact/page.tsx
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
+import { getDict, tt } from "@/lib/i18n";
 import ContactClient from "./contact-client";
 
-export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const locale = params?.locale === "en" ? "en" : "es";
-  const base = "https://eirybot.com";
-  const path = `/${locale}/contact`;
+import { constructMetadata } from "@/lib/metadata";
 
-  return {
-    title: "Contact / Contacto — EiryBot",
-    metadataBase: new URL(base),
-    alternates: {
-      canonical: `${base}${path}`,
-      languages: {
-        es: `${base}/es/contact`,
-        en: `${base}/en/contact`,
-      },
-    },
-  };
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
+  const locale = raw === "en" ? "en" : "es";
+  const t = getDict(locale);
+  const path = "/contact";
+
+  return constructMetadata({
+    title: `${tt(t, "nav.contact")} — EiryBot`,
+    locale,
+    path,
+  });
 }
 
 export default async function ContactPage({

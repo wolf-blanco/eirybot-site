@@ -3,24 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
+import { getDict, tt } from "@/lib/i18n";
 
-export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const locale = params?.locale === "en" ? "en" : "es";
-  const base = "https://eirybot.com";
-  const path = `/${locale}/services`;
+import { constructMetadata } from "@/lib/metadata";
 
-  return {
-    title: "Services / Servicios — EiryBot",
-    metadataBase: new URL(base),
-    alternates: {
-      canonical: `${base}${path}`,
-      languages: {
-        es: `${base}/es/services`,
-        en: `${base}/en/services`,
-      },
-    },
-  };
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
+  const locale = raw === "en" ? "en" : "es";
+  const t = getDict(locale);
+  const path = "/services";
+
+  return constructMetadata({
+    title: `${tt(t, "nav.services")} — EiryBot`,
+    locale,
+    path,
+  });
 }
 
 export default async function ServicesPage({
@@ -93,7 +90,7 @@ export default async function ServicesPage({
   ];
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* HERO */}
       <section className="bg-gradient-to-b from-violet-50 to-white">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1.1fr,0.9fr]">
@@ -273,6 +270,6 @@ export default async function ServicesPage({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -123,7 +123,7 @@ export default function ContactClient({
                 context: "contact/web_leads_gas",
                 createdAt: serverTimestamp(),
               });
-            } catch {}
+            } catch { }
           })
           .finally(() => clearTimeout(t));
       }
@@ -145,14 +145,14 @@ export default function ContactClient({
           url: typeof window !== "undefined" ? window.location.href : "",
           createdAt: serverTimestamp(),
         });
-      } catch {}
+      } catch { }
     } finally {
       setSending(false);
     }
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-violet-50/40">
+    <div className="min-h-screen bg-gradient-to-b from-white to-violet-50/40">
       {/* Intro */}
       <section className="mx-auto max-w-5xl px-4 pb-6 pt-14">
         <div className="mx-auto max-w-3xl text-center">
@@ -329,6 +329,6 @@ export default function ContactClient({
           </aside>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -3,36 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import PhoneVideo from "@/components/phone-video";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
-import type { Metadata } from "next";
+import { getDict, tt } from "@/lib/i18n";
 
-export async function generateMetadata(props: any): Promise<Metadata> {
-  const { locale: raw } = await props.params;
+
+import { constructMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
   const locale = raw === "en" ? "en" : "es";
-  const base = "https://eirybot.com";
+  const t = getDict(locale);
+  const path = "";
 
-  const isEn = locale === "en";
-
-  const title = isEn
-    ? "EiryBot | AI Chatbot for WhatsApp, Web & SMS — Capture Leads 24/7"
-    : "EiryBot — Automatización 24/7";
-
-  const description = isEn
-    ? "Automate customer support and lead capture with an AI chatbot for WhatsApp, website and SMS. 24/7 replies, smart routing and analytics in one dashboard."
-    : "Chatbots, integraciones y métricas en tiempo real para tu negocio.";
-
-  return {
-    metadataBase: new URL(base),
-    title,
-    description,
-    alternates: {
-      canonical: `${base}/${locale}`,
-      languages: {
-        es: `${base}/es`,
-        en: `${base}/en`,
-      },
-    },
-  };
+  return constructMetadata({
+    title: tt(t, "home.title"),
+    description: tt(t, "home.lead"),
+    locale,
+    path,
+  });
 }
 
 export default async function HomePage({
@@ -88,7 +75,7 @@ export default async function HomePage({
   ];
 
   return (
-    <main className="min-h-screen text-violet-900">
+    <div className="text-violet-900">
       {/* ===== HERO (BLANCO PURO) ===== */}
       <section className="relative overflow-hidden bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-18 md:grid-cols-2 md:gap-10 lg:py-22">
@@ -246,6 +233,6 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
