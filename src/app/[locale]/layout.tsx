@@ -13,17 +13,13 @@ export default async function LocaleLayout(props: any) {
   const dict = getDict(locale); // Record<string, string | string[]>
 
   return (
-    <>
-      <SiteHeader locale={locale} dict={dict} />
-      <main className="min-h-[70vh]">{children}</main>
-      <SiteFooter locale={locale} dict={dict} />
-
-      {/* Ajusta <html lang="..."> sin anidar html/body */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.setAttribute('lang','${locale}');`,
-        }}
-      />
-    </>
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <SiteHeader locale={locale} dict={dict} />
+        <main className="min-h-[70vh]">{children}</main>
+        <SiteFooter locale={locale} dict={dict} />
+      </body>
+    </html>
   );
 }
+

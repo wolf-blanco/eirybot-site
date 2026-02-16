@@ -2,11 +2,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
+import { getDict, tt } from "@/lib/i18n";
 
-export const metadata = {
-  title: "About / Nosotros — EiryBot",
-};
+
+import { constructMetadata } from "@/lib/metadata";
+
+
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
+  const locale = raw === "en" ? "en" : "es";
+  const t = getDict(locale);
+  const path = "/about";
+
+  return constructMetadata({
+    title: `${tt(t, "nav.about")} — EiryBot`,
+    locale,
+    path,
+  });
+}
 
 export default async function AboutPage({
   params,
@@ -41,7 +54,7 @@ export default async function AboutPage({
   ];
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-violet-50 to-white">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1.1fr,0.9fr]">
@@ -209,6 +222,6 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

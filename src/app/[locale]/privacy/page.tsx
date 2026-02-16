@@ -2,15 +2,25 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
-import { getDict } from "@/lib/i18n";
+import { getDict, tt } from "@/lib/i18n";
+
+import { constructMetadata } from "@/lib/metadata";
 
 // ✅ Metadata (server)
-export const metadata = {
-  title: "Privacy / Política de Privacidad — EiryBot",
-  description:
-    "Cómo EiryBot trata tus datos: formularios, cookies, derechos, seguridad y contactos.",
-  robots: { index: true, follow: true },
-};
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale: raw } = await params;
+  const locale = raw === "en" ? "en" : "es";
+  const t = getDict(locale);
+  const path = "/privacy";
+
+  return constructMetadata({
+    title: `${tt(t, "privacy.title")} — EiryBot`,
+    description:
+      "Cómo EiryBot trata tus datos: formularios, cookies, derechos, seguridad y contactos.",
+    locale,
+    path,
+  });
+}
 
 export default async function PrivacyPage({
   params,
@@ -115,7 +125,7 @@ export default async function PrivacyPage({
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-violet-50/40">
+    <div className="min-h-screen bg-gradient-to-b from-white to-violet-50/40">
       {/* Hero */}
       <section className="border-b border-violet-100 bg-white/70 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-10">
@@ -192,6 +202,6 @@ export default async function PrivacyPage({
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
