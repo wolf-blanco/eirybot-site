@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { type Locale } from "@/lib/i18n";
 import { constructMetadata } from "@/lib/metadata";
+import LeadMagnet from "@/components/lead-magnet";
 
 export async function generateMetadata(props: any): Promise<import("next").Metadata> {
     const { locale: raw } = await props.params;
@@ -111,6 +112,9 @@ export default async function BlogPost(props: any) {
                             </Link>
                         </div>
                     </div>
+
+                    {/* Lead Magnet Integration */}
+                    <LeadMagnet locale={locale} />
 
                     <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
                         {isEs ? "3 Pasos para Empezar Hoy" : "3 Steps to Start Today"}

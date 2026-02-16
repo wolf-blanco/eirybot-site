@@ -34,9 +34,8 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`px-2 py-1 transition-colors ${
-        active ? "text-white" : "text-white/80 hover:text-white"
-      }`}
+      className={`px-2 py-1 transition-colors ${active ? "text-white" : "text-white/80 hover:text-white"
+        }`}
     >
       {children}
     </Link>
@@ -77,6 +76,9 @@ export default function SiteHeader({
           </NavLink>
           <NavLink href={`/${locale}/services`} active={isActive(`/${locale}/services`)}>
             {tt(dict, "nav.services", "Servicios")}
+          </NavLink>
+          <NavLink href={`/${locale}/blog`} active={isActive(`/${locale}/blog`)}>
+            {tt(dict, "nav.blog", "Blog")}
           </NavLink>
           <NavLink href={`/${locale}/contact`} active={isActive(`/${locale}/contact`)}>
             {tt(dict, "nav.contact", "Contacto")}

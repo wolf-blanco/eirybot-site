@@ -21,6 +21,7 @@ export default function SiteFooter({
     { href: `/${locale}`, label: ts("footer.links.home", "Inicio") },
     { href: `/${locale}/about`, label: ts("footer.links.about", "Nosotros") },
     { href: `/${locale}/services`, label: ts("footer.links.services", "Servicios") },
+    { href: `/${locale}/blog`, label: ts("footer.links.blog", "Blog") },
     { href: `/${locale}/contact`, label: ts("footer.links.contact", "Contacto") },
   ];
 
