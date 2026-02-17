@@ -236,35 +236,50 @@ export default async function ServicesPage({
       </section>
 
       {/* CTA FINAL */}
-      <section className="mx-auto max-w-6xl px-4 pb-20">
-        <div className="grid items-center gap-8 rounded-3xl bg-violet-700 p-8 text-white md:grid-cols-[1.1fr,0.9fr]">
-          <div>
-            <h3 className="text-2xl font-bold">{ts("services.final.title")}</h3>
-            <p className="mt-2 text-violet-100">{ts("services.final.lead")}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
+      {/* CTA FINAL */}
+      <section className="relative mx-auto max-w-6xl px-4 py-24">
+        <div className="relative grid items-center gap-12 overflow-hidden rounded-[3rem] bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900 p-10 text-white shadow-2xl shadow-violet-900/40 md:grid-cols-2 md:p-16">
+
+          {/* Background Effects */}
+          <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-fuchsia-500/20 blur-[100px]" />
+          <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-cyan-500/20 blur-[100px]" />
+
+          <div className="relative z-10">
+            <h2 className="text-3xl font-black tracking-tight md:text-5xl leading-tight">
+              {ts("services.final.title")}
+            </h2>
+            <p className="mt-6 text-lg text-violet-100/90 leading-relaxed max-w-md">
+              {ts("services.final.lead")}
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href={`${base}/contact`}
-                className="rounded-full bg-white px-5 py-3 text-violet-800 hover:bg-violet-50"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-violet-900 shadow-xl transition-all hover:scale-105 hover:bg-violet-50 focus:ring-4 focus:ring-violet-500/30"
               >
                 {ts("services.final.primary")}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
               <a
                 href="https://eirybot-dashboard.web.app/login"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-white/40 px-5 py-3"
+                className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50 focus:ring-4 focus:ring-white/20"
               >
                 {ts("services.final.secondary")}
               </a>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-sm">
+
+          <div className="relative z-10 mx-auto w-full max-w-sm md:max-w-md">
+            {/* Glow behind robot */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-violet-500/30 to-transparent blur-2xl" />
             <Image
               src="/robot5.png"
               alt={ts("services.final.imgAlt")}
               width={520}
               height={520}
-              className="h-auto w-full"
+              className="relative drop-shadow-2xl transition-transform duration-700 hover:scale-105"
               priority
             />
           </div>
