@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PhoneVideo from "@/components/phone-video";
+import Testimonials from "@/components/testimonials";
 import type { Locale } from "@/lib/i18n";
 import { getDict, tt } from "@/lib/i18n";
 
@@ -160,15 +161,20 @@ export default async function HomePage({
             </div>
           ))}
         </div>
-      </section>
+
+      </section >
+
+      {/* ===== TESTIMONIALS ===== */}
+      < Testimonials locale={locale} />
 
       {/* ===== BENEFICIOS (TONO VIOLETA) ===== */}
-      <section
+      < section
         className="relative"
         style={{
           background:
             "linear-gradient(180deg, rgba(245,240,255,0.9) 0%, rgba(239,233,255,0.9) 100%)",
-        }}
+        }
+        }
       >
         <div
           aria-hidden
@@ -193,10 +199,10 @@ export default async function HomePage({
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ===== CTA FINAL ===== */}
-      <section className="relative mx-auto max-w-6xl px-4 py-16">
+      < section className="relative mx-auto max-w-6xl px-4 py-16" >
         <div className="relative grid items-center gap-8 overflow-hidden rounded-3xl border border-violet-300/40 bg-gradient-to-br from-violet-700 via-violet-700 to-indigo-700 p-10 text-white shadow-xl ring-1 ring-violet-900/20 md:grid-cols-[1.1fr,0.9fr]">
           <div className="pointer-events-none absolute -left-10 top-0 h-72 w-72 rounded-full bg-fuchsia-400/30 blur-3xl" />
           <div className="pointer-events-none absolute right-0 -bottom-12 h-80 w-80 rounded-full bg-indigo-400/25 blur-3xl" />
@@ -232,7 +238,7 @@ export default async function HomePage({
             />
           </div>
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }
