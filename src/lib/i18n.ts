@@ -1,14 +1,14 @@
 export type Locale = "es" | "en";
 
 // Diccionario puede tener strings o arrays de strings (p. ej., bullets)
-export type Dict = Record<string, string | string[]>;
+export type Dict = Record<string, string | string[] | readonly string[]>;
+
+import en from "../messages/en";
+import es from "../messages/es";
 
 // Síncrono: carga JSON según el locale
 export function getDict(locale: Locale): Dict {
-  const dict =
-    locale === "en"
-      ? require("../messages/en.json")
-      : require("../messages/es.json");
+  const dict = locale === "en" ? en : es;
   return dict as Dict;
 }
 
