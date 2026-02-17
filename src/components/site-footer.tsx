@@ -21,11 +21,13 @@ export default function SiteFooter({
     { href: `/${locale}`, label: ts("footer.links.home", "Inicio") },
     { href: `/${locale}/about`, label: ts("footer.links.about", "Nosotros") },
     { href: `/${locale}/services`, label: ts("footer.links.services", "Servicios") },
+    { href: `/${locale}/blog`, label: ts("footer.links.blog", "Blog") },
     { href: `/${locale}/contact`, label: ts("footer.links.contact", "Contacto") },
   ];
 
   const colResources = [
     { href: `/${locale}/privacy`, label: ts("footer.links.privacy", "Privacidad") },
+    { href: "https://demo.eirybot.com", label: ts("footer.links.demo", "Probar Demo") },
     { href: "https://scan.eirybot.com", label: ts("footer.links.scan", "Probar EiryScan") },
     { href: "https://eirybot-dashboard.web.app/login", label: ts("footer.links.login", "Acceso clientes") },
   ];

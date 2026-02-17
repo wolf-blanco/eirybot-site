@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EiryBot Checklist One-Pager</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #4c1d95;
+            /* Violet 900 */
+            --secondary: #d946ef;
+            /* Fuchsia 500 */
+            --accent: #10b981;
+            /* Emerald 500 */
+            --bg: #f8fafc;
+            --text: #1e293b;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            /* Centering for screen viewing */
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .sheet {
+            width: 210mm;
+            height: 297mm;
+            /* A4 */
+            background: white;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Header */
+        header {
+            background: radial-gradient(circle at right, #5b21b6, #4c1d95);
+            color: white;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .header-content p {
+            margin: 5px 0 0;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .badge {
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content Grid */
+        .content {
+            padding: 30px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background-color: white;
+            background-image:
+                radial-gradient(#4c1d95 0.5px, transparent 0.5px),
+                radial-gradient(#4c1d95 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-color: #fafafa;
+            /* Fallback/Blend */
+        }
+
+        /* Remove dot pattern for cleaner look or improve readability */
+        .content {
+            background: #fff;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 18px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-number {
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .checklist-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checklist-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 2px;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .pro-tip {
+            background: #f0fdf4;
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 11px;
+            color: #166534;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e1b4b;
+            /* very dark violet */
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cta-btn {
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Print adjustments */
+        @media print {
+            body {
+                background: white;
+                display: block;
+                min-height: auto;
+            }
+
+            .sheet {
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="no-print"
+        style="position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="window.print()"
+            style="background: #4c1d95; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            🖨️ Imprimir PDF (1 Hoja)
+        </button>
+    </div>
+
+    <div class="sheet">
+        <!-- Header -->
+        <header
+            style="background: linear-gradient(135deg, #2e1065 0%, #4c1d95 100%); padding: 30px 50px; border-bottom: 5px solid #d946ef; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div class="header-content" style="flex: 1;">
+                <img src="/eirylogopdf2.png" alt="EiryBot" style="height: 40px; display: block; margin-bottom: 15px;">
+                <h1
+                    style="font-size: 24px; margin: 0; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 800;">
+                    Checklist de Automatización 2026</h1>
+                <p style="color: #ddd6fe; margin: 5px 0 0; font-size: 14px;">La hoja de ruta para dejar de perder
+                    clientes en WhatsApp.</p>
+            </div>
+            <div class="badge"
+                style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); padding: 10px 20px; text-align: right;">
+                <div
+                    style="font-size: 10px; color: #d8b4fe; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;">
+                    DOCUMENTO OFICIAL</div>
+                <div style="font-size: 16px; font-weight: bold;">GUÍA GRATUITA</div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Left Column -->
+            <div class="column">
+
+                <!-- Section 1 -->
+                <div>
+                    <div class="section-title">
+                        <span class="section-number">1</span>
+                        Configuración Inicial
+                    </div>
+                    <div class="card">
+                        <div class="checklist-item">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Saludo Instantáneo (0s)</div>
+                                <div class="item-desc">Tu bot debe responder en el primer segundo.</div>
+                                <div class="pro-tip">
+                                    <b>Tip:</b> No digas solo "Hola". Di: "Hola, soy [IA] de [Negocio]. ¿Ventas o
+                                    Ayuda?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 15px;">
+                        <div class="checklist-item">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Catálogo Conectado</div>
+                                <div class="item-desc">Lista de precios o PDF listos para enviar.</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" style="margin-top: 10px;">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Horarios Definidos</div>
+                                <div class="item-desc">Define cuándo interviene un humano real.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2 -->
+                <div>
+                    <div class="section-title">
+                        <span class="section-number">2</span>
+                        Flujos de Venta
+                    </div>
+                    <div class="card">
+                        <div class="checklist-item">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Cualificación de Leads</div>
+                                <div class="item-desc">Pregunta Nombre, Email y Presupuesto antes de pasar a un humano.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" style="margin-top: 12px;">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Manejo de Objeciones</div>
+                                <div class="item-desc">Si dicen "Es caro", responde con beneficios, no con silencio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="column">
+
+                <!-- Section 3 -->
+                <div>
+                    <div class="section-title">
+                        <span class="section-number">3</span>
+                        Seguimiento (Follow-Up)
+                    </div>
+                    <div class="card">
+                        <div class="checklist-item">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">El Recordatorio de 24h</div>
+                                <div class="item-desc">"Hola [Nombre], ¿pudiste revisar la propuesta?"</div>
+                                <div class="pro-tip">
+                                    <b>Dato:</b> El 60% de las ventas ocurren en el seguimiento.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" style="margin-top: 12px;">
+                            <div class="check-box"></div>
+                            <div>
+                                <div class="item-title">Campaña de Reactivación</div>
+                                <div class="item-desc">Escribir a clientes antiguos con ofertas nuevas.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4 -->
+                <div>
+                    <div class="section-title">
+                        <span class="section-number">4</span>
+                        Herramientas Vitales
+                    </div>
+                    <div class="card" style="background: #f8fafc; border: none;">
+                        <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #475569;">
+                            <li style="margin-bottom: 5px;"><b>WhatsApp Business API</b> (Evita bloqueos)</li>
+                            <li style="margin-bottom: 5px;"><b>EiryBot AI</b> (Entiende contexto real)</li>
+                            <li><b>CRM Integrado</b> (Guarda todo)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main CTA -->
+                <div
+                    style="margin-top: auto; background: var(--bg); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center;">
+                    <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 16px;">¿Necesitas ayuda con esto?
+                    </h3>
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 15px;">
+                        Configuramos tu robot vendedor en menos de 48 horas.
+                    </p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://eirybot.com"
+                        alt="QR" style="width: 80px; height: 80px; margin-bottom: 10px; mix-blend-mode: multiply;">
+                    <br>
+                    <div style="font-size: 10px; font-weight: bold; color: #94a3b8; text-transform: uppercase;">Escanear
+                        para Demo</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div style="font-size: 12px; opacity: 0.7;">
+                © 2026 EiryBot Inc. Todos los derechos reservados.
+            </div>
+            <a href="https://eirybot.com" class="cta-btn">
+                Visitar Sitio Web →
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>

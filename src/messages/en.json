@@ -51,24 +51,27 @@
   "home.final.cta.contact": "Contact",
   "home.final.cta.scan": "Try EiryScan",
 
+  "footer.blurb": "We automate processes with chatbots, integrations, and 24/7 metrics for your business.",
   "footer.tagline": "24/7 automation for support, sales, and operations. Connect. Reply. Grow.",
-  "footer.menu.title": "Navigation",
-  "footer.menu.home": "Home",
-  "footer.menu.about": "About Us",
-  "footer.menu.services": "Services",
-  "footer.menu.contact": "Contact",
-  "footer.menu.login": "Login",
-  "footer.resources.title": "Resources",
-  "footer.resources.privacy": "Privacy Policy",
-  "footer.resources.blog": "Blog",
-  "footer.resources.business": "Business",
-  "footer.resources.list": "List",
-  "footer.contact.title": "Contact",
+
+  "footer.col.company": "Company",
+  "footer.col.resources": "Resources",
+  "footer.col.contact": "Contact",
+
+  "footer.links.home": "Home",
+  "footer.links.about": "About",
+  "footer.links.services": "Services",
+  "footer.links.contact": "Contact",
+  "footer.links.privacy": "Privacy Policy",
+  "footer.links.scan": "Try EiryScan",
+  "footer.links.login": "Client Login",
+
   "footer.contact.address": "Florida, United States",
   "footer.contact.phone": "+1 305-8983160",
   "footer.contact.email": "info@eirybot.com",
+
   "footer.rights": "© {year} EiryBot. All rights reserved.",
-  "footer.made": "Built with Next.js • Deployed on Vercel",
+  "footer.made": "Made with ♥ in Florida.",
   
   "privacy.title": "Privacy Policy",
   "privacy.lastUpdated.label": "Last updated:",
@@ -253,9 +256,74 @@
   "thanks.cta.meet": "Book a meeting",
   "thanks.help": "Need something urgent? Email us at",
   "thanks.or": "or call",
-  "thanks.whatsapp.greet": "Hi EiryBot! I’ve just submitted the form. I’d like to schedule a demo and review an automation plan. Ref:"
+  "thanks.whatsapp.greet": "Hi EiryBot! I’ve just submitted the form. I’d like to schedule a demo and review an automation plan. Ref:",
+
+  "landing.meta.title": "EiryBot — Try it free",
+  "landing.meta.description": "Automate WhatsApp, quotes and reminders. Capture leads and measure them in real time. First month free.",
+
+  "landing.hero.badge": "New",
+  "landing.hero.title": "Do you use WhatsApp to serve customers?",
+  "landing.hero.lead": "Automate conversations, generate quotes, and reply 24/7 with EiryBot. Your first month is completely free.",
+  "landing.hero.primary": "Try for free",
+  "landing.hero.secondary": "See EiryScan",
+  "landing.hero.alt": "EiryBot — 24/7 Automation",
+
+  "landing.form.title": "📩 Try it free",
+  "landing.form.lead": "Leave your email and we’ll send access to the demo plus exclusive perks.",
+  "landing.form.email.label": "Email",
+  "landing.form.email.placeholder": "you@company.com",
+  "landing.form.submit": "Get my demo",
+  "landing.form.legal": "No spam. Just a single message to try EiryBot 😉",
+  "landing.form.success": "All set! Check your inbox for the demo.",
+  "landing.form.error": "We couldn’t send the form. Please try again shortly.",
+
+  "landing.scan.title": "Quick audit with EiryScan",
+  "landing.scan.lead": "Measure your automation maturity and find opportunities in minutes.",
+  "landing.scan.cta": "Run my EiryScan",
+
+  "landing.whatsapp.cta": "Chat on WhatsApp",
+  "landing.whatsapp.prefill": "Hi EiryBot, I want a demo. I’m coming from the landing page.",
+
+  "landing.benefits.title": "Why EiryBot?",
+  "landing.benefits.1.t": "24/7 availability",
+  "landing.benefits.1.d": "Never lose leads after hours. Capture and qualify automatically.",
+  "landing.benefits.2.t": "Instant quotes",
+  "landing.benefits.2.d": "Send proposals with business rules and automatic follow-ups.",
+  "landing.benefits.3.t": "Real integrations",
+  "landing.benefits.3.d": "Connect Sheets, CRM, payments, calendar, and more—without headaches.",
+  "landing.benefits.4.t": "Actionable metrics",
+  "landing.benefits.4.d": "Track what matters: response time, conversion, and influenced revenue.",
+
+  "landing.features.title": "What you’ll get",
+  "landing.features.1": "Reply on WhatsApp with context and variables",
+  "landing.features.2": "Create and send automatic quotes",
+  "landing.features.3": "Book appointments with reminders",
+  "landing.features.4": "Sync leads to your CRM or database",
+  "landing.features.5": "Trigger internal notifications with SLAs",
+  "landing.features.6": "See dashboards and export reports",
+
+  "landing.trust.title": "Chosen by teams scaling their support",
+  "landing.trust.note": "Real case studies available under NDA",
+
+  "landing.footer.note": "© {year} EiryBot. All rights reserved.",
+  "landing.footer.privacy": "Privacy Policy",
+
+  "landing.cta.contact": "Talk to us",
+
+
+  "unsubscribe.title": "Unsubscribe",
+  "unsubscribe.lead": "Enter your email to stop receiving our emails.",
+  "unsubscribe.label": "Email",
+  "unsubscribe.placeholder": "your@email.com",
+  "unsubscribe.submit": "Unsubscribe",
+  "unsubscribe.msg.ok": "✅ Your email has been removed from our list. Thank you!",
+  "unsubscribe.msg.already": "ℹ️ This email was already unsubscribed.",
+  "unsubscribe.msg.error": "❌ There was a problem processing your request.",
+  "unsubscribe.msg.network": "❌ Network or connection error.",
+  "unsubscribe.meta.title": "Unsubscribe — EiryBot",
+  "unsubscribe.meta.description": "Manage your unsubscribe from EiryBot’s mailing list.",
+  "common.processing": "Processing…",
+  "common.back": "Back",
+  "common.viewSite": "View site"
 
 }
-
-
-

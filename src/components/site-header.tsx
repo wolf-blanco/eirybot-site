@@ -34,9 +34,8 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`px-2 py-1 transition-colors ${
-        active ? "text-white" : "text-white/80 hover:text-white"
-      }`}
+      className={`px-2 py-1 transition-colors ${active ? "text-white" : "text-white/80 hover:text-white"
+        }`}
     >
       {children}
     </Link>
@@ -78,9 +77,20 @@ export default function SiteHeader({
           <NavLink href={`/${locale}/services`} active={isActive(`/${locale}/services`)}>
             {tt(dict, "nav.services", "Servicios")}
           </NavLink>
+          <NavLink href={`/${locale}/blog`} active={isActive(`/${locale}/blog`)}>
+            {tt(dict, "nav.blog", "Blog")}
+          </NavLink>
           <NavLink href={`/${locale}/contact`} active={isActive(`/${locale}/contact`)}>
             {tt(dict, "nav.contact", "Contacto")}
           </NavLink>
+          <a
+            href="https://demo.eirybot.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-fuchsia-600 px-4 py-1 text-sm font-semibold transition hover:bg-fuchsia-500"
+          >
+            Demo
+          </a>
           <a
             href="https://eirybot-dashboard.web.app/login"
             className="rounded-full bg-white/10 px-3 py-1 text-sm hover:bg-white/15"
