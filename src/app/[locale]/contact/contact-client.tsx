@@ -3,12 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import type { Locale } from "@/lib/i18n";
+import type { Locale, Dict } from "@/lib/i18n";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { colWebLeads, colErrorLog } from "@/lib/paths";
-
-// Diccionario indexable (strings o arrays si en el futuro los usás)
-type Dict = Record<string, string | string[]>;
 
 const SHEETS_ENDPOINT =
   process.env.NEXT_PUBLIC_SHEETS_ENDPOINT ??

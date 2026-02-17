@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { colWebLeads, colErrorLog } from "@/lib/paths";
 
-type Dict = Record<string, string | string[]>;
+import { type Locale, type Dict } from "@/lib/i18n";
 
 const SHEETS_ENDPOINT =
   process.env.NEXT_PUBLIC_SHEETS_ENDPOINT ??
@@ -97,19 +97,19 @@ export default function LandingPageClient({
           mode: "no-cors",
           signal: ctrl.signal,
         })
-        .catch(async (err: any) => {
-          // aborts / “opaque” fallbacks → ignorar
-          if (err?.name === "AbortError" || err?.message === "Failed to fetch") return;
-          // si querés, logueá solo errores “reales”
-          try {
-            await addDoc(colErrorLog(), {
-              message: err?.message ?? "GAS fetch failed",
-              context: "landing/web_leads_gas",
-              createdAt: serverTimestamp(),
-            });
-          } catch {}
-        })
-        
+          .catch(async (err: any) => {
+            // aborts / “opaque” fallbacks → ignorar
+            if (err?.name === "AbortError" || err?.message === "Failed to fetch") return;
+            // si querés, logueá solo errores “reales”
+            try {
+              await addDoc(colErrorLog(), {
+                message: err?.message ?? "GAS fetch failed",
+                context: "landing/web_leads_gas",
+                createdAt: serverTimestamp(),
+              });
+            } catch { }
+          })
+
           .finally(() => clearTimeout(timer));
       }
 
@@ -141,7 +141,7 @@ export default function LandingPageClient({
           url: typeof window !== "undefined" ? window.location.href : "",
           createdAt: serverTimestamp(),
         });
-      } catch {}
+      } catch { }
     }
   }
 

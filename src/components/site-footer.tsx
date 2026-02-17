@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-type Dict = Record<string, string | string[]>;
+import type { Dict } from "@/lib/i18n";
 
 export default function SiteFooter({
   locale,
