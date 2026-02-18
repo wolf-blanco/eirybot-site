@@ -1,6 +1,6 @@
 
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
 const OUTPUT_FILE = path.join(process.cwd(), 'src/lib/ai/site-knowledge.json');
 const SRC_DIR = path.join(process.cwd(), 'src/app');
@@ -9,14 +9,13 @@ const SRC_DIR = path.join(process.cwd(), 'src/app');
 const IGNORE_DIRS = ['api', 'fonts', 'favicon.ico', 'globals.css'];
 const IGNORE_FILES = ['layout.tsx', 'loading.tsx', 'error.tsx', 'not-found.tsx', 'page.module.css'];
 
-function getAllFiles(dirPath, arrayOfFiles) {
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
     const files = fs.readdirSync(dirPath);
 
-    arrayOfFiles = arrayOfFiles || [];
-
-    files.forEach(function (file) {
+    files.forEach(function (file: string) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             if (!IGNORE_DIRS.includes(file)) {
+                // @ts-ignore
                 arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
             }
         } else {
@@ -29,7 +28,7 @@ function getAllFiles(dirPath, arrayOfFiles) {
     return arrayOfFiles;
 }
 
-function cleanContent(content) {
+function cleanContent(content: string): string {
     // Basic stripping of imports and exports
     let cleaned = content
         .replace(/import .* from .*/g, '')
@@ -52,7 +51,7 @@ async function main() {
     console.log(`Found ${files.length} files to index.`);
 
     const knowledge = {
-        pages: [],
+        pages: [] as { path: string; content: string }[],
         timestamp: new Date().toISOString()
     };
 
@@ -75,15 +74,17 @@ async function main() {
     // Also index the manually created content files if they exist
     // Public docs
     const publicDir = path.join(process.cwd(), 'public');
-    const publicFiles = fs.readdirSync(publicDir).filter(f => f.endsWith('.md') || f.endsWith('.txt'));
+    if (fs.existsSync(publicDir)) {
+        const publicFiles = fs.readdirSync(publicDir).filter((f: string) => f.endsWith('.md') || f.endsWith('.txt'));
 
-    for (const file of publicFiles) {
-        const content = fs.readFileSync(path.join(publicDir, file), 'utf8');
-        knowledge.pages.push({
-            path: `public/${file}`,
-            content: content.replace(/\s+/g, ' ').trim()
-        });
-        console.log(`Indexed public file: ${file}`);
+        for (const file of publicFiles) {
+            const content = fs.readFileSync(path.join(publicDir, file), 'utf8');
+            knowledge.pages.push({
+                path: `public/${file}`,
+                content: content.replace(/\s+/g, ' ').trim()
+            });
+            console.log(`Indexed public file: ${file}`);
+        }
     }
 
     // Ensure dir exists
