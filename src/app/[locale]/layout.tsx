@@ -1,4 +1,3 @@
-// src/app/[locale]/layout.tsx
 import "@/app/globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
@@ -6,6 +5,7 @@ import GoogleAnalytics from "@/components/google-analytics";
 import { getDict, type Locale } from "@/lib/i18n";
 import { constructSchema } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { FloatingChat } from "@/components/chat-widget/FloatingChat";
 
 export async function generateMetadata(props: any): Promise<Metadata> {
   const { locale: raw } = await props.params;
@@ -43,6 +43,7 @@ export default async function LocaleLayout(props: any) {
         <SiteHeader locale={locale} dict={dict} />
         <main className="min-h-[70vh]">{children}</main>
         <SiteFooter locale={locale} dict={dict} />
+        <FloatingChat />
       </body>
     </html>
   );
