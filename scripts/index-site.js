@@ -39,7 +39,7 @@ function cleanContent(content) {
         .replace(/console\.log\(.*\);/g, '');
 
     // Remove import statements that might span multiple lines (basic)
-    cleaned = cleaned.replace(/import\s*{[^}]*}\s*from\s*['"].*['"];?/gs, '');
+    cleaned = cleaned.replace(/import\s*{[^}]*}\s*from\s*['"].*['"];?/g, '');
 
     // Simplify whitespace
     return cleaned.replace(/\s+/g, ' ').trim();
