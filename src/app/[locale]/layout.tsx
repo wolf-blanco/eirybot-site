@@ -1,6 +1,6 @@
 import "@/app/globals.css";
-import SiteHeader from "@/components/site-header";
-import SiteFooter from "@/components/site-footer";
+// import SiteHeader from "@/components/site-header";
+// import SiteFooter from "@/components/site-footer";
 import GoogleAnalytics from "@/components/google-analytics";
 import { getDict, type Locale } from "@/lib/i18n";
 import { constructSchema } from "@/lib/metadata";
@@ -40,9 +40,9 @@ export default async function LocaleLayout(props: any) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <SiteHeader locale={locale} dict={dict} />
-        <main className="min-h-[70vh]">{children}</main>
-        <SiteFooter locale={locale} dict={dict} />
+        {/* SiteHeader removed - moved to (site) layout */}
+        <main className="min-h-screen">{children}</main>
+        {/* SiteFooter removed - moved to (site) layout */}
         <FloatingChat />
       </body>
     </html>
