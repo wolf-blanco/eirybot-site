@@ -54,7 +54,7 @@ export function ChatBubble({ role, content }: ChatBubbleProps) {
                     "max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm",
                     role === "user"
                         ? "bg-violet-600 text-white rounded-tr-none"
-                        : "bg-white text-gray-800 border border-gray-100 rounded-tl-none"
+                        : "bg-white text-gray-900 border border-gray-100 rounded-tl-none"
                 )}
             >
                 <div className="whitespace-pre-wrap">{renderContent(content)}</div>

@@ -6,7 +6,14 @@ import { ChatBubble } from './ChatBubble';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function FloatingChat() {
+    // Generate a unique chat ID for this session
+    const [chatId] = useState(() => typeof crypto !== 'undefined' ? crypto.randomUUID() : Math.random().toString(36).substring(7));
+    useEffect(() => console.log("FloatingChat mounted. Assigned ChatID:", chatId), [chatId]);
+
     const { messages, sendMessage, status } = useChat({
+        // @ts-ignore
+        api: `/api/chat?chatId=${chatId}`,
+        headers: { 'x-chat-id': chatId },
         onFinish: () => console.log("Chat finished"),
         onError: (error) => console.error("Chat error:", error),
     });
@@ -31,7 +38,18 @@ export function FloatingChat() {
 
         try {
             // sendMessage from AbstractChat expects { text: string } for user messages
-            await sendMessage({ text });
+            await sendMessage({ text } as any, {
+                body: {
+                    chatId,
+                    metadata: {
+                        referrer: document.referrer,
+                        currentUrl: window.location.href,
+                        language: navigator.language,
+                        screen: `${window.screen.width}x${window.screen.height}`
+                    }
+                },
+                headers: { 'x-chat-id': chatId }
+            });
         } catch (err) {
             console.error("Failed to send message:", err);
             setInputValue(text); // Restore input on error
@@ -107,7 +125,7 @@ export function FloatingChat() {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     placeholder="Escribe tu pregunta..."
-                                    className="flex-1 px-4 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50"
+                                    className="flex-1 px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50"
                                     autoFocus
                                 />
                                 <button
@@ -121,7 +139,7 @@ export function FloatingChat() {
                                 </button>
                             </div>
                             <div className="text-[9px] text-center text-gray-300 mt-2">
-                                Powered by OpenAI GPT-4o
+                                Powered by EirybotAI-4o
                             </div>
                         </form>
                     </motion.div>
