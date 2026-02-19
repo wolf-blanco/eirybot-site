@@ -29,7 +29,7 @@ export default function SiteFooter({
     { href: `/${locale}/privacy`, label: ts("footer.links.privacy", "Privacidad") },
     { href: "https://demo.eirybot.com", label: ts("footer.links.demo", "Probar Demo") },
     { href: "https://scan.eirybot.com", label: ts("footer.links.scan", "Probar EiryScan") },
-    { href: "https://eirybot-dashboard.web.app/login", label: ts("footer.links.login", "Acceso clientes") },
+    { href: "https://app.eirybot.com/login", label: ts("footer.links.login", "Acceso clientes") },
   ];
 
   const contact = {

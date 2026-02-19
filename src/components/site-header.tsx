@@ -92,7 +92,7 @@ export default function SiteHeader({
             Demo
           </a>
           <a
-            href="https://eirybot-dashboard.web.app/login"
+            href="https://app.eirybot.com/login"
             className="rounded-full bg-white/10 px-3 py-1 text-sm hover:bg-white/15"
           >
             {tt(dict, "nav.login", "Acceso")}
