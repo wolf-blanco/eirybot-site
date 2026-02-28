@@ -2,10 +2,17 @@ import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import ThanksClient from "./thanks-client";
 
-export const metadata = {
-  title: "¡Gracias! / Thanks — EiryBot",
-  robots: { index: false, follow: false },
-};
+import { constructMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const { locale } = await params;
+  return constructMetadata({
+    title: "¡Gracias! / Thanks — EiryBot",
+    locale: locale === "en" ? "en" : "es",
+    path: "/thanks",
+    noIndex: true,
+  });
+}
 
 export default async function ThanksPage({
   params,

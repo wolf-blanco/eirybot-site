@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const locales = ["es", "en"];
 
-  // Generamos URLs para /es/... y /en/...
+  // Generamos URLs SOLO para /es/... y /en/...
   const sitemapEntries = routes.flatMap((route) =>
     locales.map((locale) => ({
       url: `${base}/${locale}${route}`,

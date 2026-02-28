@@ -4,10 +4,22 @@ import type { Locale } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import UnsubscribeForm from "./unsubscribe-form";
 
-// Opcional: metadata aquí SI QUIERES, pero NO en el client component
-export const metadata = {
-  title: "Unsubscribe — EiryBot",
-};
+import { constructMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
+  const resolved =
+    typeof (params as any)?.then === "function"
+      ? await (params as Promise<{ locale: string }>)
+      : (params as { locale: string });
+
+  const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
+
+  return constructMetadata({
+    title: "Unsubscribe — EiryBot",
+    locale,
+    path: "/unsubscribe",
+  });
+}
 
 export default async function UnsubscribePage({
   params,

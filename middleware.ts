@@ -7,37 +7,49 @@ const PUBLIC_FILE = /\.(.*)$/;
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // ✅ Normalizar: /ruta y /ruta/ iguales (excepto "/")
-  const p = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-
-  // ✅ 1) Redirects SEO (301) para URLs viejas (ANTES de i18n)
-  if (p === "/politica-de-privacidad") {
-    return NextResponse.redirect(new URL("/es/privacy", req.url), 301);
-  }
-
-  if (p === "/about_us") {
-    return NextResponse.redirect(new URL("/es/about", req.url), 301);
-  }
-
-  // ✅ 2) Limpiar /feed (RSS viejo)
-  if (p === "/feed") {
-    return NextResponse.redirect(new URL("/es", req.url), 301);
-  }
-
-  // Ignora archivos estáticos / api
-  if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/api")) {
+  // Ignora archivos estáticos / api / _next
+  if (
+    PUBLIC_FILE.test(pathname) ||
+    pathname.startsWith("/api") ||
+    pathname.includes("/_next")
+  ) {
     return NextResponse.next();
   }
 
-  // Si ya está en /es o /en, sigue
+  // ✅ 1) Redirects SEO (308 Permanent Redirect) para URLs viejas SIN locale
+  const legacyPaths: Record<string, string> = {
+    "/services": "/es/services",
+    "/contact": "/es/contact",
+    "/business": "/es/business",
+    "/about": "/es/about",
+    "/privacy": "/es/privacy",
+    "/landing-page": "/es/landing-page",
+    "/about_us": "/es/about",
+    "/politica-de-privacidad": "/es/privacy",
+    "/feed": "/es",
+  };
+
+  // Normalizar pathname para check de legacy (quitar slash final si existe y no es root)
+  const p = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+
+  if (legacyPaths[p]) {
+    return NextResponse.redirect(new URL(legacyPaths[p], req.url), 308);
+  }
+
+  // ✅ 2) Redirección de raíz "/" -> "/es" (308)
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/es", req.url), 308);
+  }
+
+  // Si ya tiene locale /es o /en, no hacemos nada más
   if (pathname.startsWith("/es") || pathname.startsWith("/en")) {
     return NextResponse.next();
   }
 
-  // Redirige raíz y cualquier otra ruta a /es
+  // Para cualquier otra ruta que no tenga locale, forzamos /es (fallback)
   const url = req.nextUrl.clone();
-  url.pathname = `/es${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  url.pathname = `/es${pathname}`;
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {
