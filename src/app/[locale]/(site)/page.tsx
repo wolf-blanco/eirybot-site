@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: any): Promise<import("next").
     title: tt(t, "home.title"),
     description: tt(t, "home.lead"),
     locale,
-    path,
+    path: "",
   });
 }
 

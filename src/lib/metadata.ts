@@ -17,13 +17,14 @@ export function constructMetadata({
     noIndex = false,
 }: Props): Metadata {
     const base = "https://eirybot.com";
+    const url = `${base}/${locale}${path}`;
 
     return {
         title,
         description,
         metadataBase: new URL(base),
         alternates: {
-            canonical: `${base}/${locale}${path}`,
+            canonical: url,
             languages: {
                 es: `${base}/es${path}`,
                 en: `${base}/en${path}`,
@@ -33,6 +34,32 @@ export function constructMetadata({
         robots: {
             index: !noIndex,
             follow: !noIndex,
+            googleBot: {
+                index: !noIndex,
+                follow: !noIndex,
+            },
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "EiryBot",
+            locale: locale === "es" ? "es_ES" : "en_US",
+            type: "website",
+            images: [
+                {
+                    url: `${base}/robot3.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [`${base}/robot3.png`],
         },
     };
 }

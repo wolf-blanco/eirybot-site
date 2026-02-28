@@ -12,7 +12,7 @@ export default async function SiteLayout(props: any) {
     return (
         <>
             <SiteHeader locale={locale} dict={dict} />
-            {children}
+            <main className="min-h-screen">{children}</main>
             <SiteFooter locale={locale} dict={dict} />
         </>
     );

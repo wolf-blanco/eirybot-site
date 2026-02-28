@@ -42,7 +42,7 @@ export default async function LocaleLayout(props: any) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         {/* SiteHeader removed - moved to (site) layout */}
-        <main className="min-h-screen">{children}</main>
+        {children}
         {/* SiteFooter removed - moved to (site) layout */}
         <FloatingChat />
       </body>
