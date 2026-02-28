@@ -16,6 +16,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // ✅ 0) Normalizar Trailing Slash (Evitar loops)
+  if (pathname.endsWith("/") && pathname !== "/") {
+    const url = req.nextUrl.clone();
+    url.pathname = pathname.slice(0, -1);
+    return NextResponse.redirect(url, 308);
+  }
+
   // ✅ 1) Redirects SEO (308 Permanent Redirect) para URLs viejas SIN locale
   const legacyPaths: Record<string, string> = {
     "/services": "/es/services",
@@ -29,11 +36,8 @@ export function middleware(req: NextRequest) {
     "/feed": "/es",
   };
 
-  // Normalizar pathname para check de legacy (quitar slash final si existe y no es root)
-  const p = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-
-  if (legacyPaths[p]) {
-    return NextResponse.redirect(new URL(legacyPaths[p], req.url), 308);
+  if (legacyPaths[pathname]) {
+    return NextResponse.redirect(new URL(legacyPaths[pathname], req.url), 308);
   }
 
   // ✅ 2) Redirección de raíz "/" -> "/es" (308)
