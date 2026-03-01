@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "Cómo evitar perder leads fuera de horario" : "How to stop losing leads after hours",
-        description: locale === "es" ? "Maximiza tu ROI respondiendo al instante, incluso durante la madrugada, con Chatbots de IA." : "Maximize your ROI by responding instantly, even in the middle of the night, with AI Chatbots.",
+        title: locale === "es" ? "Deja de Perder Leads Fuera de Horario - EiryBot" : "Stop Losing Leads After Hours - EiryBot",
+        description: locale === "es"
+            ? "Cómo un chatbot IA puede capturar oportunidades de venta mientras tu equipo descansa."
+            : "How an AI chatbot can capture sales opportunities while your team rests.",
         locale,
-        path: "/blog/stop-losing-leads",
+        pathEs: "/blog/stop-losing-leads",
+        pathEn: "/blog/stop-losing-leads",
     });
 }
 

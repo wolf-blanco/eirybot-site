@@ -14,9 +14,13 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const path = "/services";
 
   return constructMetadata({
-    title: `${tt(t, "nav.services")} — EiryBot`,
+    title: locale === "es" ? "Servicios de IA y Automatización - EiryBot" : "AI & Automation Services - EiryBot",
+    description: locale === "es"
+      ? "Soluciones personalizadas de chatbots, integraciones y automatización de procesos."
+      : "Custom chatbot solutions, integrations and process automation.",
     locale,
-    path,
+    pathEs: "/services",
+    pathEn: "/services",
   });
 }
 

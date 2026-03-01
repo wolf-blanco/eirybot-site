@@ -9,14 +9,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es"
-            ? "5 Errores Estúpidos que Matan tus Ventas en WhatsApp (2026)"
-            : "5 Stupid Mistakes That Kill Your WhatsApp Sales (2026)",
+        title: locale === "es" ? "Errores Comunes en Ventas por WhatsApp - EiryBot" : "Common WhatsApp Sales Mistakes - EiryBot",
         description: locale === "es"
-            ? "Descubre por qué tus clientes te dejan en visto y cómo corregirlo hoy mismo. Deja de perder dinero por mala atención."
-            : "Find out why customers ghost you and how to fix it today. Stop losing money due to poor service.",
+            ? "Descubre los fallos que están matando tu conversión y cómo corregirlos con automatización."
+            : "Discover the mistakes that are killing your conversion and how to fix them with automation.",
         locale,
-        path: "/blog/sales-mistakes",
+        pathEs: "/blog/sales-mistakes",
+        pathEn: "/blog/sales-mistakes",
     });
 }
 

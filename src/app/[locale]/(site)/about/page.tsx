@@ -12,12 +12,15 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const { locale: raw } = await params;
   const locale = raw === "en" ? "en" : "es";
   const t = getDict(locale);
-  const path = "/about";
 
   return constructMetadata({
-    title: `${tt(t, "nav.about")} — EiryBot`,
+    title: locale === "es" ? "Sobre Nosotros - Conoce a EiryBot" : "About Us - Meet EiryBot",
+    description: locale === "es"
+      ? "Misión, visión y el equipo detrás de la revolución de la IA en WhatsApp."
+      : "Mission, vision and the team behind the WhatsApp AI revolution.",
     locale,
-    path,
+    pathEs: "/about",
+    pathEn: "/about",
   });
 }
 

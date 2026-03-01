@@ -13,13 +13,15 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const { locale: raw } = await params;
   const locale = raw === "en" ? "en" : "es";
   const t = getDict(locale);
-  const path = "";
 
   return constructMetadata({
-    title: tt(t, "home.title"),
-    description: tt(t, "home.lead"),
+    title: locale === "es" ? "EiryBot — Automatización Inteligente de WhatsApp 24/7" : "EiryBot — 24/7 Intelligent WhatsApp Automation",
+    description: locale === "es"
+      ? "Automatiza conversaciones, agenda citas y gestiona tus clientes con el poder de la inteligencia artificial en WhatsApp."
+      : "Automate conversations, book appointments and manage your customers with the power of AI on WhatsApp.",
     locale,
-    path: "",
+    pathEs: "",
+    pathEn: "",
   });
 }
 

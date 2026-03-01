@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "Cómo medir un chatbot: KPIs que importan" : "How to measure a chatbot: KPIs that matter",
-        description: locale === "es" ? "Aprende qué métricas de chatbot realmente afectan tu balance final y cómo mejorarlas." : "Learn which chatbot metrics actually affect your bottom line and how to improve them.",
+        title: locale === "es" ? "KPIs de Chatbots que Importan - EiryBot" : "Chatbot KPIs That Matter - EiryBot",
+        description: locale === "es"
+            ? "Olvídate de las métricas de vanidad. Descubre los KPIs que realmente impactan en el ROI de tu chatbot."
+            : "Forget vanity metrics. Discover the KPIs that truly impact your chatbot's ROI.",
         locale,
-        path: "/blog/chatbot-kpis",
+        pathEs: "/blog/chatbot-kpis",
+        pathEn: "/blog/chatbot-kpis",
     });
 }
 

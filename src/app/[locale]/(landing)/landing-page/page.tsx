@@ -11,13 +11,13 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const { locale: raw } = await params;
   const locale = raw === "en" ? "en" : "es";
   const t = getDict(locale);
-  const path = "/landing-page";
 
   return constructMetadata({
-    title: tt(t, "landing.meta.title"),
-    description: tt(t, "landing.meta.description"),
+    title: t["landing.meta.title"] as string,
+    description: t["landing.meta.description"] as string,
     locale,
-    path,
+    pathEs: "/landing-page",
+    pathEn: "/landing-page",
   });
 }
 

@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: any): Promise<import("next").
             ? "Convierte tu WhatsApp en una máquina de ventas. Captura leads, califica prospectos y agenda citas automáticamente con inteligencia artificial."
             : "Turn your WhatsApp into a sales machine. Capture leads, qualify prospects, and book appointments automatically with AI.",
         locale,
-        path: "/whatsapp-chatbot",
+        pathEs: "/whatsapp-chatbot",
+        pathEn: "/whatsapp-chatbot",
     });
 }
 

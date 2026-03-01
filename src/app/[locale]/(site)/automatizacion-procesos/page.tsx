@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: any): Promise<import("next").
             ? "Lleva tu negocio al siguiente nivel automatizando flujos de trabajo. Conecta WhatsApp con CRM, Google Sheets y más."
             : "Take your business to the next level by automating workflows. Connect WhatsApp with CRM, Google Sheets, and more.",
         locale,
-        path: locale === "es" ? "/automatizacion-procesos" : "/process-automation",
+        pathEs: "/automatizacion-procesos",
+        pathEn: "/process-automation",
     });
 }
 

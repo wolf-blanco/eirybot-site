@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "Chatbot para inmobiliarias: qué automatizar primero" : "Real estate chatbots: what to automate first",
-        description: locale === "es" ? "Descubre cómo acelerar tus ventas inmobiliarias con ejemplos reales de automatización en WhatsApp." : "Discover how to speed up your real estate sales with real WhatsApp automation examples.",
+        title: locale === "es" ? "Chatbot para Inmobiliarias: Guía de Uso - EiryBot" : "Real Estate Chatbot Guide - EiryBot",
+        description: locale === "es"
+            ? "Descubre cómo las inmobiliarias están agendando más visitas y calificando leads automáticamente."
+            : "Discover how real estate agencies are booking more visits and qualifying leads automatically.",
         locale,
-        path: "/blog/real-estate-chatbot",
+        pathEs: "/blog/real-estate-chatbot",
+        pathEn: "/blog/real-estate-chatbot",
     });
 }
 

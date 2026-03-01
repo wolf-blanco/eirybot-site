@@ -8,12 +8,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
   const locale = raw === "en" ? "en" : "es";
 
   return constructMetadata({
-    title: locale === "es" ? "Blog de Automatización y Ventas - EiryBot" : "Automation & Sales Blog - EiryBot",
+    title: locale === "es" ? "Blog de IA y Automatización WhatsApp - EiryBot" : "AI & WhatsApp Automation Blog - EiryBot",
     description: locale === "es"
-      ? "Aprende estrategias de automatización, ventas por WhatsApp y CRM para crecer tu negocio."
-      : "Learn automation strategies, WhatsApp sales and CRM tips to grow your business.",
+      ? "Guías, consejos y estrategias para escalar tu negocio con inteligencia artificial y WhatsApp."
+      : "Guides, tips, and strategies to scale your business with AI and WhatsApp.",
     locale,
-    path: "/blog",
+    pathEs: "/blog",
+    pathEn: "/blog",
   });
 }
 

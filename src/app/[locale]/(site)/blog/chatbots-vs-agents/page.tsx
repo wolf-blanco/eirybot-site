@@ -8,14 +8,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es"
-            ? "Chatbots vs Agentes de IA: ¿Cuál es la Diferencia Real?"
-            : "Chatbots vs AI Agents: What is the Real Difference?",
+        title: locale === "es" ? "Chatbots vs Agentes Humanos: El Equilibrio - EiryBot" : "Chatbots vs Human Agents: The Balance - EiryBot",
         description: locale === "es"
-            ? "Olvída los 'Menú de Botones'. Descubre por qué los Agentes de IA (como EiryBot) venden más y frustran menos."
-            : "Forget 'Button Menus'. Discover why AI Agents (like EiryBot) sell more and frustrate less.",
+            ? "Cuándo usar IA y cuándo pasar la conversación a una persona para maximizar la satisfacción."
+            : "When to use AI and when to hand over the conversation to a person to maximize satisfaction.",
         locale,
-        path: "/blog/chatbots-vs-agents",
+        pathEs: "/blog/chatbots-vs-agents",
+        pathEn: "/blog/chatbots-vs-agents",
     });
 }
 

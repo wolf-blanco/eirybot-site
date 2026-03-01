@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "Chatbot para clínicas: agendamiento y resultados" : "Chatbots for clinics: scheduling and outcomes",
-        description: locale === "es" ? "Mejora la experiencia del paciente automatizando turnos y entrega de resultados por WhatsApp." : "Improve patient experience by automating appointments and result delivery over WhatsApp.",
+        title: locale === "es" ? "Chatbots para Clínicas y Salud - EiryBot" : "Clinic & Health Chatbots - EiryBot",
+        description: locale === "es"
+            ? "Reduce el ausentismo y facilita el agendamiento de turnos médicos con inteligencia artificial."
+            : "Reduce no-shows and facilitate medical appointment booking with AI.",
         locale,
-        path: "/blog/clinic-chatbot",
+        pathEs: "/blog/clinic-chatbot",
+        pathEn: "/blog/clinic-chatbot",
     });
 }
 

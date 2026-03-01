@@ -8,14 +8,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es"
-            ? "La Regla de los 5 Minutos: Por Qué Pierdes el 80% de tus Ventas"
-            : "The 5-Minute Rule: Why You Lose 80% of Your Sales",
+        title: locale === "es" ? "La Regla de los 5 Minutos en Ventas - EiryBot" : "The 5-Minute Rule in Sales - EiryBot",
         description: locale === "es"
-            ? "Estadísticas brutales: si no respondes en 5 minutos, tu lead se enfría. Aprende a solucionar esto automáticamente."
-            : "Brutal stats: if you don't reply in 5 minutes, your lead goes cold. Learn how to fix this automatically.",
+            ? "Por qué responder rápido es el factor #1 para cerrar ventas en canales digitales."
+            : "Why responding fast is the #1 factor to close sales in digital channels.",
         locale,
-        path: "/blog/5-minute-rule",
+        pathEs: "/blog/5-minute-rule",
+        pathEn: "/blog/5-minute-rule",
     });
 }
 

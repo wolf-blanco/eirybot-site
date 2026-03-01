@@ -14,11 +14,10 @@ export async function generateMetadata({ params }: any): Promise<import("next").
 
     return constructMetadata({
         title: locale === "es" ? "Chatbot para WhatsApp IA: Vende y Responde 24/7 - EiryBot" : "AI Process Automation: Total Efficiency - EiryBot",
-        description: locale === "es"
-            ? "Lleva tu negocio al siguiente nivel automatizando flujos de trabajo. Conecta WhatsApp con CRM, Google Sheets y más."
-            : "Take your business to the next level by automating workflows. Connect WhatsApp with CRM, Google Sheets, and more.",
+        description: "Take your business to the next level by automating workflows. Connect WhatsApp with CRM, Google Sheets, and more.",
         locale,
-        path: locale === "es" ? "/automatizacion-procesos" : "/process-automation",
+        pathEs: "/automatizacion-procesos",
+        pathEn: "/process-automation",
     });
 }
 

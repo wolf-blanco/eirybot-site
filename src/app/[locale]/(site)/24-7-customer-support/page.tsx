@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: any): Promise<import("next").
             ? "No hagas esperar a tus clientes. Implementa soporte 24/7 con inteligencia artificial que resuelve dudas y escala a humanos solo cuando es necesario."
             : "Don't keep your customers waiting. Implement 24/7 AI support that resolves doubts and scales to humans only when necessary.",
         locale,
-        path: locale === "es" ? "/atencion-cliente-24-7" : "/24-7-customer-support",
+        pathEs: "/atencion-cliente-24-7",
+        pathEn: "/24-7-customer-support",
     });
 }
 

@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "Checklist para elegir proveedor de chatbot" : "Chatbot vendor checklist",
-        description: locale === "es" ? "Evita estafas y promesas vacías. Lo que debes preguntar antes de contratar una solución de IA para WhatsApp." : "Avoid scams and empty promises. What you should ask before hiring an AI WhatsApp solution.",
+        title: locale === "es" ? "Checklist de Proveedores de Chatbots - EiryBot" : "Chatbot Vendor Checklist - EiryBot",
+        description: locale === "es"
+            ? "Lo que debes preguntar antes de contratar una solución de chatbot para tu negocio."
+            : "What you must ask before hiring a chatbot solution for your business.",
         locale,
-        path: "/blog/chatbot-vendor-checklist",
+        pathEs: "/blog/chatbot-vendor-checklist",
+        pathEn: "/blog/chatbot-vendor-checklist",
     });
 }
 

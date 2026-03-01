@@ -7,9 +7,10 @@ import { constructMetadata } from "@/lib/metadata";
 export async function generateMetadata({ params }: any): Promise<import("next").Metadata> {
   const { locale } = await params;
   return constructMetadata({
-    title: "¡Gracias! / Thanks — EiryBot",
-    locale: locale === "en" ? "en" : "es",
-    path: "/thanks",
+    title: locale === "es" ? "¡Gracias! - EiryBot" : "Thank You! - EiryBot",
+    locale,
+    pathEs: "/thanks",
+    pathEn: "/thanks",
     noIndex: true,
   });
 }

@@ -13,11 +13,15 @@ export async function generateMetadata({ params }: any): Promise<import("next").
       : (params as { locale: string });
 
   const locale = (resolved?.locale === "en" ? "en" : "es") as Locale;
+  const t = getDict(locale);
 
   return constructMetadata({
-    title: "Unsubscribe — EiryBot",
+    title: t["unsubscribe.meta.title"] as string,
+    description: t["unsubscribe.meta.description"] as string,
     locale,
-    path: "/unsubscribe",
+    pathEs: "/unsubscribe",
+    pathEn: "/unsubscribe",
+    noIndex: true,
   });
 }
 

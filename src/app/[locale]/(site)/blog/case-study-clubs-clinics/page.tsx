@@ -9,14 +9,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es"
-            ? "Caso de Estudio: Cómo Clubs y Clínicas Escalaron con IA (Resultados Reales)"
-            : "Case Study: How Clubs and Clinics Scaled with AI (Real Results)",
+        title: locale === "es" ? "Caso de Estudio: Clubes y Gimnasios - EiryBot" : "Case Study: Clubs & Gyms - EiryBot",
         description: locale === "es"
-            ? "Datos reales de Open Park y Eurolab: 100% de automatización y más de 200k cupones entregados sin intervención humana."
-            : "Real data from Open Park and Eurolab: 100% automation and over 200k coupons delivered without human intervention.",
+            ? "Cómo los centros deportivos están automatizando sus reservas y pagos por WhatsApp."
+            : "How sports centers are automating their bookings and payments via WhatsApp.",
         locale,
-        path: "/blog/case-study-clubs-clinics",
+        pathEs: "/blog/case-study-clubs-clinics",
+        pathEn: "/blog/case-study-clubs-clinics",
     });
 }
 

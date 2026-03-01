@@ -9,14 +9,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es"
-            ? "Guía Completa: Automatizar Ventas en WhatsApp (2026)"
-            : "Complete Guide: Automating WhatsApp Sales (2026)",
+        title: locale === "es" ? "Guía de Automatización en WhatsApp 2026 - EiryBot" : "WhatsApp Automation Guide 2026 - EiryBot",
         description: locale === "es"
-            ? "Aprende cómo configurar un chatbot con IA para WhatsApp que responda 24/7, califique leads y aumente tus ventas sin esfuerzo."
-            : "Learn how to set up an AI chatbot for WhatsApp that replies 24/7, qualifies leads and boosts sales effortlessly.",
+            ? "Todo lo que necesitas saber para implementar una estrategia de automatización exitosa este año."
+            : "Everything you need to know to implement a successful automation strategy this year.",
         locale,
-        path: "/blog/whatsapp-automation-guide",
+        pathEs: "/blog/whatsapp-automation-guide",
+        pathEn: "/blog/whatsapp-automation-guide",
     });
 }
 

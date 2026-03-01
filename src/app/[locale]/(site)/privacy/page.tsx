@@ -14,11 +14,10 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const path = "/privacy";
 
   return constructMetadata({
-    title: `${tt(t, "privacy.title")} — EiryBot`,
-    description:
-      "Cómo EiryBot trata tus datos: formularios, cookies, derechos, seguridad y contactos.",
+    title: locale === "es" ? "Política de Privacidad - EiryBot" : "Privacy Policy - EiryBot",
     locale,
-    path,
+    pathEs: "/privacy",
+    pathEn: "/privacy",
   });
 }
 

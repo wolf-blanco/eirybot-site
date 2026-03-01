@@ -13,9 +13,13 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const path = "/contact";
 
   return constructMetadata({
-    title: `${tt(t, "nav.contact")} — EiryBot`,
+    title: locale === "es" ? "Contacto - EiryBot" : "Contact - EiryBot",
+    description: locale === "es"
+      ? "¿Listo para automatizar? Habla con nuestro equipo hoy mismo."
+      : "Ready to automate? Talk to our team today.",
     locale,
-    path,
+    pathEs: "/contact",
+    pathEn: "/contact",
   });
 }
 

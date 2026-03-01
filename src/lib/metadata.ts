@@ -5,7 +5,8 @@ type Props = {
     title: string;
     description?: string;
     locale: Locale;
-    path: string; // e.g. "" or "/about"
+    pathEs?: string; // Slug for Spanish (e.g. "/about")
+    pathEn?: string; // Slug for English (e.g. "/about")
     noIndex?: boolean;
 };
 
@@ -13,22 +14,30 @@ export function constructMetadata({
     title,
     description,
     locale,
-    path,
+    pathEs,
+    pathEn,
     noIndex = false,
 }: Props): Metadata {
     const base = "https://eirybot.com";
-    const url = `${base}/${locale}${path}`;
+
+    // Ensure slugs start with / or are empty
+    const cleanEs = pathEs ? (pathEs.startsWith("/") ? pathEs : `/${pathEs}`) : "";
+    const cleanEn = pathEn ? (pathEn.startsWith("/") ? pathEn : `/${pathEn}`) : "";
+
+    const esUrl = `${base}/es${cleanEs}`;
+    const enUrl = `${base}/en${cleanEn}`;
+    const canonical = locale === "es" ? esUrl : enUrl;
 
     return {
         title,
         description,
         metadataBase: new URL(base),
         alternates: {
-            canonical: url,
+            canonical,
             languages: {
-                es: `${base}/es${path}`,
-                en: `${base}/en${path}`,
-                "x-default": `${base}/en${path}`,
+                es: esUrl,
+                en: enUrl,
+                "x-default": enUrl,
             },
         },
         robots: {
@@ -42,7 +51,7 @@ export function constructMetadata({
         openGraph: {
             title,
             description,
-            url,
+            url: canonical,
             siteName: "EiryBot",
             locale: locale === "es" ? "es_ES" : "en_US",
             type: "website",

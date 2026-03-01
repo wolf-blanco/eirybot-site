@@ -7,10 +7,13 @@ export async function generateMetadata(props: any): Promise<import("next").Metad
     const locale = raw === "en" ? "en" : "es";
 
     return constructMetadata({
-        title: locale === "es" ? "WhatsApp + Google Sheets: flujo real" : "WhatsApp + Google Sheets: a real workflow",
-        description: locale === "es" ? "Aprende a sincronizar tus conversaciones de WhatsApp con Google Sheets automáticamente." : "Learn how to sync your WhatsApp conversations with Google Sheets automatically.",
+        title: locale === "es" ? "Automatización WhatsApp + Google Sheets - EiryBot" : "WhatsApp + Google Sheets Automation - EiryBot",
+        description: locale === "es"
+            ? "Guía paso a paso para conectar WhatsApp con tus hojas de cálculo sin intervención manual."
+            : "Step-by-step guide to connecting WhatsApp with your spreadsheets without manual intervention.",
         locale,
-        path: "/blog/whatsapp-sheets-automation",
+        pathEs: "/blog/whatsapp-sheets-automation",
+        pathEn: "/blog/whatsapp-sheets-automation",
     });
 }
 
