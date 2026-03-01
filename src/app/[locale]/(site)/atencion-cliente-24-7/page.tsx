@@ -55,9 +55,15 @@ export default async function SupportPillar({ params }: any) {
                                 : "70% of customers prefer fast answers over perfect ones. EiryBot delivers both instantly, eliminating bottlenecks."}
                         </p>
                         <ul className="space-y-4">
-                            {["Handoff humano impecable", "Escalabilidad ilimitada", "Multilenguaje nativo", "Empatía artificial"].map((p, i) => (
+                            {[
+                                { es: "Handoff humano impecable", en: "Seamless human handoff" },
+                                { es: "Escalabilidad ilimitada", en: "Unlimited scalability" },
+                                { es: "Multilenguaje nativo", en: "Native multi-language" },
+                                { es: "Empatía artificial", en: "Artificial empathy" }
+                            ].map((feature, i) => (
                                 <li key={i} className="flex items-center gap-3 font-medium text-violet-800">
-                                    <div className="h-2 w-2 rounded-full bg-fuchsia-500" /> {locale === "es" ? p : "Native feature"}
+                                    <div className="h-2 w-2 rounded-full bg-fuchsia-500" />
+                                    {locale === "es" ? feature.es : feature.en}
                                 </li>
                             ))}
                         </ul>

@@ -87,15 +87,30 @@ export default async function WhatsAppChatbotPillar({ params }: any) {
                 <h2 className="text-3xl font-bold text-center text-violet-900 mb-12">FAQ</h2>
                 <div className="space-y-6">
                     {[
-                        { q: "¡Es difícil de configurar?", a: "No, nosotros nos encargamos de todo el entrenamiento inicial." },
-                        { q: "¿Funciona en cualquier WhatsApp?", a: "Sí, a través de la API oficial para mayor seguridad y escalabilidad." },
-                        { q: "¿Puede agendar citas?", a: "Totalmente, se integra con Calendar y otros CRM." },
-                        { q: "¿Suena a robot?", a: "Nuestros agentes usan lenguaje natural para ser amigables y eficientes." },
-                        { q: "¿Cómo se activa?", a: "Hablas con nosotros, diseñamos el flujo y en pocos días está en vivo." }
+                        {
+                            q: locale === "es" ? "¡Es difícil de configurar?" : "Is it hard to set up?",
+                            a: locale === "es" ? "No, nosotros nos encargamos de todo el entrenamiento inicial." : "No, we handle all the initial training for you."
+                        },
+                        {
+                            q: locale === "es" ? "¿Funciona en cualquier WhatsApp?" : "Does it work on any WhatsApp?",
+                            a: locale === "es" ? "Sí, a través de la API oficial para mayor seguridad y escalabilidad." : "Yes, through the official API for maximum security and scalability."
+                        },
+                        {
+                            q: locale === "es" ? "¿Puede agendar citas?" : "Can it book appointments?",
+                            a: locale === "es" ? "Totalmente, se integra con Calendar y otros CRM." : "Absolutely, it integrates with Calendar and other CRMs."
+                        },
+                        {
+                            q: locale === "es" ? "¿Suena a robot?" : "Does it sound like a robot?",
+                            a: locale === "es" ? "Nuestros agentes usan lenguaje natural para ser amigables y eficientes." : "Our agents use natural language to be friendly and efficient."
+                        },
+                        {
+                            q: locale === "es" ? "¿Cómo se activa?" : "How is it activated?",
+                            a: locale === "es" ? "Hablas con nosotros, diseñamos el flujo y en pocos días está en vivo." : "Talk to us, we design the flow, and it goes live in a few days."
+                        }
                     ].map((faq, i) => (
                         <div key={i} className="border-b border-violet-100 pb-4">
-                            <h4 className="font-bold text-violet-800 mb-2">{locale === "en" ? `Question ${i + 1}` : faq.q}</h4>
-                            <p className="text-gray-600 text-sm">{locale === "en" ? "Answer content here." : faq.a}</p>
+                            <h4 className="font-bold text-violet-800 mb-2">{faq.q}</h4>
+                            <p className="text-gray-600 text-sm">{faq.a}</p>
                         </div>
                     ))}
                 </div>
