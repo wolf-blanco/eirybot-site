@@ -4,19 +4,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://eirybot.com";
 
   // Rutas que existen en el proyecto
-  const routes = [
+  // Rutas con el mismo slug en ambos idiomas
+  const standardRoutes = [
     "",             // home
     "/about",
     "/services",
     "/contact",
     "/privacy",
     "/landing-page",
+    "/blog",
+    "/whatsapp-chatbot",
   ];
 
-  const locales = ["es", "en"];
+  // Rutas con slugs localizados (diferentes segun el idioma)
+  const localizedRoutes = [
+    { es: "/automatizacion-procesos", en: "/process-automation" },
+    { es: "/atencion-cliente-24-7", en: "/24-7-customer-support" },
+  ];
 
-  // Generamos URLs SOLO para /es/... y /en/...
-  const sitemapEntries = routes.flatMap((route) =>
+  const locales = ["es", "en"] as const;
+
+  // 1. Generar entradas para rutas estándar
+  const standardEntries = standardRoutes.flatMap((route) =>
     locales.map((locale) => ({
       url: `${base}/${locale}${route}`,
       lastModified: new Date(),
@@ -25,5 +34,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return sitemapEntries;
+  // 2. Generar entradas para rutas localizadas
+  const localizedEntries = localizedRoutes.flatMap((entry) =>
+    locales.map((locale) => ({
+      url: `${base}/${locale}${entry[locale]}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }))
+  );
+
+  return [...standardEntries, ...localizedEntries];
 }

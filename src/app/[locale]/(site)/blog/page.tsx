@@ -123,6 +123,25 @@ export default async function BlogIndexPage(props: any) {
           </div>
         )}
 
+        {/* Specialized Solutions Internal Linking */}
+        <div className="mb-20 text-center">
+          <h2 className="text-2xl font-black text-violet-900 mb-8">{isEs ? "Soluciones Especializadas" : "Specialized Solutions"}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href={`/${locale}/whatsapp-chatbot`} className="p-8 rounded-3xl bg-white border border-violet-100 shadow-sm hover:shadow-xl hover:border-fuchsia-200 transition-all group">
+              <h4 className="font-bold text-violet-900 group-hover:text-fuchsia-600 transition-colors">WhatsApp Chatbot →</h4>
+              <p className="text-xs text-gray-500 mt-2">{isEs ? "Automatización y ventas 24/7" : "24/7 Automation & Sales"}</p>
+            </Link>
+            <Link href={`/${locale}${isEs ? '/automatizacion-procesos' : '/process-automation'}`} className="p-8 rounded-3xl bg-white border border-violet-100 shadow-sm hover:shadow-xl hover:border-fuchsia-200 transition-all group">
+              <h4 className="font-bold text-violet-900 group-hover:text-fuchsia-600 transition-colors">{isEs ? 'Automatización' : 'Automation'} →</h4>
+              <p className="text-xs text-gray-500 mt-2">{isEs ? "Conexión con CRM y Sheets" : "CRM & Sheets Connection"}</p>
+            </Link>
+            <Link href={`/${locale}${isEs ? '/atencion-cliente-24-7' : '/24-7-customer-support'}`} className="p-8 rounded-3xl bg-white border border-violet-100 shadow-sm hover:shadow-xl hover:border-fuchsia-200 transition-all group">
+              <h4 className="font-bold text-violet-900 group-hover:text-fuchsia-600 transition-colors">{isEs ? 'Soporte 24/7' : '24/7 Support'} →</h4>
+              <p className="text-xs text-gray-500 mt-2">{isEs ? "Atención al cliente instantánea" : "Instant customer service"}</p>
+            </Link>
+          </div>
+        </div>
+
         {/* Regular Posts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {regularPosts.map((post) => (

@@ -149,6 +149,22 @@ export default async function ServicesPage({
             </article>
           ))}
         </div>
+
+        {/* INTERNAL LINKING TO PILLARS */}
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold text-violet-900 mb-8">{locale === "es" ? "Soluciones Especializadas" : "Specialized Solutions"}</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Link href={`${base}/whatsapp-chatbot`} className="p-6 rounded-2xl bg-fuchsia-50 border border-fuchsia-100 hover:shadow-lg transition-all text-violet-900 font-bold">
+              WhatsApp Chatbot →
+            </Link>
+            <Link href={`${base}${locale === 'es' ? '/automatizacion-procesos' : '/process-automation'}`} className="p-6 rounded-2xl bg-violet-50 border border-violet-100 hover:shadow-lg transition-all text-violet-900 font-bold">
+              {locale === 'es' ? 'Automatización' : 'Automation'} →
+            </Link>
+            <Link href={`${base}${locale === 'es' ? '/atencion-cliente-24-7' : '/24-7-customer-support'}`} className="p-6 rounded-2xl bg-fuchsia-50 border border-fuchsia-100 hover:shadow-lg transition-all text-violet-900 font-bold">
+              {locale === 'es' ? 'Soporte 24/7' : '24/7 Support'} →
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* BENEFICIOS CLAVE */}

@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: any): Promise<import("next").
     });
 }
 
-export default async function SupportPillar({ params }: any) {
+export default async function SupportPillarEN({ params }: any) {
     const { locale: raw } = await params;
     const locale = (raw === "en" ? "en" : "es") as Locale;
 
     // SEO Redirection for localized slugs
-    if (locale === "en") {
-        redirect("/en/24-7-customer-support");
+    if (locale === "es") {
+        redirect("/es/atencion-cliente-24-7");
     }
 
     const t = getDict(locale);
@@ -41,25 +41,23 @@ export default async function SupportPillar({ params }: any) {
                 <div className="mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-12 items-center">
                     <div className="animate-fade-in">
                         <span className="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-wider text-fuchsia-600 uppercase bg-fuchsia-100 rounded-full">
-                            {locale === "es" ? "Disponibilidad Total" : "Total Availability"}
+                            Total Availability
                         </span>
                         <h1 className="text-5xl md:text-7xl font-black text-violet-900 leading-[1.1] mb-6">
-                            {locale === "es" ? "Atención al cliente 24/7" : "24/7 Customer Support"} <br />
+                            24/7 Customer Support <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-violet-600">
-                                {locale === "es" ? "sin agrandar tu equipo" : "without growing your team"}
+                                without growing your team
                             </span>
                         </h1>
                         <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-xl">
-                            {locale === "es"
-                                ? "Porque tus clientes no duermen, nosotros tampoco. EiryBot entrega respuestas inmediatas a cualquier hora, eliminando los cuellos de botella."
-                                : "Because your customers don't sleep, we don't either. EiryBot delivers immediate responses at any time, eliminating bottlenecks."}
+                            Because your customers don't sleep, we don't either. EiryBot delivers immediate responses at any time, eliminating bottlenecks.
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <Link href={`${base}/contact`} className="px-8 py-5 bg-violet-700 text-white rounded-full font-bold shadow-xl shadow-violet-700/20 hover:bg-violet-600 hover:-translate-y-1 transition-all duration-300">
-                                {locale === "es" ? "Activar ahora" : "Activate now"}
+                                Activate now
                             </Link>
                             <Link href={`${base}/about`} className="px-8 py-5 bg-white text-violet-900 border border-violet-100 rounded-full font-bold shadow-sm hover:bg-violet-50 transition-all">
-                                {locale === "es" ? "Sobre nosotros" : "About us"}
+                                About us
                             </Link>
                         </div>
                     </div>
@@ -73,18 +71,18 @@ export default async function SupportPillar({ params }: any) {
             <PillarSection bg="white">
                 <div className="grid md:grid-cols-3 gap-8">
                     <FeatureCard
-                        title={locale === "es" ? "Handoff Humano" : "Human Handoff"}
-                        description={locale === "es" ? "Transferencia impecable a tus agentes reales cuando la consulta requiere empatía o complejidad humana." : "Seamless transfer to your real agents when the query requires human empathy or complexity."}
+                        title="Human Handoff"
+                        description="Seamless transfer to your real agents when the query requires human empathy or complexity."
                         icon="/MASCOTA-EIRYBOT_2.png"
                     />
                     <FeatureCard
-                        title={locale === "es" ? "Escalabilidad" : "Scalability"}
-                        description={locale === "es" ? "Atiende a 1 o 10,000 clientes simultáneamente sin degradar la calidad del servicio." : "Support 1 or 10,000 customers simultaneously without degrading service quality."}
+                        title="Scalability"
+                        description="Support 1 or 10,000 customers simultaneously without degrading service quality."
                         icon="/MASCOTA-EIRYBOT_1.png"
                     />
                     <FeatureCard
-                        title={locale === "es" ? "Multilenguaje" : "Multi-language"}
-                        description={locale === "es" ? "Habla el idioma de tus clientes de forma nativa, rompiendo barreras geográficas." : "Speak your customers' language natively, breaking geographic barriers."}
+                        title="Multi-language"
+                        description="Speak your customers' language natively, breaking geographic barriers."
                         icon="/MASCOTA-EIRYBOT_3.png"
                     />
                 </div>
@@ -98,19 +96,17 @@ export default async function SupportPillar({ params }: any) {
                             <div className="text-center">
                                 <div className="text-8xl font-black mb-4 text-fuchsia-400">0s</div>
                                 <p className="text-violet-200 text-xl font-bold uppercase tracking-widest leading-tight">
-                                    {locale === "es" ? "Tiempos de espera" : "Waiting times"}
+                                    Waiting times
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div>
                         <h2 className="text-3xl md:text-5xl font-black text-violet-900 mb-6">
-                            {locale === "es" ? "La velocidad es la nueva lealtad" : "Speed is the new loyalty"}
+                            Speed is the new loyalty
                         </h2>
                         <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                            {locale === "es"
-                                ? "El 70% de los clientes prefieren una respuesta rápida sobre una respuesta perfecta. EiryBot te permite dar ambas al instante."
-                                : "70% of customers prefer a fast answer over a perfect one. EiryBot allows you to give both instantly."}
+                            70% of customers prefer a fast answer over a perfect one. EiryBot allows you to give both instantly.
                         </p>
                         <ul className="space-y-4">
                             {[
@@ -119,7 +115,7 @@ export default async function SupportPillar({ params }: any) {
                                 { es: "Reducción de fatiga del equipo", en: "Team fatigue reduction" }
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-3 font-bold text-violet-800">
-                                    <span className="text-fuchsia-500">✓</span> {locale === "es" ? item.es : item.en}
+                                    <span className="text-fuchsia-500">✓</span> {item.en}
                                 </li>
                             ))}
                         </ul>
@@ -130,14 +126,14 @@ export default async function SupportPillar({ params }: any) {
             {/* CASOS DE USO */}
             <PillarSection bg="white">
                 <h2 className="text-3xl md:text-5xl font-black text-center text-violet-900 mb-16">
-                    {locale === "es" ? "¿Quién usa nuestro soporte?" : "Who uses our support?"}
+                    Who uses our support?
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
-                        { t: locale === "es" ? "Retail" : "Retail", d: locale === "es" ? "Estado de pedidos y devoluciones." : "Order status and returns." },
-                        { t: locale === "es" ? "Software SaaS" : "SaaS Software", d: locale === "es" ? "Resolución de dudas técnicas básicas." : "Basic technical query resolution." },
-                        { t: locale === "es" ? "Viajes" : "Travel", d: locale === "es" ? "Check-ins y cambios de reserva." : "Check-ins and booking changes." },
-                        { t: locale === "es" ? "Banca" : "Banking", d: locale === "es" ? "Consultas de saldo y bloqueos." : "Balance queries and locks." }
+                        { t: "Retail", d: "Order status and returns." },
+                        { t: "SaaS Software", d: "Basic technical query resolution." },
+                        { t: "Travel", d: "Check-ins and booking changes." },
+                        { t: "Banking", d: "Balance queries and locks." }
                     ].map((caseItem, i) => (
                         <div key={i} className="p-8 rounded-3xl bg-violet-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-violet-100">
                             <h4 className="font-black text-violet-900 mb-2">{caseItem.t}</h4>
@@ -152,16 +148,16 @@ export default async function SupportPillar({ params }: any) {
                 <h2 className="text-3xl md:text-5xl font-black text-center text-violet-900 mb-16">FAQ</h2>
                 <FAQAccordion items={[
                     {
-                        q: locale === "es" ? "¿Cómo funciona el traspaso a un humano?" : "How does the human handoff work?",
-                        a: locale === "es" ? "Cuando el bot detecta una consulta compleja o el cliente solicita un agente, el sistema notifica a tu equipo vía dashboard o Slack, enviando todo el contexto de la charla." : "When the bot detects a complex query or the customer requests an agent, the system notifies your team via dashboard or Slack, sending the full chat context."
+                        q: "How does the human handoff work?",
+                        a: "When the bot detects a complex query or the customer requests an agent, the system notifies your team via dashboard or Slack, sending the full chat context."
                     },
                     {
-                        q: locale === "es" ? "¿Pueden entrenarlo en varios idiomas?" : "Can you train it in multiple languages?",
-                        a: locale === "es" ? "Sí, la IA es políglota por naturaleza. Podemos configurarla para detectar el idioma del cliente y responder de forma acorde." : "Yes, the AI is polyglot by nature. We can configure it to detect the customer's language and respond accordingly."
+                        q: "Can you train it in multiple languages?",
+                        a: "Yes, the AI is polyglot by nature. We can configure it to detect the customer's language and respond accordingly."
                     },
                     {
-                        q: locale === "es" ? "¿Miden la satisfacción del cliente?" : "Do you measure customer satisfaction?",
-                        a: locale === "es" ? "Sí, incluimos encuestas CSAT automáticas al finalizar cada sesión para que puedas medir el impacto real." : "Yes, we include automatic CSAT surveys at the end of each session so you can measure the real impact."
+                        q: "Do you measure customer satisfaction?",
+                        a: "Yes, we include automatic CSAT surveys at the end of each session so you can measure the real impact."
                     }
                 ]} locale={locale} />
             </PillarSection>
@@ -171,14 +167,14 @@ export default async function SupportPillar({ params }: any) {
                 <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-fuchsia-600/20 blur-[130px] rounded-full" />
                 <div className="relative z-10 max-w-4xl mx-auto">
                     <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
-                        {locale === "es" ? "¿Cansado de los tickets pendientes?" : "Tired of pending tickets?"}
+                        Tired of pending tickets?
                     </h2>
                     <p className="text-xl text-violet-100 mb-12">
-                        {locale === "es" ? "Transforma tu soporte hoy mismo y regálales a tus clientes la inmediatez que merecen." : "Transform your support today and give your customers the immediacy they deserve."}
+                        Transform your support today and give your customers the immediacy they deserve.
                     </p>
                     <div className="flex flex-wrap justify-center gap-6">
                         <Link href={`${base}/contact`} className="px-12 py-5 bg-fuchsia-600 text-white rounded-full font-black text-lg shadow-2xl shadow-fuchsia-600/30 hover:bg-fuchsia-50 hover:scale-105 transition-all">
-                            {locale === "es" ? "CONFIGURAR AHORA" : "SETUP NOW"}
+                            SETUP NOW
                         </Link>
                     </div>
                 </div>
