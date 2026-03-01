@@ -281,7 +281,7 @@ export default async function ServicesPage({
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
               <a
-                href="https://app.eirybot.com/login"
+                href="https://eirybot-dashboard.web.app"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50 focus:ring-4 focus:ring-white/20"
