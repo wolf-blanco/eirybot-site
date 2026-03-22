@@ -14,14 +14,6 @@ export async function generateMetadata(props: any): Promise<Metadata> {
 
   return {
     metadataBase: new URL(base),
-    alternates: {
-      canonical: `${base}/${locale}`,
-      languages: {
-        es: `${base}/es`,
-        en: `${base}/en`,
-        "x-default": `${base}/en`,
-      },
-    },
   };
 }
 
