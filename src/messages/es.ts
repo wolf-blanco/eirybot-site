@@ -140,7 +140,7 @@ export default {
     "about.team.wolf": "Fundador & Encargado",
     "about.team.victor": "Socio Fundador & Desarrollador",
     "about.team.ambar": "Marketing & Estrategia",
-    "about.team.clemente": "Ejecutivo de Ventas",
+    "about.team.clemente": "Representante Comercial Argentina",
 
     "about.final.title": "¿Listo para llevar tu atención al siguiente nivel?",
     "about.final.lead": "Agendemos 15 minutos. Te mostramos ejemplos con tus casos y cómo integrar tus datos.",

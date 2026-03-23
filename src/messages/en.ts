@@ -146,7 +146,7 @@ export default {
     "about.team.wolf": "Founder & Lead",
     "about.team.victor": "Co-founder & Developer",
     "about.team.ambar": "Marketing & Strategy",
-    "about.team.clemente": "Sales Executive",
+    "about.team.clemente": "Commercial Representative Argentina",
 
     "about.final.title": "Ready to take your service to the next level?",
     "about.final.lead": "Let’s schedule 15 minutes. We'll show examples with your use cases and how to plug in your data.",

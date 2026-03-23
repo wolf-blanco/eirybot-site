@@ -53,7 +53,7 @@ export default async function AboutPage({
     { name: "Wolfgang Blanco", role: tt("about.team.wolf"), img: "/eirybot_avatar2.png" },
     { name: "Victor Rodriguez", role: tt("about.team.victor"), img: "/eirybot_avatar3.png" },
     { name: "Ambar Nieves", role: tt("about.team.ambar"), img: "/eirybot_avatar1.png" },
-    { name: "Clemente De Lucia", role: tt("about.team.clemente"), img: "/eirybot_avatar4.png" },
+    { name: "Dante Mejia", role: tt("about.team.clemente"), img: "/eirybot_avatar4.png" }, // Keeping the translation key for simplicity or rename if needed. We'll reuse it for now.
   ];
 
   return (

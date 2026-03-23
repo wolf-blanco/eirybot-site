@@ -312,12 +312,20 @@ export default function ContactClient({
               </div>
 
               <div className="mt-6 space-y-1 text-sm">
+                <p className="font-semibold text-violet-900 mb-1">{locale === "es" ? "Oficina Principal" : "Headquarters"}</p>
                 <p>📍 Florida, United States</p>
                 <p>📞 +1 305-8983160</p>
                 <p>
                   ✉️ <a href="mailto:info@eirybot.com" className="underline">info@eirybot.com</a>
                 </p>
-                <div className="mt-2 flex gap-3">
+
+                <div className="my-4 h-px w-full bg-violet-100" />
+                
+                <p className="font-semibold text-violet-900 mb-1">{locale === "es" ? "Representante Comercial Argentina" : "Commercial Representative Argentina"}</p>
+                <p>👤 Dante Mejia</p>
+                <p>📞 +54 911 21722542</p>
+                
+                <div className="mt-6 flex gap-3 pt-4 border-t border-violet-100">
                   <a href="https://www.facebook.com/eirybot" target="_blank" className="underline" rel="noreferrer">Facebook</a>
                   <a href="https://www.instagram.com/eirybot" target="_blank" className="underline" rel="noreferrer">Instagram</a>
                 </div>
