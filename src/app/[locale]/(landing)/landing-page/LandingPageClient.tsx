@@ -131,7 +131,7 @@ export default function LandingPageClient({
             </span>
           </div>
           <a
-            href="https://eirybot-dashboard.web.app"
+            href="https://app.eirybot.com/login"
             className="text-sm font-semibold text-gray-600 hover:text-violet-700 transition"
           >
             {t("landing.nav.login", "Ingresar")}
