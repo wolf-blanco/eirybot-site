@@ -125,6 +125,13 @@ export default function ContactClient({
           .finally(() => clearTimeout(t));
       }
 
+      if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "generate_lead", {
+          event_category: "engagement",
+          event_label: "Contact Form",
+        });
+      }
+
       setDone("ok");
       setTimeout(() => {
         window.location.href = `/${locale}/thanks`;
@@ -275,6 +282,11 @@ export default function ContactClient({
               </button>
               <Link
                 href="https://scan.eirybot.com"
+                onClick={() => {
+                  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+                    (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                  }
+                }}
                 className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-violet-50"
               >
                 {tt("contact.form.scan")}
