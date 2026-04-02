@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { colWebLeads, colErrorLog } from "@/lib/paths";
+import Testimonials from "@/components/testimonials";
 
 import { type Locale, type Dict } from "@/lib/i18n";
 
@@ -302,6 +303,9 @@ export default function LandingPageClient({
         </div>
       </section>
 
+      {/* 4.5. Testimonials */}
+      <Testimonials locale={locale} />
+
       {/* 5. Demo Form Section */}
       <section id="demo" className="py-24">
         <div className="max-w-3xl mx-auto px-6">
@@ -358,9 +362,9 @@ export default function LandingPageClient({
       <footer className="py-12 border-t border-gray-100 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-sm text-gray-400">
-            {t("landing.footer.note", "© 2026 EiryBot.")} ·{" "}
+            © {new Date().getFullYear()} EiryBot. ·{" "}
             <Link href={`/${locale}/privacy`} className="hover:text-violet-600 transition">
-              {t("landing.footer.privacy", "Privacidad")}
+              {t("landing.footer.privacy", "Privacidad y Términos")}
             </Link>
           </p>
         </div>
