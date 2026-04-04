@@ -232,6 +232,24 @@ export default function LandingPageClient({
         </div>
       </section>
 
+      {/* 2.5. Video Promo Section */}
+      <section className="relative pb-24 pt-8 bg-white z-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl shadow-violet-900/20 ring-4 ring-white border border-gray-100 bg-gray-900">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/hC3V8UHMCuw?rel=0&modestbranding=1" 
+              title="Eirybot WhatsApp AI 2026 Promo" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* 3. Problem/Solution Grid */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
