@@ -27,6 +27,7 @@ export default function LandingPageClient({
 
   // ---------- Form + UTM ----------
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState<{ type: "ok" | "err" | ""; text: string }>({
     type: "",
     text: "",
@@ -53,10 +54,15 @@ export default function LandingPageClient({
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (isLoading) return;
+    setIsLoading(true);
     setMsg({ type: "", text: "" });
 
     const emailTrim = email.trim().toLowerCase();
-    if (!emailTrim) return;
+    if (!emailTrim) {
+      setIsLoading(false);
+      return;
+    }
 
     const payloadFS = {
       email: emailTrim,
@@ -125,6 +131,7 @@ export default function LandingPageClient({
         type: "err",
         text: t("landing.form.error", "Error. Intenta de nuevo."),
       });
+      setIsLoading(false);
     }
   }
 
@@ -338,9 +345,14 @@ export default function LandingPageClient({
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-gray-900 text-white font-bold text-lg hover:bg-black hover:shadow-lg transition-all transform hover:-translate-y-1"
+                disabled={isLoading}
+                className={`w-full py-4 rounded-xl font-bold text-lg transition-all transform ${
+                  isLoading 
+                    ? "bg-gray-400 text-gray-200 cursor-not-allowed" 
+                    : "bg-gray-900 text-white hover:bg-black hover:shadow-lg hover:-translate-y-1"
+                }`}
               >
-                {t("landing.form.submit", "Obtener Demo")}
+                {isLoading ? "Procesando..." : t("landing.form.submit", "Obtener Demo")}
               </button>
 
               <p className="text-center text-xs text-gray-400 mt-4">
