@@ -195,13 +195,19 @@ export default function LandingPageClient({
               </a>
             </div>
 
-            <div className="mt-8 flex items-center gap-4 text-sm text-gray-500">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white" />
-                ))}
+            <div className="mt-8 flex items-center gap-4 text-sm font-medium text-gray-500">
+              <div className="flex -space-x-3">
+                <div className="w-10 h-10 relative rounded-full bg-white border-2 border-gray-50 shadow-sm flex items-center justify-center overflow-hidden p-1.5 z-30 hover:scale-110 transition-transform">
+                  <Image src="/images/openpark.png" alt="Open Park" fill className="object-contain p-1" />
+                </div>
+                <div className="w-10 h-10 relative rounded-full bg-white border-2 border-gray-50 shadow-sm flex items-center justify-center overflow-hidden p-1.5 z-20 hover:scale-110 transition-transform">
+                  <Image src="/images/eurolab.png" alt="Eurolab" fill className="object-contain p-1" />
+                </div>
+                <div className="w-10 h-10 relative rounded-full bg-white border-2 border-gray-50 shadow-sm flex items-center justify-center overflow-hidden p-1.5 z-10 hover:scale-110 transition-transform">
+                  <Image src="/images/spalla.png" alt="Spalla" fill className="object-contain p-1" />
+                </div>
               </div>
-              <p>{t("landing.trust.title", "Elegido por +100 empresas")}</p>
+              <p>{t("landing.trust.title", "Multiplicando ventas en Salud, Fitness e Inmobiliarias")}</p>
             </div>
           </div>
 
