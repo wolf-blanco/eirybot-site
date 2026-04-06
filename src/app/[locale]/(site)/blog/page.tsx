@@ -25,13 +25,21 @@ export default async function BlogIndexPage(props: any) {
 
   const posts = [
     {
+      slug: "weekend-hidden-costs",
+      category: isEs ? "Estrategia" : "Strategy",
+      title: isEs ? "¿Cuántas ventas pierdes por apagar WhatsApp el fin de semana?" : "How many sales do you lose by turning off WhatsApp on weekends?",
+      excerpt: isEs ? "A nivel matemático, desconectarte significa regalarle a tu competencia el 28% del mes." : "Mathematically, disconnecting means giving your competition 28% of the month.",
+      date: "2026-04-06",
+      image: "/robot4.png",
+      featured: true,
+    },
+    {
       slug: "case-study-clubs-clinics",
       category: isEs ? "Casos" : "Cases",
       title: isEs ? "Caso de Estudio: Cómo Clubs y Clínicas Escalaron con IA" : "Case Study: How Clubs and Clinics Scaled with AI",
       excerpt: isEs ? "Datos reales de Open Park y Eurolab: 100% de automatización y más de 200k cupones entregados." : "Real data from Open Park and Eurolab: 100% automation and 200k+ coupons delivered.",
       date: "2026-02-17",
       image: "/images/openpark.png",
-      featured: true,
     },
     {
       slug: "real-estate-chatbot",

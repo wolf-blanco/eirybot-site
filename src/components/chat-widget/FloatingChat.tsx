@@ -7,7 +7,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export function FloatingChat() {
     // Generate a unique chat ID for this session
-    const [chatId] = useState(() => typeof crypto !== 'undefined' ? crypto.randomUUID() : Math.random().toString(36).substring(7));
+    const [chatId] = useState(() => 
+        (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') 
+            ? crypto.randomUUID() 
+            : Math.random().toString(36).substring(7)
+    );
     useEffect(() => console.log("FloatingChat mounted. Assigned ChatID:", chatId), [chatId]);
 
     const { messages, sendMessage, status } = useChat({
