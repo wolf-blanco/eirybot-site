@@ -30,7 +30,7 @@ export default async function LocaleLayout(props: any) {
     <html lang={locale} suppressHydrationWarning>
       <body>
         <GoogleAnalytics GA_MEASUREMENT_ID="G-2VB2QQYGP4" />
-        <MetaPixel pixelId="120241535560770587" />
+        <MetaPixel pixelId="2148283682657883" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
