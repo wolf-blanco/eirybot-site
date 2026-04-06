@@ -125,11 +125,16 @@ export default function ContactClient({
           .finally(() => clearTimeout(t));
       }
 
-      if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-        (window as any).gtag("event", "generate_lead", {
-          event_category: "engagement",
-          event_label: "Contact Form",
-        });
+      if (typeof window !== "undefined") {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "generate_lead", {
+            event_category: "engagement",
+            event_label: "Contact Form",
+          });
+        }
+        if (typeof (window as any).fbq === "function") {
+          (window as any).fbq("track", "Lead");
+        }
       }
 
       setDone("ok");
@@ -283,8 +288,13 @@ export default function ContactClient({
               <Link
                 href="https://scan.eirybot.com"
                 onClick={() => {
-                  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-                    (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                  if (typeof window !== "undefined") {
+                    if (typeof (window as any).gtag === "function") {
+                      (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                    }
+                    if (typeof (window as any).fbq === "function") {
+                      (window as any).fbq("track", "Lead");
+                    }
                   }
                 }}
                 className="rounded-full border border-violet-300 px-5 py-3 text-violet-800 hover:bg-violet-50"

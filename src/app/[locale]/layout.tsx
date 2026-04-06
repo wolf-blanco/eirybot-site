@@ -2,6 +2,7 @@ import "@/app/globals.css";
 // import SiteHeader from "@/components/site-header";
 // import SiteFooter from "@/components/site-footer";
 import GoogleAnalytics from "@/components/google-analytics";
+import MetaPixel from "@/components/meta-pixel";
 import { getDict, type Locale } from "@/lib/i18n";
 import { constructSchema } from "@/lib/metadata";
 import type { Metadata } from "next";
@@ -29,6 +30,7 @@ export default async function LocaleLayout(props: any) {
     <html lang={locale} suppressHydrationWarning>
       <body>
         <GoogleAnalytics GA_MEASUREMENT_ID="G-2VB2QQYGP4" />
+        <MetaPixel pixelId="120241535560770587" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

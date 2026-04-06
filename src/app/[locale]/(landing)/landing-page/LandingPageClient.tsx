@@ -110,11 +110,16 @@ export default function LandingPageClient({
           .finally(() => clearTimeout(timer));
       }
 
-      if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-        (window as any).gtag("event", "generate_lead", {
-          event_category: "engagement",
-          event_label: "Landing Form",
-        });
+      if (typeof window !== "undefined") {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "generate_lead", {
+            event_category: "engagement",
+            event_label: "Landing Form",
+          });
+        }
+        if (typeof (window as any).fbq === "function") {
+          (window as any).fbq("track", "Lead");
+        }
       }
 
       setMsg({
@@ -185,8 +190,13 @@ export default function LandingPageClient({
                 href="https://scan.eirybot.com"
                 target="_blank"
                 onClick={() => {
-                  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-                    (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                  if (typeof window !== "undefined") {
+                    if (typeof (window as any).gtag === "function") {
+                      (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                    }
+                    if (typeof (window as any).fbq === "function") {
+                      (window as any).fbq("track", "Lead");
+                    }
                   }
                 }}
                 className="inline-flex justify-center items-center px-8 py-4 text-base font-bold text-violet-900 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 hover:border-violet-200 transition-all duration-300"
@@ -308,8 +318,13 @@ export default function LandingPageClient({
               href="https://scan.eirybot.com"
               target="_blank"
               onClick={() => {
-                if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-                  (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                if (typeof window !== "undefined") {
+                  if (typeof (window as any).gtag === "function") {
+                    (window as any).gtag("event", "click_scan", { event_category: "engagement" });
+                  }
+                  if (typeof (window as any).fbq === "function") {
+                    (window as any).fbq("track", "Lead");
+                  }
                 }
               }}
               className="inline-flex items-center gap-2 border-b-2 border-violet-500 pb-1 text-violet-300 hover:text-white hover:border-white transition-colors text-lg font-bold"
