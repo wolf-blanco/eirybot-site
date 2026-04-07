@@ -67,7 +67,7 @@ export default async function AboutPage({
               {tt("about.badge")}
             </span>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight text-violet-900 md:text-5xl">
-              {tt("about.title.a")} <span className="text-fuchsia-600">EiryBot</span>, {tt("about.title.b")}
+              {tt("about.title.a")} <span className="text-fuchsia-600">EiryBot</span>{tt("about.title.b")}
             </h1>
             <p className="mt-4 max-w-xl text-gray-700">
               {tt("about.lead")}
