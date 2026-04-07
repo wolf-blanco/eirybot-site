@@ -252,7 +252,7 @@ export default {
     "thanks.or": "o llamanos al",
     "thanks.whatsapp.greet": "¡Hola EiryBot! Ya envié el formulario. Quisiera coordinar una demo y revisar un plan de automatización. Ref:",
 
-    "landing.meta.title": "EiryBot — Automatización Inteligente de WhatsApp 24/7",
+    "landing.meta.title": "Automatiza WhatsApp para Empresas | Demo de EiryBot",
     "landing.meta.description": "No pierdas más ventas. EiryBot responde, califica y agenda reuniones automáticamente en WhatsApp. Prueba gratis hoy.",
 
     "landing.nav.login": "Ingresar",

@@ -37,7 +37,7 @@ export function constructMetadata({
             languages: {
                 es: esUrl,
                 en: enUrl,
-                "x-default": enUrl,
+                "x-default": esUrl,
             },
         },
         robots: {
@@ -80,6 +80,13 @@ export function constructSchema(locale: Locale) {
     return {
         "@context": "https://schema.org",
         "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": `${base}/#website`,
+                url: `${base}/`,
+                name: "EiryBot",
+                alternateName: "EiryBot AI"
+            },
             {
                 "@type": "Organization",
                 "@id": `${base}/#organization`,

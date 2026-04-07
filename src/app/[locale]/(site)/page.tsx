@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const t = getDict(locale);
 
   return constructMetadata({
-    title: locale === "es" ? "EiryBot — Automatización Inteligente de WhatsApp 24/7" : "EiryBot — 24/7 Intelligent WhatsApp Automation",
+    title: locale === "es" ? "EiryBot | Automatización Inteligente de WhatsApp 24/7" : "EiryBot | 24/7 Intelligent WhatsApp Automation",
     description: locale === "es"
       ? "Automatiza conversaciones, agenda citas y gestiona tus clientes con el poder de la inteligencia artificial en WhatsApp."
       : "Automate conversations, book appointments and manage your customers with the power of AI on WhatsApp.",
@@ -89,6 +89,7 @@ export default async function HomePage({
             </span>
 
             <h1 className="mt-4 text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
+              <span className="sr-only">EiryBot:</span>
               {heroTitle}{" "}
               <span className="bg-gradient-to-r from-fuchsia-600 via-violet-700 to-indigo-700 bg-clip-text text-transparent">
                 {ts("home.24_7")}

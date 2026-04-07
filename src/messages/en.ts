@@ -258,7 +258,7 @@ export default {
     "thanks.or": "or call",
     "thanks.whatsapp.greet": "Hi EiryBot! I’ve just submitted the form. I’d like to schedule a demo and review an automation plan. Ref:",
 
-    "landing.meta.title": "EiryBot — Try it free",
+    "landing.meta.title": "Automate WhatsApp for Business | EiryBot Demo",
     "landing.meta.description": "Automate WhatsApp, quotes and reminders. Capture leads and measure them in real time. First month free.",
 
     "landing.hero.badge": "New",
