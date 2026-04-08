@@ -9,7 +9,7 @@ export default {
     "home.24_7": "24/7",
     "home.feature.24_7.desc": "Atendé consultas y cerrá oportunidades a cualquier hora, incluso    mientras dormís.",
 
-    "home.lead": "Automatiza conversaciones, agenda citas y gestiona tus redes sociales con el poder de la inteligencia artificial.",
+    "home.lead": "Unifica WhatsApp, SMS, RRSS y Webchat. Automatiza tus conversaciones, agenda citas y vende 24/7 con IA.",
     "home.badge": "IA + Automatización",
     "home.hero.alt": "Vista previa del bot funcionando en un teléfono",
     "home.cta.demo": "Demo Bot",
@@ -25,7 +25,7 @@ export default {
     "home.tiles.db": "Base de datos",
     "home.tiles.db.desc": "Leads centralizados sin copiar/pegar.",
     "home.tiles.cs": "Atención al Cliente",
-    "home.tiles.cs.desc": "Respuestas inmediatas 24/7.",
+    "home.tiles.cs.desc": "Respuestas inmediatas 24/7. Atiende a tus clientes sin importar por qué canal escriban (WhatsApp, SMS, Web).",
     "home.tiles.sales": "Ventas",
     "home.tiles.sales.desc": "Cotizaciones y seguimiento.",
     "home.tiles.app": "Agenda de Citas",
@@ -38,7 +38,7 @@ export default {
     "home.why.b": "Integraciones poderosas",
     "home.why.b.desc": "CRM/ERP, exportación de datos y campañas basadas en datos.",
     "home.why.c": "Respuestas en tiempo real",
-    "home.why.c.desc": "Atención inmediata 24/7. Sin límite de mensajes o contactos.",
+    "home.why.c.desc": "Atención inmediata 24/7. Responde en segundos por WhatsApp, SMS o Webchat. Sin límite de mensajes.",
     "home.why.d": "Asesoría y servicio",
     "home.why.d.desc": "Diseño, implementación y soporte con impacto real.",
     "home.why.e": "Más ventas, menos fricción",
@@ -104,7 +104,7 @@ export default {
     "about.badge": "Sobre EiryBot",
     "about.title.a": "¡Hola! Soy",
     "about.title.b": ", tu asistente virtual inteligente",
-    "about.lead": "Ayudo a empresas a mejorar la atención al cliente, automatizar tareas y estar disponibles 24/7. Ya trabajo con inmobiliarias, centros médicos, eventos y más. ¿Tu negocio es el próximo en dar el salto?",
+    "about.lead": "Soy capaz de leer, pensar y responder por WhatsApp, SMS y Webchat simultáneamente. Ayudo a empresas a estar disponibles 24/7 y ya trabajo con inmobiliarias, centros médicos y eventos. ¿Tu negocio es el próximo?",
 
     "about.cta.services": "Descubrí cómo puedo ayudarte",
     "about.cta.scan": "Probar EiryScan",
@@ -252,14 +252,14 @@ export default {
     "thanks.or": "o llamanos al",
     "thanks.whatsapp.greet": "¡Hola EiryBot! Ya envié el formulario. Quisiera coordinar una demo y revisar un plan de automatización. Ref:",
 
-    "landing.meta.title": "Automatiza WhatsApp para Empresas | Demo de EiryBot",
+    "landing.meta.title": "Automatiza WhatsApp, SMS y Web | Demo de EiryBot",
     "landing.meta.description": "No pierdas más ventas. EiryBot responde, califica y agenda reuniones automáticamente en WhatsApp. Prueba gratis hoy.",
 
     "landing.nav.login": "Ingresar",
 
     "landing.hero.badge": "IA + Automatización 2026",
-    "landing.hero.title": "Tu negocio no duerme. \nTu atención tampoco.",
-    "landing.hero.lead": "La Inteligencia Artificial que responde a tus clientes, agenda citas y cierra ventas en WhatsApp. Sin pausas, sin errores y 100% automático.",
+    "landing.hero.title": "Tus clientes escriben por todos lados. Tu negocio responde.",
+    "landing.hero.lead": "La IA que responde a tus clientes, agenda citas y cierra ventas por WhatsApp, SMS y Webchat. Sin pausas, sin errores y 100% automático.",
     "landing.hero.primary": "Probar Demo Gratis",
     "landing.hero.secondary": "Auditoría con EiryScan",
     "landing.hero.alt": "EiryBot Dashboard y Chat en acción",
@@ -283,7 +283,7 @@ export default {
     "landing.solution.3.d": "Sincroniza cada chat con tu CRM, Google Sheets y Agenda.",
 
     "landing.scan.badge": "Herramienta Exclusiva",
-    "landing.scan.title": "¿Tu WhatsApp está perdiendo dinero?",
+    "landing.scan.title": "¿Tus canales de chat están perdiendo dinero?",
     "landing.scan.lead": "Creamos EiryScan™ para auditar tu proceso actual. En 2 minutos te dice qué estás haciendo mal y cómo mejorarlo.",
     "landing.scan.cta": "Analizar mi negocio gratis",
 

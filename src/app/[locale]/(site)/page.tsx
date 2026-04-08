@@ -15,10 +15,10 @@ export async function generateMetadata({ params }: any): Promise<import("next").
   const t = getDict(locale);
 
   return constructMetadata({
-    title: locale === "es" ? "EiryBot | Automatización Inteligente de WhatsApp 24/7" : "EiryBot | 24/7 Intelligent WhatsApp Automation",
+    title: locale === "es" ? "EiryBot | Plataforma de IA Omnicanal: WhatsApp, SMS y Web" : "EiryBot | Omnichannel AI Platform: WhatsApp, SMS & Web",
     description: locale === "es"
-      ? "Automatiza conversaciones, agenda citas y gestiona tus clientes con el poder de la inteligencia artificial en WhatsApp."
-      : "Automate conversations, book appointments and manage your customers with the power of AI on WhatsApp.",
+      ? "Unifica WhatsApp, SMS y Webchat en un solo Agente IA que responde, cotiza y cierra ventas 24/7 en automático."
+      : "Unify WhatsApp, SMS, and Webchat into a single AI Agent that replies, quotes, and closes sales 24/7 on autopilot.",
     locale,
     pathEs: "",
     pathEn: "",

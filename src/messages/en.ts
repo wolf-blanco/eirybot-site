@@ -9,7 +9,7 @@ export default {
     "home.24_7": "24/7",
     "home.feature.24_7.desc": "Handle inquiries and close opportunities at any time—even while you sleep.",
 
-    "home.lead": "Automate conversations, schedule appointments, and manage your social channels with the power of AI.",
+    "home.lead": "Unify WhatsApp, SMS, Social Media, and Webchat. Automate conversations, schedule appointments, and sell 24/7 with AI.",
     "home.badge": "IA + Automation",
     "home.hero.alt": "Preview of the bot running on a mobile phone",
     "home.cta.demo": "Demo Bot",
@@ -26,7 +26,7 @@ export default {
     "home.tiles.db": "Database",
     "home.tiles.db.desc": "Centralized leads without copy/paste.",
     "home.tiles.cs": "Customer Support",
-    "home.tiles.cs.desc": "Instant responses 24/7.",
+    "home.tiles.cs.desc": "Instant responses 24/7. Serve your customers no matter which channel they use (WhatsApp, SMS, Web).",
     "home.tiles.sales": "Sales",
     "home.tiles.sales.desc": "Quotes and follow-ups.",
     "home.tiles.app": "Appointments",
@@ -39,7 +39,7 @@ export default {
     "home.why.b": "Powerful integrations",
     "home.why.b.desc": "CRM/ERP, data exports, and data-driven campaigns.",
     "home.why.c": "Real-time responses",
-    "home.why.c.desc": "Immediate 24/7 attention. No limits on messages or contacts.",
+    "home.why.c.desc": "Immediate 24/7 attention. Reply in seconds via WhatsApp, SMS, or Webchat. No limits on messages.",
     "home.why.d": "Advisory & service",
     "home.why.d.desc": "Design, implementation, and support with real impact.",
     "home.why.e": "More sales, less friction",
@@ -110,7 +110,7 @@ export default {
     "about.badge": "About EiryBot",
     "about.title.a": "Hi! I'm",
     "about.title.b": ", your intelligent virtual assistant",
-    "about.lead": "I help companies improve customer service, automate tasks, and be available 24/7. I already work with real estate, medical centers, events, and more. Is your business next to level up?",
+    "about.lead": "I can read, think, and reply via WhatsApp, SMS, and Webchat simultaneously. I help companies be available 24/7, and I already work with real estate, medical centers, and events. Is your business next?",
 
     "about.cta.services": "See how I can help",
     "about.cta.scan": "Try EiryScan",
@@ -258,12 +258,12 @@ export default {
     "thanks.or": "or call",
     "thanks.whatsapp.greet": "Hi EiryBot! I’ve just submitted the form. I’d like to schedule a demo and review an automation plan. Ref:",
 
-    "landing.meta.title": "Automate WhatsApp for Business | EiryBot Demo",
+    "landing.meta.title": "Automate WhatsApp, SMS & Web | EiryBot Demo",
     "landing.meta.description": "Automate WhatsApp, quotes and reminders. Capture leads and measure them in real time. First month free.",
 
     "landing.hero.badge": "New",
-    "landing.hero.title": "Do you use WhatsApp to serve customers?",
-    "landing.hero.lead": "Automate conversations, generate quotes, and reply 24/7 with EiryBot. Your first month is completely free.",
+    "landing.hero.title": "Customers text you everywhere. Your business replies.",
+    "landing.hero.lead": "The AI that replies to clients, books appointments, and closes sales via WhatsApp, SMS, and Webchat. No pauses, no errors, 100% automated.",
     "landing.hero.primary": "Try for free",
     "landing.hero.secondary": "See EiryScan",
     "landing.hero.alt": "EiryBot — 24/7 Automation",
@@ -277,7 +277,7 @@ export default {
     "landing.form.success": "All set! Check your inbox for the demo.",
     "landing.form.error": "We couldn’t send the form. Please try again shortly.",
 
-    "landing.scan.title": "Quick audit with EiryScan",
+    "landing.scan.title": "Are your chat channels losing money?",
     "landing.scan.lead": "Measure your automation maturity and find opportunities in minutes.",
     "landing.scan.cta": "Run my EiryScan",
 
