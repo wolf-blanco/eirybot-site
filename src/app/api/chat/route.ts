@@ -1,6 +1,6 @@
 
 import { openai } from '@ai-sdk/openai';
-import { streamText, convertToModelMessages } from 'ai';
+import { streamText } from 'ai';
 import { systemPrompt } from '@/lib/ai/prompt';
 import { getContext } from '@/lib/ai/context';
 import { db } from '@/lib/firebaseClient';
@@ -14,64 +14,68 @@ export async function POST(req: Request) {
     try {
         // --- Rate Limiting Start ---
         const ip = req.headers.get('x-forwarded-for') || 'unknown';
-        const limitRef = doc(db, 'rate_limits', ip);
-        const limitSnap = await getDoc(limitRef);
-        const now = Timestamp.now();
+        try {
+            const limitRef = doc(db, 'rate_limits', ip);
+            const limitSnap = await getDoc(limitRef);
+            const now = Timestamp.now();
 
-        if (limitSnap.exists()) {
-            const data = limitSnap.data();
-            const blockedUntil = data.blockedUntil;
+            if (limitSnap.exists()) {
+                const data = limitSnap.data();
+                const blockedUntil = data.blockedUntil;
 
-            // 1. Check if user is currently blocked
-            if (blockedUntil && now.toMillis() < blockedUntil.toMillis()) {
-                const waitMinutes = Math.ceil((blockedUntil.toMillis() - now.toMillis()) / 60000);
-                return new Response(JSON.stringify({
-                    error: "Too Many Requests",
-                    details: `You are blocked for ${waitMinutes} more minutes.`
-                }), { status: 429 });
-            }
+                // 1. Check if user is currently blocked
+                if (blockedUntil && now.toMillis() < blockedUntil.toMillis()) {
+                    const waitMinutes = Math.ceil((blockedUntil.toMillis() - now.toMillis()) / 60000);
+                    return new Response(JSON.stringify({
+                        error: "Too Many Requests",
+                        details: `You are blocked for ${waitMinutes} more minutes.`
+                    }), { status: 429 });
+                }
 
-            // 2. Check window
-            const windowStart = data.windowStart;
-            const timeSinceWindow = now.toMillis() - windowStart.toMillis();
+                // 2. Check window
+                const windowStart = data.windowStart;
+                const timeSinceWindow = now.toMillis() - windowStart.toMillis();
 
-            if (timeSinceWindow > 60000) {
-                // Window expired (> 1 min), reset count
+                if (timeSinceWindow > 60000) {
+                    // Window expired (> 1 min), reset count
+                    await setDoc(limitRef, {
+                        count: 1,
+                        windowStart: now,
+                        blockedUntil: null
+                    }, { merge: true });
+                } else {
+                    // Within window, increment count
+                    const newCount = (data.count || 0) + 1;
+
+                    if (newCount > 10) {
+                        // Rule: > 10 msgs in 1 min -> Block for 1 hour
+                        const blockUntil = new Timestamp(now.seconds + 3600, 0); // +1 hour
+
+                        await setDoc(limitRef, {
+                            count: newCount,
+                            blockedUntil: blockUntil
+                        }, { merge: true });
+
+                        return new Response(JSON.stringify({
+                            error: "Too Many Requests",
+                            details: "Rate limit exceeded. Blocked for 1 hour."
+                        }), { status: 429 });
+                    } else {
+                        // Increment safely
+                        await setDoc(limitRef, { count: newCount }, { merge: true });
+                    }
+                }
+            } else {
+                // First time seeing this IP
                 await setDoc(limitRef, {
                     count: 1,
                     windowStart: now,
-                    blockedUntil: null
-                }, { merge: true });
-            } else {
-                // Within window, increment count
-                const newCount = (data.count || 0) + 1;
-
-                if (newCount > 10) {
-                    // Rule: > 10 msgs in 1 min -> Block for 1 hour
-                    const blockUntil = new Timestamp(now.seconds + 3600, 0); // +1 hour
-
-                    await setDoc(limitRef, {
-                        count: newCount,
-                        blockedUntil: blockUntil
-                    }, { merge: true });
-
-                    return new Response(JSON.stringify({
-                        error: "Too Many Requests",
-                        details: "Rate limit exceeded. Blocked for 1 hour."
-                    }), { status: 429 });
-                } else {
-                    // Increment safely
-                    await setDoc(limitRef, { count: newCount }, { merge: true });
-                }
+                    blockedUntil: null,
+                    createdAt: serverTimestamp()
+                });
             }
-        } else {
-            // First time seeing this IP
-            await setDoc(limitRef, {
-                count: 1,
-                windowStart: now,
-                blockedUntil: null,
-                createdAt: serverTimestamp()
-            });
+        } catch (fbError) {
+            console.warn("Firebase Rate Limit check failed (likely permission denied). Skipping rate limit.", fbError);
         }
         // --- Rate Limiting End ---
 
@@ -96,8 +100,11 @@ export async function POST(req: Request) {
             console.warn("No chatId provided - session will be ephemeral");
         }
 
-        // Convert to CoreMessages
-        const coreMessages = await convertToModelMessages(messages);
+        // Convert to CoreMessages manually to avoid SDK version conflicts
+        const coreMessages = messages.map((m: any) => ({
+            role: m.role,
+            content: m.content
+        }));
         const lastMessage = coreMessages[coreMessages.length - 1];
 
         let lastUserContent = "";
@@ -122,24 +129,27 @@ export async function POST(req: Request) {
             // Extract Client-Side Metadata from Body (if available)
             const clientMeta = jsonBody.metadata || {};
 
-            // Save metadata asynchronously (fire and forget)
-            setDoc(doc(db, 'eirybot-IA', chatId), {
-                metadata: {
-                    ip,
-                    userAgent,
-                    location: { country, city },
-                    client: clientMeta,
-                },
-                updatedAt: serverTimestamp()
-            }, { merge: true }).catch(e => console.error("Error saving metadata:", e));
+            try {
+                // Save metadata asynchronously (fire and forget)
+                setDoc(doc(db, 'eirybot-IA', chatId), {
+                    metadata: {
+                        ip,
+                        userAgent,
+                        location: { country, city },
+                        client: clientMeta,
+                    },
+                    updatedAt: serverTimestamp()
+                }, { merge: true }).catch(e => console.warn("Error saving metadata (permission denied?):", e));
 
-            await addDoc(collection(db, 'eirybot-IA', chatId, 'messages'), {
-                role: 'user',
-                content: lastUserContent,
-                createdAt: serverTimestamp()
-            })
-                .then(() => console.log("User message saved."))
-                .catch(e => console.error("Error saving user message:", e));
+                await addDoc(collection(db, 'eirybot-IA', chatId, 'messages'), {
+                    role: 'user',
+                    content: lastUserContent,
+                    createdAt: serverTimestamp()
+                }).then(() => console.log("User message saved."))
+                  .catch(e => console.warn("Error saving user message:", e));
+            } catch (fbErr) {
+                console.warn("Could not save to eirybot-IA collection:", fbErr);
+            }
         }
 
         const context = await getContext(lastUserContent);
