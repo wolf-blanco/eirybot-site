@@ -112,8 +112,8 @@ export async function POST(req: Request) {
             lastUserContent = lastMessage.content;
         } else if (Array.isArray(lastMessage.content)) {
             lastUserContent = lastMessage.content
-                .filter(part => part.type === 'text')
-                .map(part => (part as any).text)
+                .filter((part: any) => part.type === 'text')
+                .map((part: any) => part.text)
                 .join('\n');
         }
 
@@ -199,8 +199,8 @@ ${context}
                         content = msg.content;
                     } else if (Array.isArray(msg.content)) {
                         content = msg.content
-                            .filter(part => part.type === 'text')
-                            .map(part => (part as any).text)
+                            .filter((part: any) => part.type === 'text')
+                            .map((part: any) => part.text)
                             .join('');
                     }
 
