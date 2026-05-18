@@ -100,22 +100,25 @@ export async function POST(req: Request) {
             console.warn("No chatId provided - session will be ephemeral");
         }
 
-        // Convert to CoreMessages manually to avoid SDK version conflicts
-        const coreMessages = messages.map((m: any) => ({
-            role: m.role,
-            content: m.content
-        }));
+        // Convert to CoreMessages manually and ensure content is always a string to avoid Zod validation errors
+        const coreMessages = messages
+            .filter((m: any) => ['user', 'assistant', 'system'].includes(m.role))
+            .map((m: any) => {
+                let content = m.content;
+                if (Array.isArray(content)) {
+                    content = content
+                        .filter((part: any) => part.type === 'text')
+                        .map((part: any) => part.text || '')
+                        .join('\n');
+                }
+                return {
+                    role: m.role as 'user' | 'assistant' | 'system',
+                    content: typeof content === 'string' ? content : String(content)
+                };
+            });
         const lastMessage = coreMessages[coreMessages.length - 1];
 
-        let lastUserContent = "";
-        if (typeof lastMessage.content === 'string') {
-            lastUserContent = lastMessage.content;
-        } else if (Array.isArray(lastMessage.content)) {
-            lastUserContent = lastMessage.content
-                .filter((part: any) => part.type === 'text')
-                .map((part: any) => part.text)
-                .join('\n');
-        }
+        const lastUserContent = lastMessage ? lastMessage.content : "";
 
         // 1. Save User Message to Firestore
         if (chatId && lastUserContent) {
