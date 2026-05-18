@@ -14,7 +14,7 @@ export function FloatingChat() {
     );
     useEffect(() => console.log("FloatingChat mounted. Assigned ChatID:", chatId), [chatId]);
 
-    const { messages, sendMessage, status } = useChat({
+    const { messages, append, status } = useChat({
         // @ts-ignore
         api: `/api/chat?chatId=${chatId}`,
         headers: { 'x-chat-id': chatId },
@@ -41,8 +41,8 @@ export function FloatingChat() {
         setInputValue(""); // Optimistically clear input
 
         try {
-            // sendMessage from AbstractChat expects { text: string } for user messages
-            await sendMessage({ text } as any, {
+            // append from useChat expects a CreateMessage object
+            await append({ role: 'user', content: text }, {
                 body: {
                     chatId,
                     metadata: {
